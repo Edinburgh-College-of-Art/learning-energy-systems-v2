@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang='en'>
+<meta charset='utf-8'>
+<head>
+  <title></title>
+  <!--[if lt IE 9]>
+  <script src='http://html5shiv.googlecode.com/svn/trunk/html5.js'></script>
+  <![endif]-->
+  <link rel="stylesheet" href="./static/css/simple-grid.min.css" />
+  <link rel="stylesheet" href="./static/css/dash-style.css" />
+  <link rel="stylesheet" href="./static/css/fonts.css" />
+  <link rel="stylesheet" href="./static/css/jquery-ui.css" />
+
+  <script src='./static/js/moment.js'></script>
+  <script src='./static/js/jquery.min.js'></script>
+  <script src='./static/js/spin.js'></script>
+  <script src='./static/js/jquery-ui.js'></script>
+</head>
+<body class="">
+
+  <nav id="header" class="full-width">
+    <div id="" class="">
+      <span class="helper"></span>
+      <img class="logo" src="./static/img/logo-large.png" alt="Learning Energy Systems Logo" height="100px"/>
+      <select id="selectSubjects">
+        <option>All Subjects</option>
+      </select>
+      <select id="selectWeeks">
+        <option>All Weeks</option>
+      </select>
+      <label for="show_total_check" id="show-total-label">Show Total Energy Use</label>
+      <input class="checkbox" type="checkbox" name="show_total_check" id="show_total_check" value="show_total" />
+    </div>
+
+    <div class="hamburger toggle-overlay-menu">
+      <div class="bar1"></div>
+      <div class="bar2"></div>
+      <div class="bar3"></div>
+    </div>
+  </nav>
+
+  <div class="grayBg">
+  <div class="mainCenter">
+    <div class="energy-grid">
+      <div class="cell noborder">
+      </div>
+      <div class="cell noborder">
+        <p class="wday-label">MON</p>
+      </div>
+      <div class="cell noborder">
+        <p class="wday-label">TUE</p>
+      </div>
+      <div class="cell noborder">
+        <p class="wday-label">WED</p>
+      </div>
+      <div class="cell noborder">
+        <p class="wday-label">THU</p>
+      </div>
+      <div class="cell noborder">
+        <p class="wday-label">FRI</p>
+      </div>
+
+      <!-- ROW 1 -->
+      <div class="cell noborder">
+        <img src="./static/img/projector-subject-icon.png" class="energyIcon isSelected" name="projector" />
+      </div>
+      <div class="energy-cell notopborder">
+        <div class="circle"></div>
+        <div class="data"><span class="value">999</span><br/>mins</div>
+      </div>
+      <div class="energy-cell notopborder">
+        <div class="circle"></div>
+        <div class="data"><span class="value">999</span><br/>mins</div>
+      </div>
+      <div class="energy-cell notopborder">
+        <div class="circle"></div>
+        <div class="data"><span class="value">999</span><br/>mins</div>
+      </div>
+      <div class="energy-cell notopborder">
+        <div class="circle"></div>
+        <div class="data"><span class="value">999</span><br/>mins</div>
+      </div>
+      <div class="energy-cell notopborder norightborder">
+        <div class="circle"></div>
+        <div class="data"><span class="value">999</span><br/>mins</div>
+      </div>
+
+      <!-- ROW 2 -->
+      <div class="cell noborder">
+        <img src="./static/img/lightBulb-subject-icon.png" class="energyIcon isSelected" name="light" />
+      </div>
+      <div class="energy-cell">
+        <div class="circle"></div>
+        <div class="data"><span class="value">999</span><br/>mins</div>
+      </div>
+      <div class="energy-cell">
+        <div class="circle"></div>
+        <div class="data"><span class="value">999</span><br/>mins</div>
+      </div>
+      <div class="energy-cell">
+        <div class="circle"></div>
+        <div class="data"><span class="value">999</span><br/>mins</div>
+      </div>
+      <div class="energy-cell">
+        <div class="circle"></div>
+        <div class="data"><span class="value">999</span><br/>mins</div>
+      </div>
+      <div class="energy-cell norightborder">
+        <div class="circle"></div>
+        <div class="data"><span class="value">999</span><br/>mins</div>
+      </div>
+
+      <!-- ROW 3 -->
+      <div class="cell noborder">
+        <img src="./static/img/heater-subject-icon.png" class="energyIcon isSelected" name="heater" />
+      </div>
+      <div class="energy-cell">
+        <div class="circle"></div>
+        <div class="data"><span class="value">999</span><br/>mins</div>
+      </div>
+      <div class="energy-cell">
+        <div class="circle"></div>
+        <div class="data"><span class="value">999</span><br/>mins</div>
+      </div>
+      <div class="energy-cell">
+        <div class="circle"></div>
+        <div class="data"><span class="value">999</span><br/>mins</div>
+      </div>
+      <div class="energy-cell">
+        <div class="circle"></div>
+        <div class="data"><span class="value">999</span><br/>mins</div>
+      </div>
+      <div class="energy-cell norightborder">
+        <div class="circle"></div>
+        <div class="data"><span class="value">999</span><br/>mins</div>
+      </div>
+
+      <!-- ROW 4 -->
+      <div class="cell noborder">
+        <img src="./static/img/computer-subject-icon.png" class="energyIcon isSelected" name="computer" />
+      </div>
+      <div class="energy-cell">
+        <div class="circle"></div>
+        <div class="data"><span class="value">999</span><br/>mins</div>
+      </div>
+      <div class="energy-cell">
+        <div class="circle"></div>
+        <div class="data"><span class="value">999</span><br/>mins</div>
+      </div>
+      <div class="energy-cell">
+        <div class="circle"></div>
+        <div class="data"><span class="value">999</span><br/>mins</div>
+      </div>
+      <div class="energy-cell">
+        <div class="circle"></div>
+        <div class="data"><span class="value">999</span><br/>mins</div>
+      </div>
+      <div class="energy-cell norightborder">
+        <div class="circle"></div>
+        <div class="data"><span class="value">999</span><br/>mins</div>
+      </div>
+
+      <!-- ROW Counts -->
+      <div class="cell noborder">
+        <p class="energy-total">
+          Total kWh <br/> <span>999</span>
+        </p>
+      </div>
+      <div class="cell noborder">
+        <p class="energy-total">999</p>
+      </div>
+      <div class="cell noborder">
+        <p class="energy-total">999</p>
+      </div>
+      <div class="cell noborder">
+        <p class="energy-total">999</p>
+      </div>
+      <div class="cell noborder">
+        <p class="energy-total">999</p>
+      </div>
+      <div class="cell noborder">
+        <p class="energy-total">999</p>
+      </div>
+    </div>
+
+    <div class="legend">
+      <div class="legend-circles">
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+      </div>
+      <div class="circle-labels">
+        <span>100</span>
+        <span>90</span>
+        <span>80</span>
+        <span>70</span>
+        <span>60</span>
+        <span>50</span>
+        <span>40</span>
+        <span>30</span>
+        <span>20</span>
+        <span>10</span>
+      </div>
+      <div class="legend-gradient"></div>
+    </div>
+  </div>
+  </div>
+
+
+  <div id="learningQuestions" class="mainCenter">
+    <h2>Energy Diary - Learning Questions</h2>
+    <div id="questionsWrapper" class="mainCenter">
+    </div>
+  </div>
+
+  <div id="overlay-menu" class="overlay hidden gradient">
+    <nav class="">
+      <ul>
+        <li><a class="toggle-overlay-menu" href="#">Dashboard</a></li>
+        <li><a href="#">Learning Materials</a></li>
+        <li><a href="#">Help</a></li>
+        <li><a href="#">About LES</a></li>
+      </ul>
+      <ul>
+        <li><a href="#">Teacher Admin</a></li>
+        <li class="smaller"><a href="#">Edit Schedule</a></li>
+        <li class="smaller"><a href="#">Edit Questions</a></li>
+        <li class="smaller"><a href="#">Edit Users</a></li>
+      </ul>
+    </nav>
+  </div>
+
+  <script src='./static/js/dash.js'></script>
+</body>
+</html>
