@@ -1,0 +1,19 @@
+### My stuff ###
+
+devnotes.md
+resources/*
+
+### Django ###
+
+*.log
+*.pot
+*.pyc
+__pycache__/
+.env
+db.sqlite3
+tmp/
+
+### OSX ###
+.DS_Store
+.AppleDouble
+.LSOverride
