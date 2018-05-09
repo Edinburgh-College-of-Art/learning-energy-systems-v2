@@ -95,7 +95,7 @@ var randomData = function(){
 }
 
 var colouriseCircles = function(){
-  $('.circle').each(function(i,el){
+  $('.energy-cell .circle').each(function(i,el){
     styleCircle(el);
   });
 }
@@ -106,7 +106,7 @@ var watchDeviceIcons = function(){
     var colourise = $(this).hasClass('selected');
     var deviceName = $(this).attr('name');
 
-    $('.'+deviceName+' .circle').each(function(i,el){
+    $('.energy-cell.'+deviceName+' .circle').each(function(i,el){
       if (colourise){ $(el).removeClass('device-grayout'); }
       else { $(el).addClass('device-grayout'); }
     });
@@ -140,10 +140,10 @@ var watchSelects = function(){
         $(el).addClass('day-grayout'); };
 
       if (day == 'all days'){
-        $('.circle').each(removeGrayout); 
+        $('.energy-cell .circle').each(removeGrayout);
       } else {
-        $('.circle').each(doGrayout);
-        $('.'+day + ' .circle').each(removeGrayout); 
+        $('.energy-cell .circle').each(doGrayout);
+        $('.energy-cell.'+day + ' .circle').each(removeGrayout);
       }
 
       colouriseCircles();
