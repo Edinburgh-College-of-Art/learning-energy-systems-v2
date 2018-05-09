@@ -38,17 +38,11 @@ if (schoolId == undefined){ schoolId = 1; }
 
 
 function styleSelect() {
-  $("input[type=checkbox]").each(function() {
-    var $lbl = $("<label>");
-    $lbl.attr("for", this.id);
-    $(this).after($lbl);
-  });
-
-  $( "#selectWeeks" ).selectmenu();
-  $( "#selectSubjects" ).selectmenu();
-  $( "#selectWeeks" ).selectmenu( "option", "icons", { button: "select-icon-arrow" });
-  $( "#selectSubjects" ).selectmenu( "option", "icons", { button: "select-icon-arrow" });
-  //$('.ui-selectmenu-text').css('padding', '0 0 0 2px');
+  /*$("#selectSubjects").selectmenu( "option", "icons", { button: "select-icon-arrow" });
+  $("#selectMonths").selectmenu( "option", "icons", { button: "select-icon-arrow" });
+  $("#selectWeeks").selectmenu( "option", "icons", { button: "select-icon-arrow" });
+  $("#selectDays").selectmenu( "option", "icons", { button: "select-icon-arrow" });
+  *///$('.ui-selectmenu-text').css('padding', '0 0 0 2px');
 }
 
 var pickHex = function(color1, color2, weight) {

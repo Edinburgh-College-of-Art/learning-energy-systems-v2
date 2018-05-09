@@ -57,7 +57,31 @@ nav#header {
 }
 
 nav#header label { color:#8C8080; margin:0px 10px; }
-nav div.hamburger { z-index: 2000000001; position: absolute; right: 6vw; }
+
+.styled-select {
+  overflow: hidden;
+  width: 14%;
+  display: inline-block;
+  background: url('../img/arrow_select.png') no-repeat right center;
+  height: 34px;
+  background-size: 15% 100%;
+}
+
+.styled-select select {
+  background: transparent;
+  border: none;
+  padding: 5px; /* If you add too much padding here, the options won't show in IE */
+  width: 112%;
+  border: 1px solid #ccc;
+  font-size: 16px;
+  height: 34px;
+}
+
+.styled-select select:active {
+  background-color: silver;
+  color: white;
+}
+
 
 .mainCenter {
   width: 65vw;
@@ -252,7 +276,17 @@ input[type=checkbox]:checked + label {
 
 /* HAMBURGER ICON */
 
-.hamburger { display: inline-block; cursor: pointer; }
+.hamburger { 
+  display: inline-block; 
+  cursor: pointer; 
+}
+
+nav div.hamburger { 
+  z-index: 2000000001;
+  position: relative;
+  right: -8vw;
+  top: 2px;
+}
 
 .bar1, .bar2, .bar3 {
   width: 35px;
