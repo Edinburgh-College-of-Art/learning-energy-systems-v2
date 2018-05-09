@@ -402,6 +402,13 @@ div.energy-grid div.circle {
   transition: background-color 500ms linear;
 }
 
+.circle.day-grayout,
+.circle.device-grayout { 
+  opacity:0.1;
+  -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=10)";
+  filter: alpha(opacity=10);
+} 
+
 .energy-cell, .cell {
   /*box-shadow: 0 0 0 1px #c4c4c4;*/
   border: 1px solid gray;
