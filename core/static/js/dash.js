@@ -74,8 +74,14 @@ var styleCircle = function(el){
   var circleSize = 5 + (pct/100) * 88;
   var spacing = (100 - circleSize) / 2;
 
-  $(el).css('background-color', 'rgb('+ gradient[key] +')');
-  $(el).css('box-shadow', '0 0 7px 0px rgb('+ gradient[key] +')');
+  if ($(el).hasClass('day-grayout') || $(el).hasClass('device-grayout')){
+    $(el).css('background-color', 'rgb(120,120,120)');
+    $(el).css('box-shadow', '0 0 7px 0px rgb(120,120,120)');
+  } else {
+    $(el).css('background-color', 'rgb('+ gradient[key] +')');
+    $(el).css('box-shadow', '0 0 7px 0px rgb('+ gradient[key] +')');
+  }
+
   $(el).css('height', circleSize+'%').css('width', circleSize+'%');
   $(el).css('top', spacing+'%').css('left', spacing+'%');
 };
@@ -88,18 +94,9 @@ var randomData = function(){
   });
 }
 
-var grayOutCircle = function(el){
-  $(el).css('background-color', 'rgb(120,120,120)');
-  $(el).css('box-shadow', '0 0 7px 0px rgb(120,120,120)');
-}
-
 var colouriseCircles = function(){
-  var grayout = false;
   $('.circle').each(function(i,el){
-    grayout = $(el).hasClass('device-grayout');
-    grayout = (grayout || $(el).hasClass('day-grayout'));
-    if (grayout){ grayOutCircle(el); }
-    else { styleCircle(el); }
+    styleCircle(el);
   });
 }
 
