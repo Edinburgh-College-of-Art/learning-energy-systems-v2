@@ -37,14 +37,6 @@ if (schoolId == null){ schoolId = localStorage['les_school_id']; }
 if (schoolId == undefined){ schoolId = 1; }
 
 
-function styleSelect() {
-  /*$("#selectSubjects").selectmenu( "option", "icons", { button: "select-icon-arrow" });
-  $("#selectMonths").selectmenu( "option", "icons", { button: "select-icon-arrow" });
-  $("#selectWeeks").selectmenu( "option", "icons", { button: "select-icon-arrow" });
-  $("#selectDays").selectmenu( "option", "icons", { button: "select-icon-arrow" });
-  *///$('.ui-selectmenu-text').css('padding', '0 0 0 2px');
-}
-
 var pickHex = function(color1, color2, weight) {
   var p = weight;
   var w = p * 2 - 1;
@@ -62,7 +54,9 @@ var findClosest = function (x, arr) {
   return arr[indexArr.indexOf(min)]
 }
 
-var styleCircle = function(el, pct){
+var styleCircle = function(el){
+  var pct = $(el).attr('data-pct');
+
   var gradient = {
     100: [173, 40, 82],
     88: [234, 44,  90],
@@ -86,28 +80,91 @@ var styleCircle = function(el, pct){
   $(el).css('top', spacing+'%').css('left', spacing+'%');
 };
 
+var randomData = function(){
+  $('.energy-grid div.circle').each(function(){
+    var pct = 100 * Math.random();
+    $(this).attr('data-pct', pct);
+    styleCircle(this);
+  });
+}
+
+var grayOutCircle = function(el){
+  $(el).css('background-color', 'rgb(120,120,120)');
+  $(el).css('box-shadow', '0 0 7px 0px rgb(120,120,120)');
+}
+
+var colouriseCircles = function(){
+  var grayout = false;
+  $('.circle').each(function(i,el){
+    grayout = $(el).hasClass('device-grayout');
+    grayout = (grayout || $(el).hasClass('day-grayout'));
+    if (grayout){ grayOutCircle(el); }
+    else { styleCircle(el); }
+  });
+}
+
+var watchDeviceIcons = function(){
+  $('.energyIcon').click(function(e){
+    $(this).toggleClass('selected');
+    var colourise = $(this).hasClass('selected');
+    var deviceName = $(this).attr('name');
+
+    $('.'+deviceName+' .circle').each(function(i,el){
+      if (colourise){ $(el).removeClass('device-grayout'); }
+      else { $(el).addClass('device-grayout'); }
+    });
+
+    colouriseCircles();
+  });
+}
+
 var watchHamburger = function(){
   $('.toggle-overlay-menu').click(function(){
     $('nav#header .hamburger').toggleClass("opened-menu");
     $('#overlay-menu').toggleClass('hidden');
     $('body').toggleClass('no-scroll');
   })
-};
+}
+
+var watchSelects = function(){
+  $("#selectSubject, #selectMonth, #selectWeek").change(
+    function(event) { 
+      console.log(event);
+      randomData();
+    });
+
+  $("#selectDay").change(
+    function(event) {
+      var day = $(this).val().toLocaleLowerCase();
+
+      var removeGrayout = function(i,el){ 
+        $(el).removeClass('day-grayout'); };
+      var doGrayout = function(i,el){
+        $(el).addClass('day-grayout'); };
+
+      if (day == 'all days'){
+        $('.circle').each(removeGrayout); 
+      } else {
+        $('.circle').each(doGrayout);
+        $('.'+day + ' .circle').each(removeGrayout); 
+      }
+
+      colouriseCircles();
+    });
+}
+
 
 $(document).ready(function(){
-  $('.energy-grid div.circle').each(function(){
-    var pct = 100 * Math.random();
-    styleCircle(this, pct);
-  });
+  randomData();
 
   $('div.energy-grid .energy-cell').click(function(){
     $('div.energy-grid .energy-cell').removeClass('selected');
     $(this).addClass('selected');
   });
 
-  watchHamburger();
-});
+  var spinner = new Spinner();
 
-// **** APP START **** //
-var spinner = new Spinner(opts);
-styleSelect();
+  watchHamburger();
+  watchSelects();
+  watchDeviceIcons();
+});

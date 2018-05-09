@@ -270,7 +270,7 @@ input[type=checkbox]:checked + label {
   stroke-width: 3;
 }
 
-.isSelected {
+.energyIcon.selected {
   background-color: #fff;
 }
 
