@@ -10,5 +10,15 @@ class DashboardView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['foor'] = 'bar' #Article.objects.all()[:5]
+        context['foo'] = 'bar' #Article.objects.all()[:5]
+        return context
+
+
+class DetailView(TemplateView):
+
+    template_name = "detail.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['foo'] = 'bar' #Article.objects.all()[:5]
         return context

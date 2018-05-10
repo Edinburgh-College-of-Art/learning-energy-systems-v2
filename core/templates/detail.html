@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang='en'>
+<meta charset='utf-8'>
+<head>
+  <title></title>
+  <!--[if lt IE 9]>
+  <script src='http://html5shiv.googlecode.com/svn/trunk/html5.js'></script>
+  <![endif]-->
+  <link rel="stylesheet" href="./static/css/simple-grid.min.css" />
+  <link rel="stylesheet" href="./static/css/dash-style.css" />
+  <link rel="stylesheet" href="./static/css/fonts.css" />
+  <link rel="stylesheet" href="./static/css/jquery-ui.css" />
+
+  <script src='./static/js/moment.js'></script>
+  <script src='./static/js/jquery.min.js'></script>
+  <script src='./static/js/spin.js'></script>
+  <script src='./static/js/jquery-ui.js'></script>
+</head>
+<body class="">
+  <nav id="header" class="full-width">
+    <div id="" class="">
+      <span class="helper"></span>
+      <img class="logo" src="./static/img/logo-large.png" alt="Learning Energy Systems Logo" height="100px"/>
+  
+      <div class="styled-select slate">
+      <select id="selectSubject">
+        <option>All Subjects</option>
+        <option>Maths</option>
+        <option>English</option>
+      </select>
+      </div>
+
+      <div class="styled-select slate">
+      <select id="selectMonth">
+        <option>All Months</option>
+        <option>January</option>
+        <option>February</option>
+        <option>March</option>
+        <option>April</option>
+        <option>May</option>
+        <option>June</option>
+        <option>July</option>
+        <option>August</option>
+        <option>September</option>
+        <option>October</option>
+        <option>November</option>
+        <option>December</option>
+      </select>
+      </div>
+
+      <div class="styled-select slate">
+      <select id="selectWeek">
+        <option>All Weeks</option>
+        <option>Week 1</option>
+        <option>Week 2</option>
+        <option>Week 3</option>
+        <option>Week 4</option>
+      </select>
+      </div>
+
+      <div class="styled-select slate">
+      <select id="selectDay">
+        <option>All Days</option>
+        <option>Monday</option>
+        <option>Tuesday</option>
+        <option>Wednesday</option>
+        <option>Thursday</option>
+        <option>Friday</option>
+      </select>
+      </div>
+
+      <!--
+      <label for="show_total_check" id="show-total-label">Show Total Energy Use</label>
+      <input class="checkbox" type="checkbox" name="show_total_check" id="show_total_check" value="show_total" /> -->
+      <div class="hamburger toggle-overlay-menu">
+        <div class="bar1"></div>
+        <div class="bar2"></div>
+        <div class="bar3"></div>
+      </div>
+    </div>
+
+    
+  </nav>
+
+  <div class="grayBg">
+  <div class="mainCenter">
+    <br/>
+    <div class="detail-grid">
+      <div class="cell noborder">
+        <img src="./static/img/projector-subject-icon.png" class="energyIcon selected" name="projector" />
+      </div>
+      <div class="cell noborder">
+        <img src="./static/img/lightBulb-subject-icon.png" class="energyIcon selected" name="light" />
+      </div>
+      <div class="cell noborder">
+        <img src="./static/img/heater-subject-icon.png" class="energyIcon selected" name="heater" />
+      </div>
+      <div class="cell noborder">
+        <img src="./static/img/computer-subject-icon.png" class="energyIcon selected" name="computer" />
+      </div>
+    </div>
+
+    <div class="detail-wrapper">
+      <div class="microscope">
+
+        <div data-pct="16" class="circle"></div>
+        <div data-pct="56" class="circle"></div>
+        <div data-pct="26" class="circle"></div>
+        <div data-pct="43" class="circle"></div>
+
+      </div>
+    </div>
+
+  </div>
+
+
+  <div id="learningQuestions" class="mainCenter">
+    <h2>Energy Diary - Learning Questions</h2>
+    <div id="questionsWrapper" class="mainCenter">
+    </div>
+  </div>
+
+  <div id="overlay-menu" class="overlay hidden gradient">
+    <nav class="">
+      <ul>
+        <li><a class="toggle-overlay-menu" href="#">Dashboard</a></li>
+        <li><a href="#">Learning Materials</a></li>
+        <li><a href="#">Help</a></li>
+        <li><a href="#">About LES</a></li>
+      </ul>
+      <ul>
+        <li><a href="#">Teacher Admin</a></li>
+        <li class="smaller"><a href="#">Edit Schedule</a></li>
+        <li class="smaller"><a href="#">Edit Questions</a></li>
+        <li class="smaller"><a href="#">Edit Users</a></li>
+      </ul>
+    </nav>
+  </div>
+
+  <script src='./static/js/dash.js'></script>
+</body>
+</html>

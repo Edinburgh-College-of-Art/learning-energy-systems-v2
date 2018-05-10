@@ -82,12 +82,14 @@ var styleCircle = function(el){
     $(el).css('box-shadow', '0 0 7px 0px rgb('+ gradient[key] +')');
   }
 
-  $(el).css('height', circleSize+'%').css('width', circleSize+'%');
-  $(el).css('top', spacing+'%').css('left', spacing+'%');
+  if ($(el).parent().hasClass('energy-cell')){
+    $(el).css('height', circleSize+'%').css('width', circleSize+'%');
+    $(el).css('top', spacing+'%').css('left', spacing+'%');  
+  }
 };
 
 var randomData = function(){
-  $('.energy-grid div.circle').each(function(){
+  $('.energy-grid div.circle, .microscope div.circle').each(function(){
     var pct = 100 * Math.random();
     $(this).attr('data-pct', pct);
     styleCircle(this);
@@ -153,6 +155,11 @@ var watchSelects = function(){
 
 $(document).ready(function(){
   randomData();
+
+  /*$('body').click(function(){
+    console.log('bprk');
+    $('div.energy-grid .energy-cell').removeClass('selected');
+  });*/
 
   $('div.energy-grid .energy-cell').click(function(){
     $('div.energy-grid .energy-cell').removeClass('selected');
