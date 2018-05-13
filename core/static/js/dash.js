@@ -96,6 +96,15 @@ var randomData = function(){
   });
 }
 
+var fixedData = function(seed){
+  if (seed == undefined){ seed = 0; }
+  $('.energy-grid div.circle, .microscope div.circle').each(function(i,e){
+    var pct = Math.abs(Math.sin(i+1+seed)) * 100;
+    $(this).attr('data-pct', pct);
+    styleCircle(this);
+  });
+}
+
 var colouriseCircles = function(){
   $('.energy-cell .circle').each(function(i,el){
     styleCircle(el);
@@ -127,9 +136,8 @@ var watchHamburger = function(){
 
 var watchSelects = function(){
   $("#selectSubject, #selectMonth, #selectWeek").change(
-    function(event) { 
-      console.log(event);
-      randomData();
+    function(event) {
+      fixedData($(this).val());
     });
 
   $("#selectDay").change(
@@ -154,7 +162,7 @@ var watchSelects = function(){
 
 
 $(document).ready(function(){
-  randomData();
+  fixedData();
 
   /*$('body').click(function(){
     console.log('bprk');
