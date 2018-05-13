@@ -103,36 +103,37 @@ div#canvasContainer {
   width:90%;
 }
 
-div#learningQuestions {
-  margin-top:90px;
-  min-height:175px;
-}
+div#learningQuestions { margin-top:90px; }
 
-form#questionsForm {
-  margin-bottom: 25px;
-}
+form#questionsForm { margin-bottom: 25px; }
 
-.questionText {
-  margin-left:15px;
-  max-width: 575px;
-}
-
-.questionRow {
+p.question, p.answer {
   width: 100%;
   text-align: left;
-  padding-left: 60px;
-  -moz-box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
+  margin-bottom: 0.4em;
 }
 
-.revealButton {
+p.answer { margin-bottom: 2em; }
+p.answer span { display: none; }
+p.answer.visible span { display: inline; }
+p.answer.visible .reveal-btn { display: none; }
+
+.question:before {
+  content: 'Q: ';
+  padding-right:0.6em;
+}
+
+.answer:before {
+  content: 'A: ';
+  padding-right:0.6em;
+}
+
+.reveal-btn {
   color:#29b473;
-  font-size: 12px;
-  text-decoration: underline;
+  font-size: 1.1em;
 }
 
-.revealButton:hover {
+.reveal-btn:hover {
   cursor:pointer;
 }
 

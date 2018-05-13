@@ -160,6 +160,12 @@ var watchSelects = function(){
     });
 }
 
+var watchRevealBtns = function(){
+  $('.reveal-btn').off().click(function(){
+    $(this).parents('.answer').addClass('visible');
+  });
+}
+
 
 $(document).ready(function(){
   fixedData();
@@ -179,4 +185,5 @@ $(document).ready(function(){
   watchHamburger();
   watchSelects();
   watchDeviceIcons();
+  watchRevealBtns();
 });
