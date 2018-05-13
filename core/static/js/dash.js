@@ -101,8 +101,20 @@ var fixedData = function(seed){
   $('.energy-grid div.circle, .microscope div.circle').each(function(i,e){
     var pct = Math.abs(Math.sin(i+1+seed)) * 100;
     $(this).attr('data-pct', pct);
+    $(this).siblings('.data').children('.value').text(Math.round(pct * 0.9));
     styleCircle(this);
   });
+
+  var totalMins = 0;
+  ['monday', 'tuesday', 'wednesday', 'thursday', 'friday'].forEach((d)=>{
+    var mins = 0;
+    $('.energy-cell.'+d+' span.value').each(function(i,e){
+      mins += parseInt($(this).text());
+    });
+    $('.energy-total.'+d).text(mins);
+    totalMins += mins;
+  })
+  $('.energy-total.all span').text(totalMins);
 }
 
 var colouriseCircles = function(){
