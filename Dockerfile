@@ -12,6 +12,7 @@ COPY . .
 
 EXPOSE 8000
 
+RUN env DJANGO_SETTINGS_MODULE=LES.settings python3 manage.py makemigrations
 RUN env DJANGO_SETTINGS_MODULE=LES.settings python3 manage.py migrate
 
 CMD ["./runserver.sh"]
