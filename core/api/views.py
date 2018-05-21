@@ -65,7 +65,7 @@ class PredictionViewSet(viewsets.ViewSet):
         return Response(serializer.data)
 
     def create(self, request, pk=None):
-        request.data['occurrence'] = 1
+        request.data['occurrence'] = pk
         request.data['student'] = 1
         create_serializer = CreatePredictionSerializer(data=request.data, context={'request': request})
         if create_serializer.is_valid():
