@@ -44,3 +44,12 @@ class PredictionSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Prediction
         fields = ['light', 'computer', 'heater', 'projector']
+
+
+class CreatePredictionSerializer(serializers.HyperlinkedModelSerializer):
+    occurrence = serializers.PrimaryKeyRelatedField(queryset=Occurrence.objects)
+    student = serializers.PrimaryKeyRelatedField(queryset=Student.objects)
+
+    class Meta:
+        model = Prediction
+        fields = ['light', 'computer', 'heater', 'projector', 'occurrence', 'student']

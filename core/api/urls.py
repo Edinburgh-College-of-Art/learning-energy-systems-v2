@@ -22,5 +22,5 @@ urlpatterns = [
 
     path('subjects/<int:pk>/occurrences',  views.OccurrenceViewSet.as_view({'get': 'list'}) ),
  
-    path('occurrences/<int:pk>/predictions',  views.PredictionViewSet.as_view({'get': 'list'}) ),
+    path('occurrences/<int:pk>/predictions',  views.PredictionViewSet.as_view({'get': 'list', 'post':'create'}) ),
 ]

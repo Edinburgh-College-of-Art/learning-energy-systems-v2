@@ -1,17 +1,9 @@
 from django.contrib.auth.models import User, Group
-from core.models import Yeargroup, Question, Student, Subject, Occurrence, Prediction
-from rest_framework import viewsets
-from core.api.serializers import (
-    UserSerializer,
-    YeargroupSerializer,
-    QuestionSerializer,
-    StudentSerializer,
-    SubjectSerializer,
-    PredictionSerializer,
-    OccurrenceSerializer,
-)
-from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
+from core.models import *
+from core.api.serializers import *
+from rest_framework import viewsets, status
+from rest_framework.response import Response
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -71,3 +63,12 @@ class PredictionViewSet(viewsets.ViewSet):
         queryset = Prediction.objects.filter(occurrence__id=pk)
         serializer = PredictionSerializer(queryset, many=True)
         return Response(serializer.data)
+
+    def create(self, request, pk=None):
+        request.data['occurrence'] = 1
+        request.data['student'] = 1
+        create_serializer = CreatePredictionSerializer(data=request.data, context={'request': request})
+        if create_serializer.is_valid():
+            create_serializer.save()
+            return Response(create_serializer.data, status=status.HTTP_201_CREATED)
+        return Response(create_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
