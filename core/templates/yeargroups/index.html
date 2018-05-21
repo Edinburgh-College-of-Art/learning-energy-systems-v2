@@ -1,0 +1,18 @@
+{% extends 'base_template.html' %}
+{% block title %}Yeargroup{% endblock %}
+
+{% block body %}
+<div class="yeargroups">
+  <h1>Yeargroups</h1>
+  {% for yeargroup in yeargroups %}
+    {{ yeargroup }}
+  {% endfor %}
+
+  <form method="post">
+    <h2>Add a new Yeargroup</h2>
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Save" />
+  </form>
+</div>
+{% endblock %}
