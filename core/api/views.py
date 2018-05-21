@@ -66,7 +66,12 @@ class PredictionViewSet(viewsets.ViewSet):
 
     def create(self, request, pk=None):
         request.data['occurrence'] = pk
-        request.data['student'] = 1
+
+        if not request.user.is_authenticated:
+            content = {'error': 'unauthorised'}
+            return Response(content, status=status.HTTP_401_UNAUTHORIZED)
+
+        request.data['user'] = request.user.pk
         create_serializer = CreatePredictionSerializer(data=request.data, context={'request': request})
         if create_serializer.is_valid():
             create_serializer.save()
