@@ -14,9 +14,8 @@ class Question(models.Model):
 
 
 class Student(models.Model):
+  user = models.OneToOneField(User, on_delete=models.CASCADE)
   yeargroup = models.ForeignKey(Yeargroup, on_delete=models.CASCADE)
-  name = models.CharField(max_length=70)
-  secret = models.CharField(max_length=40)
 
 
 class Subject(models.Model):
@@ -31,7 +30,7 @@ class Occurrence(models.Model):
 
 
 class Prediction(models.Model):
-  student    = models.ForeignKey(Student, on_delete=models.CASCADE)
+  user    = models.ForeignKey(User, on_delete=models.CASCADE)
   occurrence = models.ForeignKey(Occurrence, on_delete=models.CASCADE)
   light     = models.CharField(max_length=24)
   computer  = models.CharField(max_length=24)
