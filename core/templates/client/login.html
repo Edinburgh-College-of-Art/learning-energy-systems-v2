@@ -1,20 +1,9 @@
-<!doctype html>
-<html lang='en'>
-<meta charset='utf-8'>
-<head>
-  <title>LES - Logging in</title>
-  <!--[if lt IE 9]>
-  <script src='http://html5shiv.googlecode.com/svn/trunk/html5.js'></script>
-  <![endif]-->
-  <link rel="stylesheet" href="./static/css/shared.css" />
-  <link rel="stylesheet" href="./static/css/jquery-ui.css" />
+{% extends 'client_base.html' %}
 
-  <script src='./static/js/moment.js'></script>
-  <script src='./static/js/jquery.min.js'></script>
-  <script src='./static/js/jquery-ui.js'></script>
-</head>
-<body>
+{% block head %}
+{% endblock %}
 
+{% block body %}
 <h1>Logging in...</h1>
 
 <script type="text/javascript">
@@ -22,7 +11,7 @@
     var token = $.urlParam('token');
     if (token){
       localStorage.setItem("token", token);
-      window.location = "/";
+      window.location = "/client/week";
     } else if (localStorage.getItem("token")) {
       window.location = "/client/week";
     } else {
@@ -30,6 +19,4 @@
     }
   });
 </script>
-
-</body>
-</html>
+{% endblock %}
