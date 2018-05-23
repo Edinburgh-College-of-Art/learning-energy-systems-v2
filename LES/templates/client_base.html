@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="user-scalable=no, initial-scale=1  maximum-scale=1, minimum-scale=1, target-densitydpi=device-dpi" />
+  <title>LES ClientApp</title>
+
+  <!--[if lt IE 9]>
+  <script src='http://html5shiv.googlecode.com/svn/trunk/html5.js'></script>
+  <![endif]-->
+
+  <link rel="stylesheet" href="/static/css/shared.css" />
+  <link rel="stylesheet" href="/static/css/client-style.css" />
+  <link rel="stylesheet" href="/static/css/jquery-ui.css" />
+
+  <script src='/static/js/moment.js'></script>
+  <script src='/static/js/jquery.min.js'></script>
+
+  <script type="text/javascript">
+    window.les_base_url = "{{ request.scheme }}://{{ request.get_host }}";
+  </script>
+  <script type="text/javascript" src="/static/js/fastclick.js"></script>
+  <script type="text/javascript" src="/static/js/les-client.js"></script>
+
+  {% block head %}{% endblock %}
+</head>
+<body>
+
+{% block body %}{% endblock %}
+
+<div id="overlay-menu" class="overlay hidden gradient">
+<nav class="">
+  <h1><a class="toggle-overlay-menu" href="#">My energy diary</a></h1>
+  <ul>
+    <li><a href="#">View week</a></li>
+    <li><a href="#">View today</a></li>
+    <li><a href="#">Calendar</a></li>
+    <li><a href="#">Help</a></li>
+  </ul>
+</nav>
+</div>
+
+</body>
+</html>

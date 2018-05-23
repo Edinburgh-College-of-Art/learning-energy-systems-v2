@@ -41,3 +41,27 @@ class YeargroupsView(CreateView):
 
     def get_queryset(self):
         return Yeargroup.objects# self.request.user.yeargroups
+
+
+class ClientDayView(TemplateView):
+    template_name = 'client/day.html'
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['foo'] = 'bar'
+        return context
+
+
+class ClientWeekView(TemplateView):
+    template_name = 'client/week.html'
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['foo'] = 'bar'
+        return context
+
+
+class ClientLoginView(TemplateView):
+    template_name = 'client/login.html'
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['foo'] = 'bar'
+        return context

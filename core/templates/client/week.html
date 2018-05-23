@@ -1,0 +1,42 @@
+{% extends 'client_base.html' %}
+
+{% block head %}
+{% endblock %}
+
+{% block body %}
+<nav>
+  <div class="hamburger toggle-overlay-menu">
+    <div class="bar1"></div>
+    <div class="bar2"></div>
+    <div class="bar3"></div>
+  </div>
+
+  <h1>My energy diary</h1>
+  <h2><a href="#">&lt;</a> This week <a class="disabled" href="#">&gt;</a></h2>
+</nav>
+
+<hr/>
+
+<div class="weekdays">
+  <div><a class="" href="day">M</a></div>
+  <div><a class="" href="day">T</a></div>
+  <div><a class="selected" href="day">W</a></div>
+  <div><a class="disabled" href="day">T</a></div>
+  <div><a class="disabled" href="day">F</a></div>
+</div>
+
+<hr/>
+
+<div class="devices">
+  <div id="projector"><a href="#">p</a></a></div>
+  <div class="gap"></div>
+  <div id="computer"><a href="#">c</a></div>
+  <div class="gap"></div>
+  <div id="total"><a href="#">total</a></div>
+  <div></div>
+  <div id="light"><a href="#">l</a></div>
+  <div class="gap"></div>
+  <div id="heater"><a href="#">h</a></div>
+</div>
+
+{% endblock %}
