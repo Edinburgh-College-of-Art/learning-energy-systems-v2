@@ -138,6 +138,7 @@ ul.subjects {
   margin: 0 auto;
   display: block;
   font-size: 4vh;
+  font-size:calc(12px + 2.5vh);
   margin-top: 1em;
   list-style-type: none;
 }
@@ -155,6 +156,7 @@ ul.subjects a {
   border-radius: 5px;
   width: 69%;
   height: 5vh;
+  min-height: calc(12px + 2.5vh);
 }
 
 ul.subjects div.circle { 
@@ -166,6 +168,7 @@ ul.subjects div.circle {
   margin-right: 1vh;
   height: 6vh;
   border: 1vh solid white;
+  min-height: calc(12px + 2.5vh);
 }
 
 ul.subjects div.circle span {
