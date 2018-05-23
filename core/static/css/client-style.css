@@ -137,23 +137,35 @@ ul.subjects {
   width: 95vw;
   margin: 0 auto;
   display: block;
-  font-size: 4vw;
+  font-size: 4vh;
   margin-top: 1em;
+  list-style-type: none;
 }
 
 ul.subjects li {
   margin-bottom: 1em;
 }
 
+ul.subjects a {
+  display: inline-block;
+  background: white;
+  color: #333;
+  padding: 1.5vh 1vh;
+  padding-left: 2vh;
+  border-radius: 5px;
+  width: 69%;
+  height: 5vh;
+}
+
 ul.subjects div.circle { 
   display: inline-block;
   background-color: none;
   border-radius: 100%;
-  width: 6vw;
+  width: 6vh;
   float: left;
-  margin-right: 1vw;
-  height: 6vw;
-  border: 1vw solid white;
+  margin-right: 1vh;
+  height: 6vh;
+  border: 1vh solid white;
 }
 
 ul.subjects div.circle span {
@@ -161,20 +173,14 @@ ul.subjects div.circle span {
   display: block;
   margin: 0 auto;
   text-align: center;
-  top: 0.5vw;
+  top: 0.5vh;
   position: relative;
 }
 
-ul.subjects a {
-  display: inline-block;
-  background: white;
-  color: #333;
-  padding: 1.5vw 1vw;
-  padding-left: 2vw;
-  border-radius: 5px;
-  width: 80vw;
-  height: 5vw;
-}
+/*
+https://stackoverflow.com/questions/25729861/how-to-partly-color-the-border-with-css
+*/
+
 
 .portrait_mode {
   -webkit-transform: rotate(90deg);
