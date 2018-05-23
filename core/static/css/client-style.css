@@ -15,13 +15,15 @@ html, body {
   color: white;
 }
 
+body { overflow-y: scroll; }
+
 a { 
   color: white; 
   text-decoration: none; 
 }
 
-nav {
-  margin-top: 0.5em;
+nav, #overlay-menu nav {
+  margin-top: 1em;
   text-align: center;
 }
 
@@ -60,7 +62,6 @@ nav div.hamburger .bar3 { background-color: white; }
 #overlay-menu nav {
   width: 90vw;
   top: 0px;
-  margin-top: 0.5em;
 }
 
 #overlay-menu nav ul {
@@ -104,24 +105,32 @@ div.devices {
   grid-template-columns: 1fr 1fr 1fr;
   grid-gap: 0vw;
   width: 90%;
-  height: 70vh;
+  height: 60vh;
   margin: 0 auto;
   margin-top: 4vh;
 }
 
 div.devices a {
   position: relative;
-  top: 30%;
   text-align: center;
   display: block;
-  width: 1.4em;
-  border: 4px solid #f9f9f9;
-  border-color: rgba(255,255,255,0.6);
   border-radius: 100%;
   font-size: 2.4em;
   margin: 0 auto;
   padding: 0.1vw;
+  color: #333;
+  width:100%;
+  
+}
+
+div.devices a.total {
   background-color: white;
+  border: 4px solid #f9f9f9;
+  border-color: rgba(255,255,255,0.6);
+}
+
+div.devices a img {
+  height: 25vh;
 }
 
 .portrait_mode {
