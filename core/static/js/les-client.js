@@ -35,9 +35,9 @@ var watchWeekSelectors = function(){
     if (!$(this).hasClass('disabled')){
       $('span.week-text').text('Last week');
       localStorage.setItem("currentWeek", moment().weeks()-1);
-      watchWeekDays();  
+      watchWeekDays();
+      $('.next-week, .prev-week').toggleClass('disabled');
     }
-    $('.next-week, .prev-week').toggleClass('disabled');
   });
 
   $('.next-week').off().click(function(){
@@ -45,9 +45,21 @@ var watchWeekSelectors = function(){
       $('span.week-text').text('This week');
       localStorage.setItem("currentWeek", moment().weeks());
       watchWeekDays();
+      $('.next-week, .prev-week').toggleClass('disabled');
     }
-    $('.next-week, .prev-week').toggleClass('disabled');
   });
+}
+
+var populateWeekView = function(){
+  localStorage.setItem("currentWeek", moment().weeks());
+  watchWeekDays();
+  watchWeekSelectors();
+}
+
+var populateDayView = function(){
+  var day = $.urlParam('day');
+  var weekNo = localStorage.getItem("currentWeek");
+  
 }
 
 $(document).ready(function(){

@@ -47,7 +47,8 @@ nav h2 a {
   font-size: 0.9em;
   display: inline-block;
   position: relative;
-  margin: 0 0.1em;
+  margin: 0 0em;
+  padding: 0 5px;
 }
 
 /* HAMBURGER OVERLAY */
@@ -105,6 +106,10 @@ div.weekdays a {
   background-color: rgba(100,100,140,0.2);
 }
 
+div.weekdays a.disabled {
+  cursor: default;
+}
+
 div.weekdays a.selected {
   background-color: rgba(255,255,255,0.2); 
 }
@@ -132,10 +137,11 @@ div.devices a {
   
 }
 
-div.devices a.total {
-  background-color: white;
-  border: 4px solid #f9f9f9;
-  border-color: rgba(255,255,255,0.6);
+div.devices #total a {
+  background: white;
+  margin: 0 auto;
+  width: 50px;
+  height: 50px;
 }
 
 div.devices a img {
