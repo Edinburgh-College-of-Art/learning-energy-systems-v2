@@ -116,19 +116,39 @@ var watchSelectorControl = function(){
       isHighlighted = $(this).hasClass("selected");
       return false; // prevent text selection
     })
-    .mouseover(function () {
+    .mouseover(function(){
       if (isMouseDown) {
         $(this).toggleClass("selected", isHighlighted);
       }
     })
-    .bind("selectstart", function () {
+    .bind("selectstart", function(){
       return false;
     });
 
-  $(document).mouseup(function () {
+  $(document).mouseup(function(){
     isMouseDown = false;
+    console.log(submitPrediction());
   });
 };
+
+var submitPrediction = function(){
+  var prediction = { light: "", computer: "", projector: "", heater: "" };
+  var detectSelect = function(i,e){
+    var device = $(this).parent().attr('data-device');
+    if ($(this).hasClass("selected")){
+      prediction[device] = prediction[device].concat("1");
+    } else {
+      prediction[device] = prediction[device].concat("0");
+    }
+  };
+
+  $('div.selector-control.light div.block').each(detectSelect);
+  $('div.selector-control.computer div.block').each(detectSelect);
+  $('div.selector-control.heater div.block').each(detectSelect);
+  $('div.selector-control.projector div.block').each(detectSelect);
+
+  return prediction;
+}
 
 
 var populateWeekView = function(){
