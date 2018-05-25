@@ -5,6 +5,7 @@ from core.api.serializers import *
 from rest_framework import viewsets, status
 from rest_framework.response import Response
 import datetime
+import logging
 
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all().order_by('-date_joined')
@@ -84,9 +85,15 @@ class PredictionViewSet(viewsets.ViewSet):
         return Response(serializer.data)
 
     def update(self, request, opk=None):
-        p = Prediction.objects.filter(user=self.request.user, occurrence__id=opk).first()
-        serializer = PredictionOccurrenceSerializer(p)
-        return Response(serializer.data)
+        p = Prediction.objects.filter(user=request.user, occurrence__id=opk).first()
+        if p == None:
+            serializer = CreatePredictionSerializer(data=request.data, context={'request': request})
+        else:
+            serializer = CreatePredictionSerializer(p, data=request.data, context={'request': request})
+        if serializer.is_valid():
+            serializer.save(user_id=request.user.id, occurrence_id=opk)
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def list(self, request, opk=None):
         queryset = Prediction.objects.filter(occurrence__id=opk)

@@ -65,8 +65,8 @@ class PredictionOccurrenceSerializer(serializers.ModelSerializer):
 
 
 class CreatePredictionSerializer(serializers.HyperlinkedModelSerializer):
-    occurrence = serializers.PrimaryKeyRelatedField(queryset=Occurrence.objects)
-    user = serializers.PrimaryKeyRelatedField(queryset=User.objects)
+    occurrence = serializers.PrimaryKeyRelatedField(queryset=Occurrence.objects, required=False)
+    user = serializers.PrimaryKeyRelatedField(queryset=User.objects, required=False)
 
     class Meta:
         model = Prediction

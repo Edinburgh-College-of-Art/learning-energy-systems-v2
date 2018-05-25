@@ -156,6 +156,7 @@ var submitPrediction = function(occurrenceId){
   var headers = { 'Authorization': 'Token ' + localStorage.token };
   var url = window.les_base_url + '/api/occurrences/'+occurrenceId+'/user-prediction';
 
+  prediction["occurrence_id"] = occurrenceId;
   $.ajax({ type: 'PUT', data: prediction, url: url, headers: headers,
     success: function(data){ console.log("success"); },
     error: function(data){},
