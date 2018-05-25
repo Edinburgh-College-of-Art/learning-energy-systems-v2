@@ -114,14 +114,19 @@ var populateWeekView = function(){
 }
 
 var populateSubjects = function(selectedDay){
-  //request occurrences for day, filtered by yeargroup or by student
   var headers = { 'Authorization': 'Token ' + localStorage.token };
-  var url = window.les_base_url + '/api/yeargroups/'+localStorage.yeargroupId+'/subjects/'+selectedDay.format("YYYY/MM/DD");
+  var url = window.les_base_url + '/api/yeargroups/'+localStorage.yeargroupId+'/occurrences/'+selectedDay.format("YYYY/MM/DD");
 
   $.ajax({ type: 'GET', url: url, headers: headers,
     success: function(data){
-      $.each(data, function(i,s){
-        $('ul.subjects').append('<li id="subject-'+s.id+'"><div class="circle"><span>1</span></div><a href="#"><span class="title">'+s.name+'</span></a></li>');
+      var s;
+      $.each(data, function(i,o){
+        s = o.subject;
+        $('ul.subjects').append(
+          '<li id="subject-'+s.id+'">\
+          <div class="circle"><span>1</span></div>\
+          <a href="prediction?subject='+s.name+'&occurrence='+o.id+'&date='+selectedDay.format("YYYY/MM/DD")+'">\
+          <span class="title">'+s.name+'</span></a></li>');
       });
     },
     error: function(data){},
@@ -140,9 +145,20 @@ var populateDayView = function(){
   } else {
     $('h2').text(prefix + moment().isoWeekday(day).format('dddd'));
   }
-  //get specific day
+
   var selectedDay = moment().weeks(localStorage.currentWeek).isoWeekday(day);
   populateSubjects(selectedDay);
+}
+
+var populatePredictionView = function(){
+  var subject = $.urlParam('subject');
+  var occurrenceId = $.urlParam('occurrence');
+  var date = $.urlParam('date');
+  var selectedDay = moment(date, "YYYY/MM/DD");
+
+  $('h1').text(subject);
+
+  
 }
 
 $(document).ready(function(){

@@ -200,19 +200,6 @@ https://stackoverflow.com/questions/25729861/how-to-partly-color-the-border-with
 */
 
 
-.portrait_mode {
-  -webkit-transform: rotate(90deg);
-  -moz-transform: rotate(90deg);
-  -o-transform: rotate(90deg);
-  -ms-transform: rotate(90deg);
-  transform: rotate(90deg);
-}
-
-.donthighlight {
-  -moz-user-select: none;
-  -webkit-user-select: none;
-}
-
 .pointerCursor { cursor: pointer; }
 
 hr {
@@ -224,312 +211,45 @@ hr {
   margin: 2vh auto;
 }
 
-.inputs{
+/* SUBJECT VIEW */
+
+ul.devices {
+  margin-top: 1em;
+  list-style-type: none;
+  margin: 0 auto;
+  display: block;
+  font-size: 4vh;
+  font-size:calc(12px + 2.5vh);
+  width: 95vw;
+}
+
+ul.devices img {
   display: inline-block;
-  margin: auto;
-  padding: 0;
-  width: 90%;
-}
-.form-control{
-  width: 95%;
-}
-
-.bottomButton{
-  background-color: white;
-  position:absolute;
-  left: 0;
-  bottom:0;
-  width: 100%;
-  height: 100px;
-  cursor: pointer;
-}
-.bottomButton h2{
-  color: black;
-  margin: auto;
-  line-height:100px;
-  vertical-align:middle;
-}
-.bottomButton img{
-  height: 30px;
-  position: fixed;
-  right: 10px;
-  bottom: 30px;
-}
-#addSubj{
-  position: absolute;
-  bottom: 4%;
-  left: 50%;
-  margin-left: -25px;
-  text-align: center;
-  cursor: pointer;
-}
-#addSubj img{
-  height: 50px;
-}
-#addSubj figcaption {
-  color: #FFF;
-  position: absolute;
-  font-size: 1em;
-  top: 50px;
-  width: 150px;
-  left: -50px;
-}
-#addSubjHelp{
-  position: absolute;
-  bottom: 100px;
-  left: 50%;
-  margin-left: -25px;
-  text-align: center;
-  cursor: pointer;
-}
-#addSubjHelp img{
-  height: 50px;
-}
-#addSubjHelp figcaption {
-  color: #FFF;
-  position: absolute;
-  font-size: 1em;
-  top: 50px;
-  width: 150px;
-  left: -50px;
-}
-#dayViewPopup{
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(100,100,100,0.5);
-  top: 0;
-  left: 0;
-  display: none;
-  text-align: center;
-}
-#dvpBody {
-  height: 110px;
-  background-color: white;
-  border-radius: 5px;
-  width: 300px;
-  position: relative;
-  top: 50%;
-  left: 50%;
-  margin-top: -55px;
-  margin-left: -150px;
-  text-align: center;
-}
-#dvpBody label{
-  padding: 10px;
-  font-size: 2em;
   float: left;
-}
-#dvpBody input{
-  padding: 10px;
-  margin-left: 10px;
-  font-size: 2em;
-  float: left;
-}
-#dvpBody button{
-  float: right;
-  padding: 10px;
-  margin-right: 10px;
-  border-radius: 5px;
+  margin-right: 1%;
+  width:12%;
+  height: auto;
+  min-height: calc(12px + 2.5vh);
 }
 
-#containingBlock {}
-  #containingBlock div {
-    display: table-cell;
-    vertical-align: middle;
-    }
-  .helpText{
-    display: inline-block;
-    position: relative;
-  }
-  .whiteBottom{
-    position: absolute;
-    z-index: 999;
-    height: 100px;
-    top: 100px;
-    left: 0px;
-  }
-  .helpBottom{
-    display: block;
-    position: absolute;
-    z-index: 999;
-    height: 100px;
-    bottom: 0px;
-    left: 0px;
-    width: 100%;
-    background-color: white;
-  }
-  .helpBottom p{
-    display: block;
-    font-size: 14px;
-    max-width: 60%;
-    float: left;
-    padding: 20px 10px 10px 20px;
-    line-height: 20px;
-  }
-  #leftArr {
-    height: 70px;
-    position: relative;
-    float: left;
-    margin-top: 10px;;
-    padding-left: 10px;
-    cursor: pointer;
-  }
-  #rightArr{
-    height: 70px;
-    position: relative;
-    float: right;
-    margin-top: 15px;;
-    padding-right: 15px;
-    cursor: pointer;
-  }
-  #updateUser{
-    float: center;
-    display: inline-block;
-  }
-  #appInfo{
-    background-color: transparent;
-    width: 100%;
-    position: absolute;
-    bottom: 100px;
-    left:0;
-    margin-bottom: 20px;
-    margin-top: 40px;
-    text-align: center;
-  }
-  #appInfo p{
-    text-align: center;
-  }
-  #appInfo h1{
-    text-align: center;
-    font-size: 1em;
-    margin-left: 30px;
-    padding-top: 10px;
-    font-family: 'TTRounds-Regular';
-  }
-  #help img{
-    height: 50px;
-    float:left;
-  }
-  #helpIconn{
-    height: 50px;
-    position:absolute;
-    background-color:"#f00";
-    top:25px;
-    left:20px;
-    display: block;
-    float:left;
-  }
-  #homeIconn{
-    height: 40px;
-    top:20px;
-    right:20px;
-    position:absolute;
-    background-color:"#f00";
-    display: block;
-    cursor: pointer;
-
-  }
-  .subjectsEdit{
-    text-align: center;
-  }
-  .subjectsEdit img{
-    text-align: center;
-
-    height:40px;
-    padding-top: 10px;
-
-    cursor:pointer;
-  }
-  .subjectsEdit input{
-    padding:20px;
-    font-size:24px;
-    width:90%;homeIconn
-  }
-.simpleButton{
-  background-color:transparent;
-  font-family: 'TTRounds-Bold';
-  color:white;
-  display: inline-block;
-  padding: 10px;
-  margin: 10px;
-  margin-top: 30px;
-  border:solid 2px;
-  font-size:16px;
-  -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-
-
-}
-.simpleButton:hover{
-  color:#999;
-
+ul.devices li {
+  height: 15vh;
+  width: 100%;
+  display: block;
+  clear:both;
+  margin-bottom: 4vh;
 }
 
-
-#footer {
-   position:absolute;
-   left: 0;
-   vertical-align: middle;
-   bottom:0;
-   width:100%;
-   height:100px;   /* Height of the footer */
-   background-color: #fff;
-   text-align: center;
-vertical-align: middle;
-cursor: pointer;
-}
-#footer p{
-  color:black;
-  line-height: 100px;
-  cursor: pointer;
-  Display: inline-block;
-  padding-left: 20px;
-  font-size: 2em;
-}
-#footer img{
-  height: 40px;
-  float: right;
-  margin-top: 30px;
-  margin-right:20px;
-  cursor: pointer;
-}
-.userInfoP{
-  color:white;
-  margin-top: 15px;
-  margin-left: 10px;
-  text-align: left;
-  padding: 0;
-  font-size: 1.5em;
-}
-.userInfoInput{
+ul.devices li div.selector-control {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  width: 84%;
   background-color: white;
-  border: none;
-  padding: 10px;
-  margin-top: 15px;
-  color: rgba(20, 20, 20, 0.5);
-  font-size: 20px;
-}
-#tempText{
-  border: 0;
-    padding: 0;
+  height:100%;
+  border: 1px solid gray;
+  border-left: none;
 }
 
-
-
-.infoHeader{
-
-}
-.infoHeader h1{
-  font-family: 'TTRounds-Bold';
-  font-size: 26px;
-}
-.iconImg{
-  display: none;
-  height: 40px;
-  right: 0px;
-position: relative;
-top: 10px;
-
+ul.devices li div.selector-control div {
+  border-left: 1px solid gray;
 }

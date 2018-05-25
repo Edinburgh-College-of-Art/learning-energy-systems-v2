@@ -18,7 +18,7 @@ class OccurrenceSerializer(serializers.ModelSerializer):
     subject = BasicSubjectSerializer()
     class Meta:
         model  = Occurrence
-        fields = ['date', 'subject']
+        fields = ['id', 'date', 'subject']
 
 
 class SubjectSerializer(serializers.HyperlinkedModelSerializer):
