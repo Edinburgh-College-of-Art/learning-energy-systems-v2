@@ -113,15 +113,18 @@ var populateWeekView = function(){
   watchWeekSelectors();
 }
 
-var populateSubjects = function(){
-  var headers = { 'Authorization': 'Token ' + token };
-  $.ajax({ type: 'GET', url: window.identify_url, headers: headers,
+var populateSubjects = function(selectedDay){
+  //request occurrences for day, filtered by yeargroup or by student
+  var headers = { 'Authorization': 'Token ' + localStorage.token };
+  var url = window.les_base_url + '/api/yeargroups/'+localStorage.yeargroupId+'/subjects/'+selectedDay.format("YYYY/MM/DD");
+
+  $.ajax({ type: 'GET', url: url, headers: headers,
     success: function(data){
-      localStorage.token = token;
-      localStorage.yeargroupId = data.yeargroup.id;
-      successCb(data);
+      $.each(data, function(i,s){
+        $('ul.subjects').append('<li id="subject-'+s.id+'"><div class="circle"><span>1</span></div><a href="#"><span class="title">'+s.name+'</span></a></li>');
+      });
     },
-    error: function(data){ errorCb(data); },
+    error: function(data){},
     complete: function(r){ console.log(r.responseJSON); }
   });
 }
@@ -137,6 +140,9 @@ var populateDayView = function(){
   } else {
     $('h2').text(prefix + moment().isoWeekday(day).format('dddd'));
   }
+  //get specific day
+  var selectedDay = moment().weeks(localStorage.currentWeek).isoWeekday(day);
+  populateSubjects(selectedDay);
 }
 
 $(document).ready(function(){
