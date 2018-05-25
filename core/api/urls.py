@@ -14,15 +14,19 @@ urlpatterns = [
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 
     path('students/identify', views.StudentViewSet.as_view({'get': 'retrieve'}), name='api-identify-student'),
+    path('yeargroups/<int:pk>/students',  views.StudentViewSet.as_view({'get': 'list'}) ),
 
     path('yeargroups/', views.YeargroupViewSet.as_view({'get': 'list'}) ),
     path('yeargroups/<int:pk>', views.YeargroupViewSet.as_view({'get': 'retrieve'}) ),
+
     path('yeargroups/<int:pk>/questions', views.QuestionViewSet.as_view({'get': 'list'}) ),
-    path('yeargroups/<int:pk>/students',  views.StudentViewSet.as_view({'get': 'list'}) ),
+
     path('yeargroups/<int:pk>/subjects',  views.SubjectViewSet.as_view({'get': 'list'}) ),
     path('yeargroups/<int:ypk>/subjects/<int:pk>',  views.SubjectViewSet.as_view({'get': 'retrieve'}) ),
+    url(r'^yeargroups/(?P<ypk>\d+)/subjects/(?P<year>[0-9]{4})/(?P<month>[0-9]{2})/(?P<day>[0-9]{2})/$', views.SubjectViewSet.as_view({'get': 'search'}) ),
 
-    path('subjects/<int:pk>/occurrences',  views.OccurrenceViewSet.as_view({'get': 'list'}) ),
+    url(r'^yeargroups/(?P<ypk>\d+)/occurrences/(?P<year>[0-9]{4})/(?P<month>[0-9]{2})/(?P<day>[0-9]{2})/$', views.OccurrenceViewSet.as_view({'get': 'search'}) ),
+    path('subjects/<int:pk>/occurrences', views.OccurrenceViewSet.as_view({'get': 'list'}) ),
  
     path('occurrences/<int:pk>/predictions',  views.PredictionViewSet.as_view({'get': 'list', 'post':'create'}) ),
 ]

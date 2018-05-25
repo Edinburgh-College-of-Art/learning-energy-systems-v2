@@ -8,18 +8,25 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
         fields = ['url', 'username', 'email']
 
 
-class OccurrenceSerializer(serializers.HyperlinkedModelSerializer):
+class BasicSubjectSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Subject
+        fields = ['id', 'name', 'duration']
+
+
+class OccurrenceSerializer(serializers.ModelSerializer):
+    subject = BasicSubjectSerializer()
     class Meta:
         model  = Occurrence
-        fields = ['date']
+        fields = ['date', 'subject']
 
 
 class SubjectSerializer(serializers.HyperlinkedModelSerializer):
     schedule = OccurrenceSerializer(many=True, read_only=True)
-
     class Meta:
         model = Subject
         fields = ['id', 'name', 'duration', 'schedule']
+        depth = 1
 
 
 class QuestionSerializer(serializers.HyperlinkedModelSerializer):
@@ -30,7 +37,6 @@ class QuestionSerializer(serializers.HyperlinkedModelSerializer):
 
 class YeargroupSerializer(serializers.ModelSerializer):
     subjects = SubjectSerializer(many=True, source='subject_set')
-
     class Meta:
         model = Yeargroup
         fields = ['id', 'name', 'subjects']
@@ -39,7 +45,6 @@ class YeargroupSerializer(serializers.ModelSerializer):
 
 class StudentSerializer(serializers.ModelSerializer):
     yeargroup = YeargroupSerializer()
-
     class Meta:
         model = Student
         fields = ['id', 'yeargroup']

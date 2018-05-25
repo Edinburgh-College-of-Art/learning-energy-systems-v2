@@ -4,7 +4,7 @@ from core.models import *
 from core.api.serializers import *
 from rest_framework import viewsets, status
 from rest_framework.response import Response
-
+import datetime
 
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all().order_by('-date_joined')
@@ -56,10 +56,23 @@ class SubjectViewSet(viewsets.ViewSet):
         serializer = SubjectSerializer(s)
         return Response(serializer.data)
 
+    def search(self, request, ypk=None, year=None, month=None, day=None):
+        date = datetime.date(int(year), int(month), int(day))
+        queryset = Subject.objects.filter(yeargroup__id=ypk).filter(occurrence__date=date)
+        serializer = SubjectSerializer(queryset, many=True)
+        return Response(serializer.data)
+
 
 class OccurrenceViewSet(viewsets.ViewSet):
     def list(self, request, pk=None):
         queryset = Occurrence.objects.filter(subject__yeargroup__user=request.user).filter(subject__id=pk)
+        serializer = OccurrenceSerializer(queryset, many=True)
+        return Response(serializer.data)
+
+    def search(self, request, ypk=None, year=None, month=None, day=None):
+        queryset = Occurrence.objects.filter(subject__yeargroup__id=ypk)
+        date = datetime.date(int(year), int(month), int(day))
+        queryset = queryset.filter(date=date)
         serializer = OccurrenceSerializer(queryset, many=True)
         return Response(serializer.data)
 
