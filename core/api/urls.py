@@ -13,7 +13,7 @@ urlpatterns = [
     #url(r'^', include(router.urls)),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 
-    path('students/identify', views.StudentViewSet.as_view({'get': 'retrieve'}) ),
+    path('students/identify', views.StudentViewSet.as_view({'get': 'retrieve'}), name='api-identify-student'),
 
     path('yeargroups/', views.YeargroupViewSet.as_view({'get': 'list'}) ),
     path('yeargroups/<int:pk>', views.YeargroupViewSet.as_view({'get': 'retrieve'}) ),

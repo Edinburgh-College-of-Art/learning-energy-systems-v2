@@ -7,16 +7,6 @@
 <h1>Logging in...</h1>
 
 <script type="text/javascript">
-  $(document).ready(function(){
-    var token = $.urlParam('token');
-    if (token){
-      localStorage.setItem("token", token);
-      window.location = "/client/week";
-    } else if (localStorage.getItem("token")) {
-      window.location = "/client/week";
-    } else {
-      window.location = "/admin/login";
-    }
-  });
+  $(document).ready(login);
 </script>
 {% endblock %}

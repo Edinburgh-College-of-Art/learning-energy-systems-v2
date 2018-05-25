@@ -1,9 +1,66 @@
+function storageAvailable(type) {
+  try {
+    var storage = window[type],
+      x = '__storage_test__';
+    storage.setItem(x, x);
+    storage.removeItem(x);
+    return true;
+  }
+  catch(e) {
+    return e instanceof DOMException && (
+      // everything except Firefox
+      e.code === 22 ||
+      // Firefox
+      e.code === 1014 ||
+      // test name field too, because code might not be present
+      // everything except Firefox
+      e.name === 'QuotaExceededError' ||
+      // Firefox
+      e.name === 'NS_ERROR_DOM_QUOTA_REACHED') &&
+      // acknowledge QuotaExceededError only if there's something already stored
+      storage.length !== 0;
+  }
+}
+
+
 $.urlParam = function(name){
   var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
   if (results==null){
     return null;
   } else{
     return decodeURI(results[1]) || 0;
+  }
+};
+
+var readStudent = function(token, successCb, errorCb){
+  var headers = { 'Authorization': 'Token ' + token };
+  $.ajax({ type: 'GET', url: window.identify_url, headers: headers,
+    success: function(data){
+      localStorage.token = token;
+      localStorage.yeargroupId = data.yeargroup.id;
+      successCb(data);
+    },
+    error: function(data){ errorCb(data); },
+    complete: function(r){ console.log(r.responseJSON); }
+  });
+}
+
+var login = function(){
+  var token = $.urlParam('token');
+  if (!token){ token = localStorage.getItem("token"); }
+
+  var successCb = function(){ window.location = "/client/week"; };
+
+  var errorCb = function(){
+    console.log("error");
+    localStorage.removeItem('token');
+    window.location = "/admin/login";
+  };
+
+  if (token) {
+    readStudent(token, successCb, errorCb);
+  } else {
+    errorCb();
   }
 };
 
@@ -56,13 +113,36 @@ var populateWeekView = function(){
   watchWeekSelectors();
 }
 
+var populateSubjects = function(){
+  var headers = { 'Authorization': 'Token ' + token };
+  $.ajax({ type: 'GET', url: window.identify_url, headers: headers,
+    success: function(data){
+      localStorage.token = token;
+      localStorage.yeargroupId = data.yeargroup.id;
+      successCb(data);
+    },
+    error: function(data){ errorCb(data); },
+    complete: function(r){ console.log(r.responseJSON); }
+  });
+}
+
 var populateDayView = function(){
   var day = $.urlParam('day');
-  var weekNo = localStorage.getItem("currentWeek");
-  
+  var isCurrentWeek = localStorage.currentWeek == moment().weeks();
+  var prefix = '';
+
+  if (localStorage.currentWeek == moment().weeks()-1){ prefix = 'Last '; }
+  if (isCurrentWeek && moment().isoWeekday() == day){
+    $('h2').text('Today');
+  } else {
+    $('h2').text(prefix + moment().isoWeekday(day).format('dddd'));
+  }
 }
 
 $(document).ready(function(){
+  if (!storageAvailable('localStorage')){
+    alert("Oh no! Cannot use localStorage feature, please use a different browser!");
+  }
   FastClick.attach(document.body);
   watchHamburger();
 });
