@@ -211,7 +211,7 @@ hr {
   margin: 2vh auto;
 }
 
-/* SUBJECT VIEW */
+/* PREDICTION VIEW */
 
 ul.devices {
   margin-top: 1em;
@@ -244,12 +244,19 @@ ul.devices li div.selector-control {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
   width: 84%;
-  background-color: white;
   height:100%;
-  border: 1px solid gray;
-  border-left: none;
 }
 
 ul.devices li div.selector-control div {
-  border-left: 1px solid gray;
+  border: 2px dashed white;
+  text-align: right;
+  border-right: none;
+}
+
+ul.devices li div.selector-control div:last-child {
+  border-right: 2px dashed white;
+}
+
+ul.devices li div.selector-control div.block.selected {
+  background-color: silver;
 }

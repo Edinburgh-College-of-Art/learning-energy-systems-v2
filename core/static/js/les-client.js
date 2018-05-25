@@ -107,6 +107,30 @@ var watchWeekSelectors = function(){
   });
 }
 
+var watchSelectorControl = function(){
+  var isMouseDown = false, isHighlighted;
+  $("div.selector-control div.block")
+    .mousedown(function () {
+      isMouseDown = true;
+      $(this).toggleClass("selected");
+      isHighlighted = $(this).hasClass("selected");
+      return false; // prevent text selection
+    })
+    .mouseover(function () {
+      if (isMouseDown) {
+        $(this).toggleClass("selected", isHighlighted);
+      }
+    })
+    .bind("selectstart", function () {
+      return false;
+    });
+
+  $(document).mouseup(function () {
+    isMouseDown = false;
+  });
+};
+
+
 var populateWeekView = function(){
   localStorage.setItem("currentWeek", moment().weeks());
   watchWeekDays();
@@ -125,7 +149,7 @@ var populateSubjects = function(selectedDay){
         $('ul.subjects').append(
           '<li id="subject-'+s.id+'">\
           <div class="circle"><span>1</span></div>\
-          <a href="prediction?subject='+s.name+'&occurrence='+o.id+'&date='+selectedDay.format("YYYY/MM/DD")+'">\
+          <a href="prediction?duration='+s.duration+'&subject='+s.name+'&occurrence='+o.id+'&date='+selectedDay.format("YYYY/MM/DD")+'">\
           <span class="title">'+s.name+'</span></a></li>');
       });
     },
@@ -150,16 +174,62 @@ var populateDayView = function(){
   populateSubjects(selectedDay);
 }
 
+var getCurrentPrediction = function(occurrenceId, successCb){
+  var headers = { 'Authorization': 'Token ' + localStorage.token };
+  var url = window.les_base_url + '/api/occurrences/'+occurrenceId+'/user-prediction';
+  $.ajax({ type: 'GET', url: url, headers: headers,
+    success: function(data){ successCb(data) },
+    error: function(data){ console.log("Error"); },
+    complete: function(r){ console.log(r.responseJSON); }
+  });
+}
+
 var populatePredictionView = function(){
   var subject = $.urlParam('subject');
   var occurrenceId = $.urlParam('occurrence');
   var date = $.urlParam('date');
+  var duration = $.urlParam('duration');
   var selectedDay = moment(date, "YYYY/MM/DD");
+  var blockSize = 5;  
+  var blocks = (duration / blockSize);
 
   $('h1').text(subject);
 
-  
+  var i = 0, txt = '';
+  $('div.selector-control').each(function(){
+    for (i=0; i < blocks; i++){
+      if ((i+1) % 3 == 0){ txt = (i+1)*5 } else { txt = '' }
+      $(this).append('<div data-idx="'+i+'" class="block">'+txt+'</div>');
+    }
+  });
+
+  getCurrentPrediction(occurrenceId, function(prediction){
+    var i = 0, e = undefined;
+    if (prediction.id){
+      for (i=0; i < prediction.light.length; i++){
+        if (prediction.light[i] == "1"){
+          e = $('div.selector-control.light div.block')[i];
+          $(e).addClass('selected');
+        }
+        if (prediction.computer[i] == "1"){
+          e = $('div.selector-control.computer div.block')[i];
+          $(e).addClass('selected');
+        }
+        if (prediction.heater[i] == "1"){ 
+          e = $('div.selector-control.heater div.block')[i];
+          $(e).addClass('selected');
+        }
+        if (prediction.projector[i] == "1"){
+          e = $('div.selector-control.projector div.block')[i];
+          $(e).addClass('selected');
+        }
+      }
+    }
+  });
+
+  watchSelectorControl();
 }
+
 
 $(document).ready(function(){
   if (!storageAvailable('localStorage')){

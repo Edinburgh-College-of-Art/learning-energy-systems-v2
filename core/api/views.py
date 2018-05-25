@@ -78,13 +78,23 @@ class OccurrenceViewSet(viewsets.ViewSet):
 
 
 class PredictionViewSet(viewsets.ViewSet):
-    def list(self, request, pk=None):
-        queryset = Prediction.objects.filter(occurrence__id=pk)
+    def retrieve(self, request, opk=None):
+        p = Prediction.objects.filter(user=self.request.user, occurrence__id=opk).first()
+        serializer = PredictionOccurrenceSerializer(p)
+        return Response(serializer.data)
+
+    def update(self, request, opk=None):
+        p = Prediction.objects.filter(user=self.request.user, occurrence__id=opk).first()
+        serializer = PredictionOccurrenceSerializer(p)
+        return Response(serializer.data)
+
+    def list(self, request, opk=None):
+        queryset = Prediction.objects.filter(occurrence__id=opk)
         serializer = PredictionSerializer(queryset, many=True)
         return Response(serializer.data)
 
-    def create(self, request, pk=None):
-        request.data['occurrence'] = pk
+    def create(self, request, opk=None):
+        request.data['occurrence'] = opk
 
         if not request.user.is_authenticated:
             content = {'error': 'unauthorised'}

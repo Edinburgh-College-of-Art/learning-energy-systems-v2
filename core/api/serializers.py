@@ -51,10 +51,17 @@ class StudentSerializer(serializers.ModelSerializer):
         depth = 1
 
 
-class PredictionSerializer(serializers.HyperlinkedModelSerializer):
+class PredictionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Prediction
-        fields = ['light', 'computer', 'heater', 'projector']
+        fields = ['id', 'light', 'computer', 'heater', 'projector']
+
+
+class PredictionOccurrenceSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Prediction
+        fields = ['id', 'light', 'computer', 'heater', 'projector', 'occurrence']
+        depth = 2
 
 
 class CreatePredictionSerializer(serializers.HyperlinkedModelSerializer):

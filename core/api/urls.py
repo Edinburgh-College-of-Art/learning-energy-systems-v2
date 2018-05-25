@@ -27,6 +27,7 @@ urlpatterns = [
 
     url(r'^yeargroups/(?P<ypk>\d+)/occurrences/(?P<year>[0-9]{4})/(?P<month>[0-9]{2})/(?P<day>[0-9]{2})/$', views.OccurrenceViewSet.as_view({'get': 'search'}) ),
     path('subjects/<int:pk>/occurrences', views.OccurrenceViewSet.as_view({'get': 'list'}) ),
- 
-    path('occurrences/<int:pk>/predictions',  views.PredictionViewSet.as_view({'get': 'list', 'post':'create'}) ),
+    
+    path('occurrences/<int:opk>/user-prediction',  views.PredictionViewSet.as_view({'get': 'retrieve', 'put': 'update'}) ),
+    path('occurrences/<int:opk>/predictions',  views.PredictionViewSet.as_view({'get': 'list', 'post':'create'}) ),
 ]
