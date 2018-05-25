@@ -8,4 +8,5 @@ urlpatterns = [
     path('client/day', ClientDayView.as_view(), name='client-day'),
     path('client/week', ClientWeekView.as_view(), name='client-week'),
     path('client/login', ClientLoginView.as_view(), name='client-login'),
+    path('client/prediction', ClientPredictionView.as_view(), name='client-prediction'),
 ]
