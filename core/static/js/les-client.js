@@ -107,7 +107,7 @@ var watchWeekSelectors = function(){
   });
 }
 
-var watchSelectorControl = function(){
+var watchSelectorControl = function(occurrenceId){
   var isMouseDown = false, isHighlighted;
   $("div.selector-control div.block")
     .mousedown(function () {
@@ -127,11 +127,12 @@ var watchSelectorControl = function(){
 
   $(document).mouseup(function(){
     isMouseDown = false;
-    console.log(submitPrediction());
+    submitPrediction(occurrenceId);
   });
 };
 
-var submitPrediction = function(){
+
+var buildPrediction = function(){
   var prediction = { light: "", computer: "", projector: "", heater: "" };
   var detectSelect = function(i,e){
     var device = $(this).parent().attr('data-device');
@@ -150,6 +151,17 @@ var submitPrediction = function(){
   return prediction;
 }
 
+var submitPrediction = function(occurrenceId){
+  var prediction = buildPrediction();
+  var headers = { 'Authorization': 'Token ' + localStorage.token };
+  var url = window.les_base_url + '/api/occurrences/'+occurrenceId+'/user-prediction';
+
+  $.ajax({ type: 'PUT', data: prediction, url: url, headers: headers,
+    success: function(data){ console.log("success"); },
+    error: function(data){},
+    complete: function(r){ console.log(r.responseJSON); }
+  });
+}
 
 var populateWeekView = function(){
   localStorage.setItem("currentWeek", moment().weeks());
@@ -247,7 +259,7 @@ var populatePredictionView = function(){
     }
   });
 
-  watchSelectorControl();
+  watchSelectorControl(occurrenceId);
 }
 
 
