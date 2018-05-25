@@ -32,6 +32,12 @@ class QuestionViewSet(viewsets.ViewSet):
 
 
 class StudentViewSet(viewsets.ViewSet):
+    def retrieve(self, request, pk=None):
+        queryset = Student.objects.all()
+        s = get_object_or_404(queryset, pk=request.user.student.pk)
+        serializer = StudentSerializer(s, context={'request': request})
+        return Response(serializer.data)
+
     def list(self, request, pk=None):
         queryset = Student.objects.filter(yeargroup__user=request.user).filter(yeargroup__id=pk)
         serializer = StudentSerializer(queryset, many=True)

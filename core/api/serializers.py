@@ -5,25 +5,7 @@ from rest_framework import serializers
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = User
-        fields = ['url', 'username', 'email', 'groups']
-
-
-class YeargroupSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = Yeargroup
-        fields = ['id', 'name']
-
-
-class QuestionSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = Question
-        fields = ['id', 'body', 'answer']
-
-
-class StudentSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = Student
-        fields = ['name']
+        fields = ['url', 'username', 'email']
 
 
 class OccurrenceSerializer(serializers.HyperlinkedModelSerializer):
@@ -38,6 +20,30 @@ class SubjectSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Subject
         fields = ['id', 'name', 'duration', 'schedule']
+
+
+class QuestionSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Question
+        fields = ['id', 'body', 'answer']
+
+
+class YeargroupSerializer(serializers.ModelSerializer):
+    subjects = SubjectSerializer(many=True, source='subject_set')
+
+    class Meta:
+        model = Yeargroup
+        fields = ['id', 'name', 'subjects']
+        depth = 1
+
+
+class StudentSerializer(serializers.ModelSerializer):
+    yeargroup = YeargroupSerializer()
+
+    class Meta:
+        model = Student
+        fields = ['id', 'yeargroup']
+        depth = 1
 
 
 class PredictionSerializer(serializers.HyperlinkedModelSerializer):
