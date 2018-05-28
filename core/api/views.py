@@ -70,10 +70,16 @@ class OccurrenceViewSet(viewsets.ViewSet):
         serializer = OccurrenceSerializer(queryset, many=True)
         return Response(serializer.data)
 
-    def search(self, request, ypk=None, year=None, month=None, day=None):
+    def search_day(self, request, ypk=None, year=None, month=None, day=None):
         queryset = Occurrence.objects.filter(subject__yeargroup__id=ypk)
         date = datetime.date(int(year), int(month), int(day))
         queryset = queryset.filter(date=date)
+        serializer = OccurrenceSerializer(queryset, many=True)
+        return Response(serializer.data)
+
+    def search_week(self, request, ypk=None, year=None, week=None):
+        queryset = Occurrence.objects.filter(subject__yeargroup__id=ypk)
+        queryset = queryset.filter(date__year=int(year)).filter(date__week=int(week))
         serializer = OccurrenceSerializer(queryset, many=True)
         return Response(serializer.data)
 

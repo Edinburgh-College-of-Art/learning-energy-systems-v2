@@ -41,6 +41,20 @@ var styleBlocks = function(el){
   $(el).children('div.block.selected').addClass('pct-'+key);
 };
 
+var getCurrentWeek = function(){
+  return moment(localStorage.currentTime).weeks();
+}
+
+var getOccurrencesForWeek = function(year, week, successCb){
+  var headers = { 'Authorization': 'Token ' + localStorage.token };
+  var url = window.les_base_url + '/api/yeargroups/'+localStorage.yeargroupId+'/occurrences/'+year+'/week/'+week;
+
+  $.ajax({ type: 'GET', url: url, headers: headers,
+    success: function(data){},
+    error: function(data){ errorCb(data); },
+    complete: function(r){ console.log(r.responseJSON); }
+  });
+}
 
 var readStudent = function(token, successCb, errorCb){
   var headers = { 'Authorization': 'Token ' + token };
@@ -58,7 +72,7 @@ var readStudent = function(token, successCb, errorCb){
 
 var login = function(){
   var token = $.urlParam('token');
-  if (!token){ token = localStorage.getItem("token"); }
+  if (!token){ token = localStorage.token; }
 
   var successCb = function(){ window.location = "/client/week"; };
 
@@ -84,7 +98,7 @@ var watchHamburger = function(){
 }
 
 var watchWeekDays = function(){
-  var currentWeek = localStorage.getItem("currentWeek");
+  var currentWeek = getCurrentWeek();
   var previousWeekSelected = (currentWeek < moment().weeks());
   $('.weekdays a').each(function(i,e){
     $(e).attr('class', '');
@@ -99,10 +113,11 @@ var watchWeekDays = function(){
 }
 
 var watchWeekSelectors = function(){
+  var oneWeekAgo = moment().weeks(moment().weeks()-1).format();
   $('.prev-week').off().click(function(){
     if (!$(this).hasClass('disabled')){
       $('span.week-text').text('Last week');
-      localStorage.setItem("currentWeek", moment().weeks()-1);
+      localStorage.currentTime = oneWeekAgo;
       watchWeekDays();
       $('.next-week, .prev-week').toggleClass('disabled');
     }
@@ -111,7 +126,7 @@ var watchWeekSelectors = function(){
   $('.next-week').off().click(function(){
     if (!$(this).hasClass('disabled')){
       $('span.week-text').text('This week');
-      localStorage.setItem("currentWeek", moment().weeks());
+      localStorage.currentTime = moment().format();
       watchWeekDays();
       $('.next-week, .prev-week').toggleClass('disabled');
     }
@@ -178,9 +193,13 @@ var submitPrediction = function(occurrenceId){
 }
 
 var populateWeekView = function(){
-  localStorage.setItem("currentWeek", moment().weeks());
+  localStorage.setItem("currentTime", moment().format());
   watchWeekDays();
   watchWeekSelectors();
+
+  //get occurrences for all days in week
+  //get predictions for all days in week
+  //calculate on pct for each devices
 }
 
 var populateSubjects = function(selectedDay){
@@ -206,17 +225,17 @@ var populateSubjects = function(selectedDay){
 
 var populateDayView = function(){
   var day = $.urlParam('day');
-  var isCurrentWeek = localStorage.currentWeek == moment().weeks();
+  var isCurrentWeek = moment(localStorage.currentTime).weeks() == moment().weeks();
   var prefix = '';
 
-  if (localStorage.currentWeek == moment().weeks()-1){ prefix = 'Last '; }
+  if (getCurrentWeek() == moment().weeks()-1){ prefix = 'Last '; }
   if (isCurrentWeek && moment().isoWeekday() == day){
     $('h2').text('Today');
   } else {
     $('h2').text(prefix + moment().isoWeekday(day).format('dddd'));
   }
 
-  var selectedDay = moment().weeks(localStorage.currentWeek).isoWeekday(day);
+  var selectedDay = moment().weeks(getCurrentWeek()).isoWeekday(day);
   populateSubjects(selectedDay);
 }
 
@@ -283,7 +302,7 @@ var populatePredictionView = function(){
 
 var watchViewToday = function(){
   $("#view-today").click(function(){
-    localStorage.currentWeek = moment().weeks();
+    localStorage.currentTime = moment().format();
     window.location = "/client/day?day="+moment().isoWeekday();
   });
 }

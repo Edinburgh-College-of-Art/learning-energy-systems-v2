@@ -21,6 +21,7 @@ class Student(models.Model):
   def __repr__ (self):
     return '<Student %s %s>' % (self.id, self.user,)
 
+
 class Subject(models.Model):
   yeargroup = models.ForeignKey(Yeargroup, on_delete=models.CASCADE)
   name = models.CharField(max_length=70)
