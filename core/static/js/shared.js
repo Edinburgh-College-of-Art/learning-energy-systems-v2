@@ -1,0 +1,17 @@
+window.findClosest = function (x, arr) {
+  var indexArr = arr.map(function(k) { return Math.abs(k - x) })
+  var min = Math.min.apply(Math, indexArr)
+  return arr[indexArr.indexOf(min)]
+}
+
+window.gradient = {
+  100: [173, 40, 82],
+  88: [234, 44,  90],
+  75: [233, 126, 103],
+  63: [243, 207, 94],
+  50: [167, 209, 100],
+  38: [1,   155, 115],
+  25: [2,   96,  122],
+  13: [10,  55,  109],
+  0:  [26,  22,  100]
+};

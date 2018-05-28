@@ -257,6 +257,19 @@ ul.devices li div.selector-control div:last-child {
   border-right: 2px dashed white;
 }
 
-ul.devices li div.selector-control div.block.selected {
-  background-color: silver;
+div.selector-control div.block.selected {
+  background-color: gray;
 }
+
+
+/* Following colours should match shared.js gradient */
+
+div.selector-control div.block.selected.pct-0 { background-color: rgb(26,22,100) }
+div.selector-control div.block.selected.pct-13 { background-color: rgb(10,55,109) }
+div.selector-control div.block.selected.pct-25 { background-color: rgb(2,96,122) }
+div.selector-control div.block.selected.pct-38 { background-color: rgb(1,155,115) }
+div.selector-control div.block.selected.pct-50 { background-color: rgb(167,209,100) }
+div.selector-control div.block.selected.pct-63 { background-color: rgb(243,207,94) }
+div.selector-control div.block.selected.pct-75 { background-color: rgb(233,126,103) }
+div.selector-control div.block.selected.pct-88 { background-color: rgb(234,44,90) }
+div.selector-control div.block.selected.pct-100 { background-color: rgb(173,40,82) }

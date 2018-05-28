@@ -32,6 +32,16 @@ $.urlParam = function(name){
   }
 };
 
+var styleBlocks = function(el){
+  var all = $(el).children('div.block').length
+  var selected = $(el).children('div.block.selected').length
+  var pct = (selected / all) * 100;
+  var key = findClosest(pct, Object.keys(gradient));
+  $(el).children('div.block').removeClass('pct-0 pct-13 pct-25 pct-38 pct-50 pct-63 pct-75 pct-88 pct-100');
+  $(el).children('div.block.selected').addClass('pct-'+key);
+};
+
+
 var readStudent = function(token, successCb, errorCb){
   var headers = { 'Authorization': 'Token ' + token };
   $.ajax({ type: 'GET', url: window.identify_url, headers: headers,
@@ -108,9 +118,10 @@ var watchWeekSelectors = function(){
 }
 
 var watchSelectorControl = function(occurrenceId){
-  var isMouseDown = false, isHighlighted;
+  var isMouseDown = false, isHighlighted, controlElement;
   $("div.selector-control div.block")
     .mousedown(function () {
+      controlElement = $(this).parent();
       isMouseDown = true;
       $(this).toggleClass("selected");
       isHighlighted = $(this).hasClass("selected");
@@ -127,6 +138,7 @@ var watchSelectorControl = function(occurrenceId){
 
   $(document).mouseup(function(){
     isMouseDown = false;
+    styleBlocks(controlElement);
     submitPrediction(occurrenceId);
   });
 };
@@ -258,6 +270,10 @@ var populatePredictionView = function(){
         }
       }
     }
+    styleBlocks('div.selector-control.light');
+    styleBlocks('div.selector-control.projector');
+    styleBlocks('div.selector-control.heater');
+    styleBlocks('div.selector-control.computer');
   });
 
   watchSelectorControl(occurrenceId);
