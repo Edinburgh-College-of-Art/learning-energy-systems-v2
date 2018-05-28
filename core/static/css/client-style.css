@@ -127,9 +127,9 @@ div.weekdays a.selected {
 }
 
 div.devices {
-  display: grid;
+  /*display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  grid-gap: 0vw;
+  grid-gap: 0vw;*/
   width: 90%;
   height: 60vh;
   margin: 0 auto;
