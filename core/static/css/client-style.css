@@ -100,9 +100,8 @@ div.weekdays {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
   grid-gap: 0vw;
-  width: 90%;
+  width: 80%;
   margin: 0 auto;
-  margin-bottom: 1em;
 }
 
 div.weekdays a {
@@ -185,7 +184,13 @@ div.devices #total a div span.time { font-size: 4.4vh; }
 div.devices #total a div span.units { font-size: 0.9em; }
 
 div.devices a img {
-  height: 25vh;
+  max-width: 31vh;
+}
+
+@media only screen and (max-width: 720px) {
+  div.devices a img {
+    max-width: 100%;
+  }
 }
 
 ul.subjects {
@@ -248,7 +253,7 @@ hr {
   width: 98%;
   display: block;
   background-color: rgba(255,255,255,0.7);
-  margin: 2vh auto;
+  margin: 1vh auto;
 }
 
 /* PREDICTION VIEW */

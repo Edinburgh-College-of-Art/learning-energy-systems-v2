@@ -281,7 +281,6 @@ div.overlay {
 
 @media only screen and (min-width: 60em) { /* 960px */
   .container {
-    width: 75%;
-    max-width: 60rem;
+    width: 90%;
   }
 }
