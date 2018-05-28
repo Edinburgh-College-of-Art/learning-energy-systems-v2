@@ -55,13 +55,23 @@ class StudentSerializer(serializers.ModelSerializer):
 class PredictionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Prediction
-        fields = ['id', 'light', 'computer', 'heater', 'projector']
+        fields = ['id', 'light', 'computer', 'heater', 'projector', 'user']
 
 
 class PredictionOccurrenceSerializer(serializers.ModelSerializer):
     class Meta:
         model = Prediction
         fields = ['id', 'light', 'computer', 'heater', 'projector', 'occurrence']
+        depth = 2
+
+
+class OccurrencePredictionSerializer(serializers.ModelSerializer):
+    subject = BasicSubjectSerializer()
+    predictions = PredictionSerializer(many=True, source='prediction_set')
+
+    class Meta:
+        model  = Occurrence
+        fields = ['id', 'date', 'subject', 'predictions']
         depth = 2
 
 

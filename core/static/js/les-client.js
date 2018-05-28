@@ -45,7 +45,7 @@ var getCurrentWeek = function(){
   return moment(localStorage.currentTime).weeks();
 }
 
-var getOccurrencesForWeek = function(year, week, successCb){
+var getOccurrencesForWeek = function(year, week, successCb, errorCb){
   var headers = { 'Authorization': 'Token ' + localStorage.token };
   var url = window.les_base_url + '/api/yeargroups/'+localStorage.yeargroupId+'/occurrences/'+year+'/week/'+week;
 

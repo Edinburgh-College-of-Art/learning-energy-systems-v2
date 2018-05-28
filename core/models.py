@@ -43,5 +43,36 @@ class Prediction(models.Model):
   heater    = models.CharField(max_length=24)
   projector = models.CharField(max_length=24)
 
+  def device_use(self, device):
+    prediction = getattr(self, device)
+    possible = len(prediction)
+    count = prediction.count("1")
+    return count / possible * 100
+
+  def device_duration(self, device):
+    prediction = getattr(self, device)
+    return prediction.count("1") * 5
+
+  def mean(numbers):
+    return float(sum(numbers)) / max(len(numbers), 1)
+
+  def average_use(queryset):
+    mean = Prediction.mean
+    l = list(map(lambda x: x.device_use('light'), queryset))
+    c = list(map(lambda x: x.device_use('computer'), queryset))
+    p = list(map(lambda x: x.device_use('projector'), queryset))
+    h = list(map(lambda x: x.device_use('heater'), queryset))
+    return { 'light': mean(l), 'computer': mean(c),
+      'projector': mean(p), 'heater': mean(h) }
+
+  def average_duration(queryset):
+    mean = Prediction.mean
+    l = list(map(lambda x: x.device_duration('light'), queryset))
+    c = list(map(lambda x: x.device_duration('computer'), queryset))
+    p = list(map(lambda x: x.device_duration('projector'), queryset))
+    h = list(map(lambda x: x.device_duration('heater'), queryset))
+    return { 'light': mean(l), 'computer': mean(c),
+      'projector': mean(p), 'heater': mean(h) }
+
   def __repr__ (self):
     return '<Prediction %s %s>' % (self.id, self.user,)
