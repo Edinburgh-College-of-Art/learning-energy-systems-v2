@@ -238,6 +238,7 @@ var populatePredictionView = function(){
   var blockSize = 5;  
   var blocks = (duration / blockSize);
 
+  $('body').addClass('prediction');
   $('h1').text(subject);
 
   var i = 0, txt = '';
@@ -279,11 +280,18 @@ var populatePredictionView = function(){
   watchSelectorControl(occurrenceId);
 }
 
+var watchViewToday = function(){
+  $("#view-today").click(function(){
+    localStorage.currentWeek = moment().weeks();
+    window.location = "/client/day?day="+moment().isoWeekday();
+  });
+}
 
 $(document).ready(function(){
   if (!storageAvailable('localStorage')){
     alert("Oh no! Cannot use localStorage feature, please use a different browser!");
   }
   FastClick.attach(document.body);
+  watchViewToday();
   watchHamburger();
 });
