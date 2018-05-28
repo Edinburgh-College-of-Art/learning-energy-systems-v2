@@ -2,10 +2,10 @@ from django.contrib.auth.models import User
 from core.models import Yeargroup, Question, Student, Subject, Occurrence, Prediction
 from rest_framework import serializers
 
-class UserSerializer(serializers.HyperlinkedModelSerializer):
+class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['url', 'username', 'email']
+        fields = ['id', 'username']
 
 
 class BasicSubjectSerializer(serializers.ModelSerializer):
@@ -45,9 +45,10 @@ class YeargroupSerializer(serializers.ModelSerializer):
 
 class StudentSerializer(serializers.ModelSerializer):
     yeargroup = YeargroupSerializer()
+    user = UserSerializer()
     class Meta:
         model = Student
-        fields = ['id', 'yeargroup']
+        fields = ['id', 'yeargroup', 'user']
         depth = 1
 
 

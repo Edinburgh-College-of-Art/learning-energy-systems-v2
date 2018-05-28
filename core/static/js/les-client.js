@@ -46,6 +46,7 @@ var readStudent = function(token, successCb, errorCb){
   var headers = { 'Authorization': 'Token ' + token };
   $.ajax({ type: 'GET', url: window.identify_url, headers: headers,
     success: function(data){
+      localStorage.username = data.user.username;
       localStorage.token = token;
       localStorage.yeargroupId = data.yeargroup.id;
       successCb(data);
@@ -292,6 +293,7 @@ $(document).ready(function(){
     alert("Oh no! Cannot use localStorage feature, please use a different browser!");
   }
   FastClick.attach(document.body);
+  $('nav h3.username span').text(localStorage.username);
   watchViewToday();
   watchHamburger();
 });
