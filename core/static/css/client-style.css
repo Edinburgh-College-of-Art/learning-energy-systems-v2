@@ -126,10 +126,8 @@ div.weekdays a.selected {
   background-color: rgba(255,255,255,0.2); 
 }
 
+/*
 div.devices {
-  /*display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-gap: 0vw;*/
   width: 90%;
   height: 60vh;
   margin: 0 auto;
@@ -155,6 +153,36 @@ div.devices #total a {
   width: 50px;
   height: 50px;
 }
+*/
+
+div.devices a {
+  text-align: center;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+div.devices #total a {
+  position: absolute;
+  left: 45%;
+  width: 9vh;
+  background-color: white;
+  min-height: 3em;
+  min-width: 3em;
+  height: 9vh;
+  top: -4.5vh;
+  border-radius: 100%;
+  color: black;
+  vertical-align: bottom;
+}
+
+div.devices #total a div {
+  top: 0.2vh;
+  position: relative;
+}
+
+div.devices #total a div span.time { font-size: 4.4vh; }
+div.devices #total a div span.units { font-size: 0.9em; }
 
 div.devices a img {
   height: 25vh;
