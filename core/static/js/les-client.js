@@ -288,6 +288,13 @@ var watchViewToday = function(){
   });
 }
 
+var watchLogOut = function(){
+  $("#log-out").click(function(){
+    localStorage.removeItem('token');
+    window.location = "/admin/login";
+  });
+}
+
 $(document).ready(function(){
   if (!storageAvailable('localStorage')){
     alert("Oh no! Cannot use localStorage feature, please use a different browser!");
@@ -295,5 +302,6 @@ $(document).ready(function(){
   FastClick.attach(document.body);
   $('nav h3.username span').text(localStorage.username);
   watchViewToday();
+  watchLogOut();
   watchHamburger();
 });
