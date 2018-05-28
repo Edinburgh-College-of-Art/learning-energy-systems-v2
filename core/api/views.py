@@ -2,8 +2,9 @@ from django.contrib.auth.models import User, Group
 from django.shortcuts import get_object_or_404
 from core.models import *
 from core.api.serializers import *
-from rest_framework import viewsets, status
+from rest_framework import viewsets, status, authentication
 from rest_framework.response import Response
+from rest_framework.views import APIView
 import datetime
 import logging
 
@@ -119,3 +120,27 @@ class PredictionViewSet(viewsets.ViewSet):
             create_serializer.save()
             return Response(create_serializer.data, status=status.HTTP_201_CREATED)
         return Response(create_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class UsageView(APIView):
+    def get(self, request, ypk=None):
+        subject = request.GET.get('subject', default=None)
+        year = int(request.GET.get('year', default=0))
+        month = int(request.GET.get('month', default=0))
+        week = int(request.GET.get('week', default=0))
+
+        queryset = Prediction.objects.filter(occurrence__subject__yeargroup_id=ypk)
+
+        if subject:
+            queryset = queryset.filter(occurrence__subject_id=subject)
+        if year:
+            queryset = queryset.filter(occurrence__date__year=year)
+        if month:
+            queryset = queryset.filter(occurrence__date__month=month)
+        if week:
+            queryset = queryset.filter(occurrence__date__week=week)
+
+        return Response({ 
+                'usage': Prediction.average_use(queryset), 
+                'prediction_count': queryset.count()
+            })
