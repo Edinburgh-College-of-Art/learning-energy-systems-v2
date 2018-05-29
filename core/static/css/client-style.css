@@ -135,20 +135,20 @@ div.devices a {
 
 div.devices #total a {
   position: absolute;
-  left: 45%;
-  width: 9vh;
   background-color: white;
   min-height: 3em;
   min-width: 3em;
-  height: 9vh;
   top: -4.5vh;
   border-radius: 100%;
   color: black;
   vertical-align: bottom;
+  left: 43%;
+  width: 11vh;
+  height: 11vh;
 }
 
 div.devices #total a div {
-  top: 0.2vh;
+  top: 0.5vh;
   position: relative;
 }
 
