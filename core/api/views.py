@@ -141,6 +141,7 @@ class UsageView(APIView):
             queryset = queryset.filter(occurrence__date__week=week)
 
         return Response({ 
-                'usage': Prediction.average_use(queryset), 
+                'usage': Prediction.average_use(queryset),
+                'duration': Prediction.average_duration(queryset),
                 'prediction_count': queryset.count()
             })
