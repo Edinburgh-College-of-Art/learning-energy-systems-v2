@@ -222,7 +222,8 @@ var styleDeviceIcons = function(){
       duration = data.total_duration;
       units = 'mins';
     }
-
+    var backg = Math.round(10 * (data.average_pct/100));
+    $('body').css('background-image', 'url(/static/img/backgrounds/'+backg*2+'.png)');
     $('#total a span.time').text(duration);
     $('#total a span.units').text(units);
   });

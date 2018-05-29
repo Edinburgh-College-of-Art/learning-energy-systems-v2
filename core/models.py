@@ -65,6 +65,11 @@ class Prediction(models.Model):
     return { 'light': mean(l), 'computer': mean(c),
       'projector': mean(p), 'heater': mean(h) }
 
+  def average_pct(queryset):
+    averages = Prediction.average_use(queryset)
+    total = sum([averages['light'], averages['heater'], averages['computer'], averages['computer']])
+    return total / 4
+
   def average_duration(queryset):
     mean = Prediction.mean
     l = list(map(lambda x: x.device_duration('light'), queryset))
