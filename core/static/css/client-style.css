@@ -291,3 +291,18 @@ div.selector-control div.block.selected.pct-63 { background-color: rgb(243,207,9
 div.selector-control div.block.selected.pct-75 { background-color: rgb(233,126,103) }
 div.selector-control div.block.selected.pct-88 { background-color: rgb(234,44,90) }
 div.selector-control div.block.selected.pct-100 { background-color: rgb(173,40,82) }
+
+#toast {
+  display: none;
+}
+#toast div {
+  margin: 0 auto;
+  background-color: gray;
+  padding: 1em;
+  width: auto;
+  display: inline-block;
+  position: relative;
+  left: 42vw;
+  border-radius: 0.2em;
+  box-shadow: 0px 0px 5px grey;
+}

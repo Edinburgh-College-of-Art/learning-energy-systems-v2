@@ -149,6 +149,13 @@ var watchWeekSelectors = function(){
   });
 }
 
+var showToast = function(controlElement){
+  var mins = $(controlElement).children('div.selected').length * 5;
+  $('#toast span').text(mins);
+  $('#toast').fadeIn();
+  $('#toast').delay(1000).fadeOut();
+}
+
 var watchSelectorControl = function(occurrenceId){
   var isMouseDown = false, isHighlighted, controlElement;
   $("div.selector-control div.block")
@@ -171,7 +178,9 @@ var watchSelectorControl = function(occurrenceId){
   $(document).mouseup(function(){
     isMouseDown = false;
     styleBlocks(controlElement);
-    submitPrediction(occurrenceId);
+    var prediction = buildPrediction();
+    submitPrediction(occurrenceId, prediction);
+    showToast(controlElement);
   });
 };
 
@@ -195,8 +204,7 @@ var buildPrediction = function(){
   return prediction;
 }
 
-var submitPrediction = function(occurrenceId){
-  var prediction = buildPrediction();
+var submitPrediction = function(occurrenceId, prediction){
   var headers = { 'Authorization': 'Token ' + localStorage.token };
   var url = window.les_base_url + '/api/occurrences/'+occurrenceId+'/user-prediction';
 
