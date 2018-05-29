@@ -74,5 +74,21 @@ class Prediction(models.Model):
     return { 'light': mean(l), 'computer': mean(c),
       'projector': mean(p), 'heater': mean(h) }
 
+  def total_duration_for(queryset, device):
+    d = list(map(lambda x: x.device_duration(device), queryset))
+    return sum(d)
+
+  def total_durations(queryset):
+    return {
+      'light': Prediction.total_duration_for(queryset,'light'),
+      'projector': Prediction.total_duration_for(queryset,'computer'),
+      'computer': Prediction.total_duration_for(queryset,'projector'),
+      'heater': Prediction.total_duration_for(queryset,'heater')
+    }
+
+  def total_duration(queryset):
+    durations = Prediction.total_durations(queryset)
+    return (durations['light'] + durations['computer'] + durations['projector'] + durations['heater'])
+
   def __repr__ (self):
     return '<Prediction %s %s>' % (self.id, self.user,)
