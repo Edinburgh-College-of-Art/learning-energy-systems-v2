@@ -7,7 +7,8 @@ class Yeargroup(models.Model):
   name = models.CharField(max_length=70)
   def __repr__ (self):
     return '<Yeargroup %s %s>' % (self.id, self.name,)
-
+  def __str__ (self):
+    return '(id:%s) %s' % (self.id, self.name,)
 
 class Question(models.Model):
   yeargroup = models.ForeignKey(Yeargroup, on_delete=models.CASCADE)
@@ -28,12 +29,14 @@ class Subject(models.Model):
   duration = models.IntegerField(default=45)
   def __repr__ (self):
     return '<Subject %s %s>' % (self.id, self.name,)
-
+  def __str__ (self):
+    return '%s: %s (%s mins)' % (self.yeargroup.name, self.name, self.duration)
 
 class Occurrence(models.Model):
   subject = models.ForeignKey(Subject, on_delete=models.CASCADE)
   date = models.DateField()
-
+  def __str__ (self):
+    return '%s (%s)' % (self.subject.name, self.date,)
 
 class Prediction(models.Model):
   user    = models.ForeignKey(User, on_delete=models.CASCADE)

@@ -224,7 +224,7 @@ var styleDeviceIcons = function(){
     styleDeviceIcon('heater', data);
     // move total towards middle
     $('#total a').css('top', ((c.top + p.top)/4));
-    var duration = data.total_duration / 60;
+    var duration = Math.round(data.total_duration / 60);
     var units = 'hours';
     if (duration < 1){
       duration = data.total_duration;
