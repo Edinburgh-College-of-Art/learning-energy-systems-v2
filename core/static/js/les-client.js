@@ -45,6 +45,10 @@ var getCurrentWeek = function(){
   return moment(localStorage.currentTime).weeks();
 }
 
+var getCurrentYear = function(){
+  return moment(localStorage.currentTime).year();
+}
+
 var getOccurrencesForWeek = function(year, week, successCb, errorCb){
   var headers = { 'Authorization': 'Token ' + localStorage.token };
   var url = window.les_base_url + '/api/yeargroups/'+localStorage.yeargroupId+'/occurrences/'+year+'/week/'+week;
@@ -52,6 +56,16 @@ var getOccurrencesForWeek = function(year, week, successCb, errorCb){
   $.ajax({ type: 'GET', url: url, headers: headers,
     success: function(data){},
     error: function(data){ errorCb(data); },
+    complete: function(r){ console.log(r.responseJSON); }
+  });
+}
+
+var getUsageForWeek = function(year, week, successCb){
+  var headers = { 'Authorization': 'Token ' + localStorage.token };
+  var url = window.les_base_url + '/api/yeargroups/'+localStorage.yeargroupId+'/usage?year='+year+'&week='+week;
+
+  $.ajax({ type: 'GET', url: url, headers: headers,
+    success: function(data){ successCb(data); },
     complete: function(r){ console.log(r.responseJSON); }
   });
 }
@@ -119,6 +133,7 @@ var watchWeekSelectors = function(){
       $('span.week-text').text('Last week');
       localStorage.currentTime = oneWeekAgo;
       watchWeekDays();
+      styleDeviceIcons();
       $('.next-week, .prev-week').toggleClass('disabled');
     }
   });
@@ -128,6 +143,7 @@ var watchWeekSelectors = function(){
       $('span.week-text').text('This week');
       localStorage.currentTime = moment().format();
       watchWeekDays();
+      styleDeviceIcons();
       $('.next-week, .prev-week').toggleClass('disabled');
     }
   });
@@ -192,14 +208,42 @@ var submitPrediction = function(occurrenceId){
   });
 }
 
+var styleDeviceIcons = function(){
+  getUsageForWeek(getCurrentYear(), getCurrentWeek(), function(data){
+    styleDeviceIcon('light', data);
+    var c = styleDeviceIcon('computer', data);
+    var p = styleDeviceIcon('projector', data);
+    styleDeviceIcon('heater', data);
+    // move total towards middle
+    $('#total a').css('top', ((c.top + p.top)/4));
+    var duration = data.total_duration / 60;
+    var units = 'hours';
+    if (duration < 1){
+      duration = data.total_duration;
+      units = 'mins';
+    }
+
+    $('#total a span.time').text(duration);
+    $('#total a span.units').text(units);
+  });
+}
+
+var styleDeviceIcon = function(device, data){
+  $('#'+device+' img').css('height', '');
+  $('#'+device+' a').css('top', '');
+  var height = $('#'+device+' img').height();
+  var newHeight = height - (height/2) + ((height/2) * (data.average_use[device]/100));
+  var top = (1 - data.average_use[device]/100) * (newHeight/2);
+  $('#'+device+' img').height(newHeight);
+  $('#'+device+' a').css('top', top);
+  return { new_height: newHeight, top: top };
+}
+
 var populateWeekView = function(){
   localStorage.setItem("currentTime", moment().format());
   watchWeekDays();
   watchWeekSelectors();
-
-  //get occurrences for all days in week
-  //get predictions for all days in week
-  //calculate on pct for each devices
+  styleDeviceIcons();
 }
 
 var populateSubjects = function(selectedDay){

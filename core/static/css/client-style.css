@@ -125,36 +125,8 @@ div.weekdays a.selected {
   background-color: rgba(255,255,255,0.2); 
 }
 
-/*
-div.devices {
-  width: 90%;
-  height: 60vh;
-  margin: 0 auto;
-  margin-top: 4vh;
-}
-
 div.devices a {
   position: relative;
-  text-align: center;
-  display: block;
-  border-radius: 100%;
-  font-size: 2.4em;
-  margin: 0 auto;
-  padding: 0.1vw;
-  color: #333;
-  width:100%;
-  
-}
-
-div.devices #total a {
-  background: white;
-  margin: 0 auto;
-  width: 50px;
-  height: 50px;
-}
-*/
-
-div.devices a {
   text-align: center;
   display: block;
   margin-left: auto;
