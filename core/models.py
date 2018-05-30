@@ -21,6 +21,8 @@ class Student(models.Model):
   yeargroup = models.ForeignKey(Yeargroup, on_delete=models.CASCADE)
   def __repr__ (self):
     return '<Student %s %s>' % (self.id, self.user,)
+  def __str__ (self):
+    return '%s (%s)' % (self.user.username, self.yeargroup.name,)
 
 
 class Subject(models.Model):
