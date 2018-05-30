@@ -5,71 +5,11 @@
   <link rel="stylesheet" href="/static/css/dash-style.css" />
 {% endblock %}
 
+{% block navcontent %}
+  {% include 'partials/filters.html' %}
+{% endblock navcontent %}
+
 {% block body %}
-<nav id="header" class="full-width">
-  <div id="" class="">
-    <span class="helper"></span>
-    <img class="logo" src="./static/img/logo-large.png" alt="Learning Energy Systems Logo" height="100px"/>
-
-    <div class="styled-select slate">
-    <select id="selectSubject">
-      <option>All Subjects</option>
-      <option>Maths</option>
-      <option>English</option>
-    </select>
-    </div>
-
-    <div class="styled-select slate">
-    <select id="selectMonth">
-      <option>All Months</option>
-      <option>January</option>
-      <option>February</option>
-      <option>March</option>
-      <option>April</option>
-      <option>May</option>
-      <option>June</option>
-      <option>July</option>
-      <option>August</option>
-      <option>September</option>
-      <option>October</option>
-      <option>November</option>
-      <option>December</option>
-    </select>
-    </div>
-
-    <div class="styled-select slate">
-    <select id="selectWeek">
-      <option>All Weeks</option>
-      <option>Week 1</option>
-      <option>Week 2</option>
-      <option>Week 3</option>
-      <option>Week 4</option>
-    </select>
-    </div>
-
-    <div class="styled-select slate">
-    <select id="selectDay">
-      <option>All Days</option>
-      <option>Monday</option>
-      <option>Tuesday</option>
-      <option>Wednesday</option>
-      <option>Thursday</option>
-      <option>Friday</option>
-    </select>
-    </div>
-
-    <!--
-    <label for="show_total_check" id="show-total-label">Show Total Energy Use</label>
-    <input class="checkbox" type="checkbox" name="show_total_check" id="show_total_check" value="show_total" /> -->
-    <div class="hamburger toggle-overlay-menu">
-      <div class="bar1"></div>
-      <div class="bar2"></div>
-      <div class="bar3"></div>
-    </div>
-  </div>
-
-  
-</nav>
 
 <div class="grayBg">
 <div class="mainCenter">

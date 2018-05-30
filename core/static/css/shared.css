@@ -96,6 +96,7 @@ nav#header label { color:#8C8080; margin:0px 10px; }
 nav div.hamburger { 
   z-index: 2000000001;
   position: relative;
+  top: 4vh;
 }
 
 .bar1, .bar2, .bar3 {

@@ -29,18 +29,13 @@ h3 {
   clear:both;
 }
 
-nav div.hamburger { 
-  z-index: 2000000001;
-  position: relative;
-  right: -8vw;
-  top: 2px;
-}
-
 /* STRUCTURE */
 
 .styled-select {
+  top: 4vh;
+  position: relative;
   overflow: hidden;
-  width: 14%;
+  width: 19%;
   display: inline-block;
   background: url('../img/arrow_select.png') no-repeat right center;
   height: 34px;
