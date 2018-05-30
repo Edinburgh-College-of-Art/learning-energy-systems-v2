@@ -1,304 +1,287 @@
-<!doctype html>
-<html lang='en'>
-<meta charset='utf-8'>
-<head>
-  <title></title>
-  <!--[if lt IE 9]>
-  <script src='http://html5shiv.googlecode.com/svn/trunk/html5.js'></script>
-  <![endif]-->
-  <link rel="stylesheet" href="./static/css/simple-grid.min.css" />
-  <link rel="stylesheet" href="./static/css/shared.css" />
-  <link rel="stylesheet" href="./static/css/dash-style.css" />
-  <link rel="stylesheet" href="./static/css/jquery-ui.css" />
+{% extends 'base_template.html' %}
+{% load static %}
 
-  <script src='./static/js/moment.js'></script>
-  <script src='./static/js/jquery.min.js'></script>
-  <script src='./static/js/spin.js'></script>
-  <script src='./static/js/jquery-ui.js'></script>
-  <script src="./static/js/shared.js"></script>
-</head>
-<body class="">
-  <nav id="header" class="full-width">
-    <div id="" class="">
-      <span class="helper"></span>
-      <img class="logo" src="./static/img/logo-large.png" alt="Learning Energy Systems Logo" height="100px"/>
+{% block body %}
+<nav id="header" class="full-width">
+  <div id="" class="">
+    <span class="helper"></span>
+    <img class="logo" src="./static/img/logo-large.png" alt="Learning Energy Systems Logo" height="100px"/>
+
+    <div class="styled-select slate">
+    <select id="selectSubject">
+      <option value="0">All Subjects</option>
+      <option value="1">Maths</option>
+      <option value="2">English</option>
+    </select>
+    </div>
+
+    <div class="styled-select slate">
+    <select id="selectMonth">
+      <option value="0">All Months</option>
+      <option value="1">January</option>
+      <option value="2">February</option>
+      <option value="3">March</option>
+      <option value="4">April</option>
+      <option value="5">May</option>
+      <option value="6">June</option>
+      <option value="7">July</option>
+      <option value="8">August</option>
+      <option value="9">September</option>
+      <option value="10">October</option>
+      <option value="11">November</option>
+      <option value="12">December</option>
+    </select>
+    </div>
+
+    <div class="styled-select slate">
+    <select id="selectWeek">
+      <option value="0">All Weeks</option>
+      <option value="1">Week 1</option>
+      <option value="2">Week 2</option>
+      <option value="3">Week 3</option>
+      <option value="4">Week 4</option>
+    </select>
+    </div>
+
+    <div class="styled-select slate">
+    <select id="selectDay">
+      <option>All Days</option>
+      <option>Monday</option>
+      <option>Tuesday</option>
+      <option>Wednesday</option>
+      <option>Thursday</option>
+      <option>Friday</option>
+    </select>
+    </div>
+
+    <!--
+    <label for="show_total_check" id="show-total-label">Show Total Energy Use</label>
+    <input class="checkbox" type="checkbox" name="show_total_check" id="show_total_check" value="show_total" /> -->
+    <div class="hamburger toggle-overlay-menu">
+      <div class="bar1"></div>
+      <div class="bar2"></div>
+      <div class="bar3"></div>
+    </div>
+  </div>
+
   
-      <div class="styled-select slate">
-      <select id="selectSubject">
-        <option value="0">All Subjects</option>
-        <option value="1">Maths</option>
-        <option value="2">English</option>
-      </select>
-      </div>
+</nav>
 
-      <div class="styled-select slate">
-      <select id="selectMonth">
-        <option value="0">All Months</option>
-        <option value="1">January</option>
-        <option value="2">February</option>
-        <option value="3">March</option>
-        <option value="4">April</option>
-        <option value="5">May</option>
-        <option value="6">June</option>
-        <option value="7">July</option>
-        <option value="8">August</option>
-        <option value="9">September</option>
-        <option value="10">October</option>
-        <option value="11">November</option>
-        <option value="12">December</option>
-      </select>
-      </div>
-
-      <div class="styled-select slate">
-      <select id="selectWeek">
-        <option value="0">All Weeks</option>
-        <option value="1">Week 1</option>
-        <option value="2">Week 2</option>
-        <option value="3">Week 3</option>
-        <option value="4">Week 4</option>
-      </select>
-      </div>
-
-      <div class="styled-select slate">
-      <select id="selectDay">
-        <option>All Days</option>
-        <option>Monday</option>
-        <option>Tuesday</option>
-        <option>Wednesday</option>
-        <option>Thursday</option>
-        <option>Friday</option>
-      </select>
-      </div>
-
-      <!--
-      <label for="show_total_check" id="show-total-label">Show Total Energy Use</label>
-      <input class="checkbox" type="checkbox" name="show_total_check" id="show_total_check" value="show_total" /> -->
-      <div class="hamburger toggle-overlay-menu">
-        <div class="bar1"></div>
-        <div class="bar2"></div>
-        <div class="bar3"></div>
-      </div>
+<div class="grayBg">
+<div class="mainCenter">
+  <div class="energy-grid">
+    <div class="cell noborder">
+    </div>
+    <div class="cell noborder">
+      <p class="wday-label">MON</p>
+    </div>
+    <div class="cell noborder">
+      <p class="wday-label">TUE</p>
+    </div>
+    <div class="cell noborder">
+      <p class="wday-label">WED</p>
+    </div>
+    <div class="cell noborder">
+      <p class="wday-label">THU</p>
+    </div>
+    <div class="cell noborder">
+      <p class="wday-label">FRI</p>
     </div>
 
-    
+    <!-- ROW 1 -->
+    <div class="cell noborder">
+      <img src="./static/img/projector-subject-icon.png" class="energyIcon selected" name="projector" />
+    </div>
+    <div class="energy-cell projector monday notopborder">
+      <div class="circle"></div>
+      <div class="data"><span class="value">999</span><br/>mins</div>
+    </div>
+    <div class="energy-cell projector tuesday notopborder">
+      <div class="circle"></div>
+      <div class="data"><span class="value">999</span><br/>mins</div>
+    </div>
+    <div class="energy-cell projector wednesday notopborder">
+      <div class="circle"></div>
+      <div class="data"><span class="value">999</span><br/>mins</div>
+    </div>
+    <div class="energy-cell projector thursday notopborder">
+      <div class="circle"></div>
+      <div class="data"><span class="value">999</span><br/>mins</div>
+    </div>
+    <div class="energy-cell projector friday notopborder norightborder">
+      <div class="circle"></div>
+      <div class="data"><span class="value">999</span><br/>mins</div>
+    </div>
+
+    <!-- ROW 2 -->
+    <div class="cell noborder">
+      <img src="./static/img/lightBulb-subject-icon.png" class="energyIcon selected" name="light" />
+    </div>
+    <div class="energy-cell light monday">
+      <div class="circle"></div>
+      <div class="data"><span class="value">999</span><br/>mins</div>
+    </div>
+    <div class="energy-cell light tuesday">
+      <div class="circle"></div>
+      <div class="data"><span class="value">999</span><br/>mins</div>
+    </div>
+    <div class="energy-cell light wednesday">
+      <div class="circle"></div>
+      <div class="data"><span class="value">999</span><br/>mins</div>
+    </div>
+    <div class="energy-cell light thursday">
+      <div class="circle"></div>
+      <div class="data"><span class="value">999</span><br/>mins</div>
+    </div>
+    <div class="energy-cell light friday norightborder">
+      <div class="circle"></div>
+      <div class="data"><span class="value">999</span><br/>mins</div>
+    </div>
+
+    <!-- ROW 3 -->
+    <div class="cell noborder">
+      <img src="./static/img/heater-subject-icon.png" class="energyIcon selected" name="heater" />
+    </div>
+    <div class="energy-cell heater monday">
+      <div class="circle"></div>
+      <div class="data">
+        <span class="value">999</span><br/>mins
+      </div>
+    </div>
+    <div class="energy-cell heater tuesday">
+      <div class="circle"></div>
+      <div class="data"><span class="value">999</span><br/>mins</div>
+    </div>
+    <div class="energy-cell heater wednesday">
+      <div class="circle"></div>
+      <div class="data"><span class="value">999</span><br/>mins</div>
+    </div>
+    <div class="energy-cell heater thursday">
+      <div class="circle"></div>
+      <div class="data"><span class="value">999</span><br/>mins</div>
+    </div>
+    <div class="energy-cell heater friday norightborder">
+      <div class="circle"></div>
+      <div class="data"><span class="value">999</span><br/>mins</div>
+    </div>
+
+    <!-- ROW 4 -->
+    <div class="cell noborder">
+      <img src="./static/img/computer-subject-icon.png" class="energyIcon selected" name="computer" />
+    </div>
+    <div class="energy-cell computer monday">
+      <div class="circle"></div>
+      <div class="data"><span class="value">999</span><br/>mins</div>
+    </div>
+    <div class="energy-cell computer tuesday">
+      <div class="circle"></div>
+      <div class="data"><span class="value">999</span><br/>mins</div>
+    </div>
+    <div class="energy-cell computer wednesday">
+      <div class="circle"></div>
+      <div class="data"><span class="value">999</span><br/>mins</div>
+    </div>
+    <div class="energy-cell computer thursday">
+      <div class="circle"></div>
+      <div class="data"><span class="value">999</span><br/>mins</div>
+    </div>
+    <div class="energy-cell computer friday norightborder">
+      <div class="circle"></div>
+      <div class="data"><span class="value">999</span><br/>mins</div>
+    </div>
+
+    <!-- ROW Counts -->
+    <div class="cell noborder">
+      <p class="energy-total all">
+        Total kWh <br/> <span>999</span>
+      </p>
+    </div>
+    <div class="cell noborder">
+      <p class="energy-total monday">999</p>
+    </div>
+    <div class="cell noborder">
+      <p class="energy-total tuesday">999</p>
+    </div>
+    <div class="cell noborder">
+      <p class="energy-total wednesday">999</p>
+    </div>
+    <div class="cell noborder">
+      <p class="energy-total thursday">999</p>
+    </div>
+    <div class="cell noborder">
+      <p class="energy-total friday">999</p>
+    </div>
+  </div>
+
+  <div class="legend">
+    <div class="legend-circles">
+      <div class="circle"></div>
+      <div class="circle"></div>
+      <div class="circle"></div>
+      <div class="circle"></div>
+      <div class="circle"></div>
+      <div class="circle"></div>
+      <div class="circle"></div>
+      <div class="circle"></div>
+      <div class="circle"></div>
+      <div class="circle"></div>
+    </div>
+    <div class="circle-labels">
+      <span>10</span>
+      <span>20</span>
+      <span>30</span>
+      <span>40</span>
+      <span>50</span>
+      <span>60</span>
+      <span>70</span>
+      <span>80</span>
+      <span>90</span>
+      <span>100</span>
+    </div>
+    <div class="legend-gradient"></div>
+  </div>
+</div>
+</div>
+
+
+<div id="learningQuestions" class="mainCenter">
+  <h2>Energy Diary - Learning Questions</h2>
+  <p class="question">
+    What is the common unit of measurement for energy data?
+  </p>
+
+  <p class="answer"><button class="reveal-btn">Show answer</button><span>kW/h</span></p>
+
+  <p class="question">
+    In the days before electric light, how did the owners of factories and mills provide enough light for the workers?'
+  </p>
+
+  <p class="answer"><button class="reveal-btn">Show answer</button><span>
+    They built the mills and factories with very large windows and put the machines near the windows.The buildings would have large south-facing windows. Fires and candles would provide a fire-risk.</span>
+  </p>
+  <p class="question">
+    Which is currently the most energy efficient light bulb?
+  </p>
+
+  <p class="answer"><button class="reveal-btn">Show answer</button><span>Compact fluorescent light bulbs.</span></p>
+</div>
+
+<div id="overlay-menu" class="overlay hidden gradient">
+  <nav class="">
+    <ul>
+      <li><a class="toggle-overlay-menu" href="#">Dashboard</a></li>
+      <li><a href="#">Learning Materials</a></li>
+      <li><a href="#">Help</a></li>
+      <li><a href="#">About LES</a></li>
+    </ul>
+    <ul>
+      <li><a href="#">Teacher Admin</a></li>
+      <li class="smaller"><a href="#">Edit Schedule</a></li>
+      <li class="smaller"><a href="#">Edit Questions</a></li>
+      <li class="smaller"><a href="#">Edit Users</a></li>
+    </ul>
   </nav>
+</div>
 
-  <div class="grayBg">
-  <div class="mainCenter">
-    <div class="energy-grid">
-      <div class="cell noborder">
-      </div>
-      <div class="cell noborder">
-        <p class="wday-label">MON</p>
-      </div>
-      <div class="cell noborder">
-        <p class="wday-label">TUE</p>
-      </div>
-      <div class="cell noborder">
-        <p class="wday-label">WED</p>
-      </div>
-      <div class="cell noborder">
-        <p class="wday-label">THU</p>
-      </div>
-      <div class="cell noborder">
-        <p class="wday-label">FRI</p>
-      </div>
-
-      <!-- ROW 1 -->
-      <div class="cell noborder">
-        <img src="./static/img/projector-subject-icon.png" class="energyIcon selected" name="projector" />
-      </div>
-      <div class="energy-cell projector monday notopborder">
-        <div class="circle"></div>
-        <div class="data"><span class="value">999</span><br/>mins</div>
-      </div>
-      <div class="energy-cell projector tuesday notopborder">
-        <div class="circle"></div>
-        <div class="data"><span class="value">999</span><br/>mins</div>
-      </div>
-      <div class="energy-cell projector wednesday notopborder">
-        <div class="circle"></div>
-        <div class="data"><span class="value">999</span><br/>mins</div>
-      </div>
-      <div class="energy-cell projector thursday notopborder">
-        <div class="circle"></div>
-        <div class="data"><span class="value">999</span><br/>mins</div>
-      </div>
-      <div class="energy-cell projector friday notopborder norightborder">
-        <div class="circle"></div>
-        <div class="data"><span class="value">999</span><br/>mins</div>
-      </div>
-
-      <!-- ROW 2 -->
-      <div class="cell noborder">
-        <img src="./static/img/lightBulb-subject-icon.png" class="energyIcon selected" name="light" />
-      </div>
-      <div class="energy-cell light monday">
-        <div class="circle"></div>
-        <div class="data"><span class="value">999</span><br/>mins</div>
-      </div>
-      <div class="energy-cell light tuesday">
-        <div class="circle"></div>
-        <div class="data"><span class="value">999</span><br/>mins</div>
-      </div>
-      <div class="energy-cell light wednesday">
-        <div class="circle"></div>
-        <div class="data"><span class="value">999</span><br/>mins</div>
-      </div>
-      <div class="energy-cell light thursday">
-        <div class="circle"></div>
-        <div class="data"><span class="value">999</span><br/>mins</div>
-      </div>
-      <div class="energy-cell light friday norightborder">
-        <div class="circle"></div>
-        <div class="data"><span class="value">999</span><br/>mins</div>
-      </div>
-
-      <!-- ROW 3 -->
-      <div class="cell noborder">
-        <img src="./static/img/heater-subject-icon.png" class="energyIcon selected" name="heater" />
-      </div>
-      <div class="energy-cell heater monday">
-        <div class="circle"></div>
-        <div class="data">
-          <span class="value">999</span><br/>mins
-        </div>
-      </div>
-      <div class="energy-cell heater tuesday">
-        <div class="circle"></div>
-        <div class="data"><span class="value">999</span><br/>mins</div>
-      </div>
-      <div class="energy-cell heater wednesday">
-        <div class="circle"></div>
-        <div class="data"><span class="value">999</span><br/>mins</div>
-      </div>
-      <div class="energy-cell heater thursday">
-        <div class="circle"></div>
-        <div class="data"><span class="value">999</span><br/>mins</div>
-      </div>
-      <div class="energy-cell heater friday norightborder">
-        <div class="circle"></div>
-        <div class="data"><span class="value">999</span><br/>mins</div>
-      </div>
-
-      <!-- ROW 4 -->
-      <div class="cell noborder">
-        <img src="./static/img/computer-subject-icon.png" class="energyIcon selected" name="computer" />
-      </div>
-      <div class="energy-cell computer monday">
-        <div class="circle"></div>
-        <div class="data"><span class="value">999</span><br/>mins</div>
-      </div>
-      <div class="energy-cell computer tuesday">
-        <div class="circle"></div>
-        <div class="data"><span class="value">999</span><br/>mins</div>
-      </div>
-      <div class="energy-cell computer wednesday">
-        <div class="circle"></div>
-        <div class="data"><span class="value">999</span><br/>mins</div>
-      </div>
-      <div class="energy-cell computer thursday">
-        <div class="circle"></div>
-        <div class="data"><span class="value">999</span><br/>mins</div>
-      </div>
-      <div class="energy-cell computer friday norightborder">
-        <div class="circle"></div>
-        <div class="data"><span class="value">999</span><br/>mins</div>
-      </div>
-
-      <!-- ROW Counts -->
-      <div class="cell noborder">
-        <p class="energy-total all">
-          Total kWh <br/> <span>999</span>
-        </p>
-      </div>
-      <div class="cell noborder">
-        <p class="energy-total monday">999</p>
-      </div>
-      <div class="cell noborder">
-        <p class="energy-total tuesday">999</p>
-      </div>
-      <div class="cell noborder">
-        <p class="energy-total wednesday">999</p>
-      </div>
-      <div class="cell noborder">
-        <p class="energy-total thursday">999</p>
-      </div>
-      <div class="cell noborder">
-        <p class="energy-total friday">999</p>
-      </div>
-    </div>
-
-    <div class="legend">
-      <div class="legend-circles">
-        <div class="circle"></div>
-        <div class="circle"></div>
-        <div class="circle"></div>
-        <div class="circle"></div>
-        <div class="circle"></div>
-        <div class="circle"></div>
-        <div class="circle"></div>
-        <div class="circle"></div>
-        <div class="circle"></div>
-        <div class="circle"></div>
-      </div>
-      <div class="circle-labels">
-        <span>10</span>
-        <span>20</span>
-        <span>30</span>
-        <span>40</span>
-        <span>50</span>
-        <span>60</span>
-        <span>70</span>
-        <span>80</span>
-        <span>90</span>
-        <span>100</span>
-      </div>
-      <div class="legend-gradient"></div>
-    </div>
-  </div>
-  </div>
-
-
-  <div id="learningQuestions" class="mainCenter">
-    <h2>Energy Diary - Learning Questions</h2>
-    <p class="question">
-      What is the common unit of measurement for energy data?
-    </p>
-
-    <p class="answer"><button class="reveal-btn">Show answer</button><span>kW/h</span></p>
-
-    <p class="question">
-      In the days before electric light, how did the owners of factories and mills provide enough light for the workers?'
-    </p>
-
-    <p class="answer"><button class="reveal-btn">Show answer</button><span>
-      They built the mills and factories with very large windows and put the machines near the windows.The buildings would have large south-facing windows. Fires and candles would provide a fire-risk.</span>
-    </p>
-    <p class="question">
-      Which is currently the most energy efficient light bulb?
-    </p>
-
-    <p class="answer"><button class="reveal-btn">Show answer</button><span>Compact fluorescent light bulbs.</span></p>
-  </div>
-
-  <div id="overlay-menu" class="overlay hidden gradient">
-    <nav class="">
-      <ul>
-        <li><a class="toggle-overlay-menu" href="#">Dashboard</a></li>
-        <li><a href="#">Learning Materials</a></li>
-        <li><a href="#">Help</a></li>
-        <li><a href="#">About LES</a></li>
-      </ul>
-      <ul>
-        <li><a href="#">Teacher Admin</a></li>
-        <li class="smaller"><a href="#">Edit Schedule</a></li>
-        <li class="smaller"><a href="#">Edit Questions</a></li>
-        <li class="smaller"><a href="#">Edit Users</a></li>
-      </ul>
-    </nav>
-  </div>
-
-  <script src='./static/js/dash.js'></script>
-</body>
-</html>
+<script src='./static/js/dash.js'></script>
+{% endblock %}
