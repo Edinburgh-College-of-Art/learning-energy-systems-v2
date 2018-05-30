@@ -11,6 +11,7 @@ class Yeargroup(models.Model):
   def __str__ (self):
     return '(id:%s) %s' % (self.id, self.name,)
 
+
 class Question(models.Model):
   yeargroup = models.ForeignKey(Yeargroup, on_delete=models.CASCADE)
   body = models.CharField(max_length=300)
@@ -41,11 +42,13 @@ class Subject(models.Model):
   def __str__ (self):
     return '%s: %s (%s mins)' % (self.yeargroup.name, self.name, self.duration)
 
+
 class Occurrence(models.Model):
   subject = models.ForeignKey(Subject, on_delete=models.CASCADE)
   date = models.DateField()
   def __str__ (self):
-    return '%s (%s)' % (self.subject.name, self.date,)
+    return '%s (%s %s)' % (self.subject.name, self.date.strftime('%A'), self.date,)
+
 
 class Prediction(models.Model):
   user    = models.ForeignKey(User, on_delete=models.CASCADE)
