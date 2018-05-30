@@ -151,14 +151,21 @@ var showToast = function(controlElement){
 var watchSelectorControl = function(occurrenceId){
   var isMouseDown = false, isHighlighted, controlElement;
   $("div.selector-control div.block")
-    .mousedown(function () {
+    .on('mousedown touchstart', function () {
       controlElement = $(this).parent();
       isMouseDown = true;
       $(this).toggleClass("selected");
       isHighlighted = $(this).hasClass("selected");
       return false; // prevent text selection
     })
-    .mouseover(function(){
+    .on('touchmove', function(e){
+      var myLocation = e.originalEvent.changedTouches[0];
+      var realTarget = document.elementFromPoint(myLocation.clientX, myLocation.clientY);
+      if (isMouseDown) {
+        $(realTarget).toggleClass("selected", isHighlighted);
+      }
+    })
+    .on('mouseover', function(){
       if (isMouseDown) {
         $(this).toggleClass("selected", isHighlighted);
       }
@@ -167,7 +174,7 @@ var watchSelectorControl = function(occurrenceId){
       return false;
     });
 
-  $(document).mouseup(function(){
+  $(document).on('mouseup touchend', function(){
     isMouseDown = false;
     styleBlocks(controlElement);
     var prediction = buildPrediction();
