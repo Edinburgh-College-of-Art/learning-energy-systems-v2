@@ -13,8 +13,9 @@
   <form method="post">
     {% csrf_token %}
     {{ form.as_p }}
-    <button class="button1" type="submit">Login</button>
+    <button class="btn" type="submit">Login</button>
   </form>
+  <p>Go to <a href="/admin">site admin</a></p>
 </div>
 
 {% endblock %}

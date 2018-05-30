@@ -44,7 +44,6 @@ html, body {
   width: 100%;
   margin: 0;
   padding: 0;
-  overflow: hidden;
 }
 
 /* UTILITY CLASSES */
@@ -165,6 +164,22 @@ div.overlay {
 #overlay-menu nav ul li { margin-bottom: 2vh; }
 #overlay-menu nav ul li.smaller { padding-left:2px; }
 
+/* FOOTER */
+div.content-wrapper { 
+  min-height:95%;
+  position:relative;
+}
+
+div.footer {
+  bottom: 0px;
+  background-color: #333;
+  width: 100%;
+  padding: 1vh 0vh;
+  color: white;
+}
+
+div.footer a { color:white; text-decoration: none; }
+div.footer a:hover { color: wheat; }
 /* SIMPLE GRID */
 
 .container {
