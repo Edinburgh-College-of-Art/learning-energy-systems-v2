@@ -38,18 +38,6 @@ nav div.hamburger {
 
 /* STRUCTURE */
 
-nav#header {
-  background-color: rgb(255,255,255);
-  height:17vh;
-  text-align:center;
-  min-height: 140px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-nav#header label { color:#8C8080; margin:0px 10px; }
-
 .styled-select {
   overflow: hidden;
   width: 14%;
@@ -73,7 +61,6 @@ nav#header label { color:#8C8080; margin:0px 10px; }
   background-color: silver;
   color: white;
 }
-
 
 .mainCenter {
   width: 65vw;
@@ -133,26 +120,6 @@ p.answer.visible .reveal-btn { display: none; }
   margin-left:40px;
   position: relative;
   top:5px;
-}
-
-/* MISC */
-
-.helper {
-  display: inline-block;
-  height: 100%;
-  vertical-align: middle;
-}
-
-.logo {
-  height: 15vh;
-  vertical-align: middle;
-  position: relative;
-  right: 2em;
-}
-
-.floatLeft {
-  float:left;
-  margin:0;
 }
 
 /* UI */

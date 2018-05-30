@@ -1,0 +1,20 @@
+{% extends 'base_template.html' %}
+{% load static %}
+
+{% block title %}Login{% endblock %}
+
+{% block head %}
+{% endblock %}
+
+{% block body %}
+
+<div class="main-content">
+  <h1>LES School Login</h1>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button class="button1" type="submit">Login</button>
+  </form>
+</div>
+
+{% endblock %}

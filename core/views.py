@@ -22,7 +22,15 @@ class DetailView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['foo'] = 'bar' #Article.objects.all()[:5]
+        context['foo'] = 'bar'
+        return context
+
+
+class ProfileView(TemplateView):
+    template_name = "registration/profile.html"
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['foo'] = 'bar'
         return context
 
 

@@ -54,7 +54,37 @@ html, body {
 .full-width { width:100%; }
 .smaller { font-size: 0.8em; }
 .small { font-size: 0.5em; }
+.helper {
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
+}
+.floatLeft {
+  float:left;
+  margin:0;
+}
 
+/* NAV */
+
+nav#header {
+  background-color: rgb(255,255,255);
+  height:17vh;
+  text-align:center;
+  min-height: 140px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+nav#header label { color:#8C8080; margin:0px 10px; }
+
+
+.logo {
+  height: 15vh;
+  vertical-align: middle;
+  position: relative;
+  right: 2em;
+}
 
 /* HAMBURGER ICON */
 
