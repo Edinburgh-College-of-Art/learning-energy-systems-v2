@@ -118,14 +118,6 @@ var watchDeviceIcons = function(){
   });
 }
 
-var watchHamburger = function(){
-  $('.toggle-overlay-menu').click(function(){
-    $('nav#header .hamburger').toggleClass("opened-menu");
-    $('#overlay-menu').toggleClass('hidden');
-    $('body').toggleClass('no-scroll');
-  })
-}
-
 var watchSelects = function(){
   $("#selectSubject, #selectMonth, #selectWeek").change(
     function(event) {
@@ -174,7 +166,6 @@ $(document).ready(function(){
 
   var spinner = new Spinner();
 
-  watchHamburger();
   watchSelects();
   watchDeviceIcons();
   watchRevealBtns();

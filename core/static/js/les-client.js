@@ -103,14 +103,6 @@ var login = function(){
   }
 };
 
-var watchHamburger = function(){
-  $('.toggle-overlay-menu').click(function(){
-    $('nav#header .hamburger').toggleClass("opened-menu");
-    $('#overlay-menu').toggleClass('hidden');
-    $('body').toggleClass('no-scroll');
-  })
-}
-
 var watchWeekDays = function(){
   var currentWeek = getCurrentWeek();
   var previousWeekSelected = (currentWeek < moment().weeks());
@@ -375,5 +367,4 @@ $(document).ready(function(){
   $('nav h3.username span').text(localStorage.username);
   watchViewToday();
   watchLogOut();
-  watchHamburger();
 });

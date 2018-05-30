@@ -1,24 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>LES - {% block title %}{% endblock %}</title>
+<meta charset="utf-8">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LES - {% block title %}{% endblock %}</title>
 
-    <!--[if lt IE 9]>
-    <script src='http://html5shiv.googlecode.com/svn/trunk/html5.js'></script>
-    <![endif]-->
+<!--[if lt IE 9]>
+<script src='http://html5shiv.googlecode.com/svn/trunk/html5.js'></script>
+<![endif]-->
 
-    <link rel="stylesheet" href="/static/css/shared.css" />
-    <link rel="stylesheet" href="/static/css/jquery-ui.css" />
+<link rel="stylesheet" href="/static/css/shared.css" />
+<link rel="stylesheet" href="/static/css/jquery-ui.css" />
 
-    <script src='/static/js/moment.js'></script>
-    <script src='/static/js/jquery.min.js'></script>
-    <script src='/static/js/spin.js'></script>
-    <script src='/static/js/jquery-ui.js'></script>
-    <script src="/static/js/shared.js"></script>
-    {% block head %}{% endblock %}
+<script src='/static/js/moment.js'></script>
+<script src='/static/js/jquery.min.js'></script>
+<script src='/static/js/spin.js'></script>
+<script src='/static/js/jquery-ui.js'></script>
+<script src="/static/js/shared.js"></script>
+{% block head %}{% endblock %}
 </head>
 <body>
 
@@ -30,7 +30,7 @@
     </div>
 
     <div class="col-9">
-        {% block navcontent %}{% endblock %}
+    {% block navcontent %}{% endblock %}
     </div>
 
     <div class="col-1">
@@ -47,8 +47,29 @@
 
 {% block body %}{% endblock %}
 
+<div id="overlay-menu" class="overlay hidden gradient">
+  <nav class="">
+    <ul>
+      <li><a class="toggle-overlay-menu" href="/">Dashboard</a></li>
+      <li><a href="/learning-materials">Learning Materials</a></li>
+      <li><a href="/help">Help</a></li>
+      <li><a href="/about">About LES</a></li>
+    </ul>
+    <ul>
+      {% if request.user.is_authenticated %}
+        <li><a href="/account/profile">Teacher Admin</a></li>
+        <li class="smaller"><a href="/account/profile">Edit Schedule</a></li>
+        <li class="smaller"><a href="/account/profile">Edit Questions</a></li>
+        <li class="smaller"><a href="/account/profile">Edit Students</a></li>
+        <li class="smaller"><a href="/logout">Logout</a></li>
+      {% else %}
+        <li><a href="/login">Login</a></li>
+      {% endif %}
+    </ul>
+  </nav>
+</div>
+
 <div class="footer">
-    <p>Footer text.</p>
 </div>
 </body>
 </html>
