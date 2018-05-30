@@ -342,14 +342,11 @@ var populatePredictionView = function(){
         }
       }
     }
-    styleBlocks('div.selector-control.light');
-    styleBlocks('div.selector-control.projector');
-    styleBlocks('div.selector-control.heater');
-    styleBlocks('div.selector-control.computer');
-    updateMinDisplay('div.selector-control.light');
-    updateMinDisplay('div.selector-control.projector');
-    updateMinDisplay('div.selector-control.heater');
-    updateMinDisplay('div.selector-control.computer');
+
+    $.each(['light', 'projector', 'heater', 'computer'], function(i,e){
+      styleBlocks('div.selector-control.'+e);
+      updateMinDisplay('div.selector-control.'+e);
+    })
   });
 
   watchSelectorControl(occurrenceId);
