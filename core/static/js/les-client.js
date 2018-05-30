@@ -313,13 +313,19 @@ var populatePredictionView = function(){
   $('body').addClass('prediction');
   $('h1').text(subject);
 
-  var i = 0, txt = '';
+  var i = 0, txt = '', skip = false;
   $('div.selector-control').each(function(){
-    for (i=0; i < blocks; i++){
-      if ((i+1) % 3 == 0){ txt = (i+1)*5 } else { txt = '' }
-      $(this).append('<div data-idx="'+i+'" class="block">'+txt+'</div>');
+    for (i=(blocks-1); i >= 0; i--){
+      if ((i == blocks-1) ||  (!skip && (i+1) % 3 == 0)){ txt = (i+1)*5; skip = true; } else { txt = ''; skip = false; }
+      $(this).prepend('<div data-idx="'+i+'" class="block">'+txt+'</div>');
     }
   });
+
+  if (blocks < 9) {
+    $('div.selector-control').css('grid-template-columns', '1fr '.repeat(blocks));
+  } else if (blocks > 9) {
+    $('div.selector-control').css('grid-template-columns', '1fr '.repeat(Math.round(blocks/2)));
+  }
 
   getCurrentPrediction(occurrenceId, function(prediction){
     var i = 0, e = undefined;

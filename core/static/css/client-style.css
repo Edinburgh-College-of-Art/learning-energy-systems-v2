@@ -265,6 +265,7 @@ div.device-predictions div.selector-control div {
   border: 2px dashed white;
   text-align: right;
   border-right: none;
+  min-height: 5vh;
 }
 
 div.device-predictions div.selector-control div:last-child {
