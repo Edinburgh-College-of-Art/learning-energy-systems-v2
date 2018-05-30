@@ -3,15 +3,7 @@
   padding: 0;
 }
 
-html, body {
-  height: 100%;
-  width: 100%;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-  font-family:  'TTRounds-Regular';
-  color: white;
-}
+html, body { color: white; }
 
 body { 
   overflow-y: scroll;
@@ -26,7 +18,7 @@ body.prediction {
 
 a { 
   color: white; 
-  text-decoration: none; 
+  text-decoration: none;
 }
 
 a.disabled {

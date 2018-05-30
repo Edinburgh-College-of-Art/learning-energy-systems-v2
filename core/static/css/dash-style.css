@@ -1,14 +1,9 @@
 * {
-  font-family: 'TTRounds', sans-serif;
-  color: #333447;
   line-height: 1.0;
+  color: #333447;
 }
 
 html, body {
-  padding:0;
-  margin:0;
-  height:100%;
-  width:100%;
   font-weight: normal;
   font-size: 16px;
 }
