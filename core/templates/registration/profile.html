@@ -1,10 +1,14 @@
 {% extends "base_template.html" %}
 
 {% block body %}
-
 <div class="container">
 <h1 class="text-center">Profile</h1>
 <h2>{{ request.user.username }} </h2>
-</div>
 
+<h3>Yeargroups</h3>
+{% for y in yeargroups %}
+  {{ y }}
+{% endfor %}
+
+</div>
 {% endblock body %}

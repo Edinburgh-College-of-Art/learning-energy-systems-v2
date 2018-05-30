@@ -54,6 +54,9 @@
       <li><a href="/learning-materials">Learning Materials</a></li>
       <li><a href="/help">Help</a></li>
       <li><a href="/about">About LES</a></li>
+      {% if request.user.is_authenticated and request.user.is_superuser %}
+        <li><a href="/admin">Site admin</a></li>
+      {% endif %}
     </ul>
     <ul>
       {% if request.user.is_authenticated %}
