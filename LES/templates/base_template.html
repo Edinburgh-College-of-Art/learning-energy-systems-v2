@@ -60,10 +60,10 @@
     </ul>
     <ul>
       {% if request.user.is_authenticated %}
-        <li><a href="/account/profile">Teacher Admin</a></li>
-        <li class="smaller"><a href="/account/profile">Edit Schedule</a></li>
-        <li class="smaller"><a href="/account/profile">Edit Questions</a></li>
-        <li class="smaller"><a href="/account/profile">Edit Students</a></li>
+        <li><a href="/accounts/profile/">Teacher Admin</a></li>
+        <li class="smaller"><a href="/accounts/profile/">Edit Schedule</a></li>
+        <li class="smaller"><a href="/accounts/profile/">Edit Questions</a></li>
+        <li class="smaller"><a href="/accounts/profile/">Edit Students</a></li>
         <li class="smaller"><a href="/logout">Logout</a></li>
       {% else %}
         <li><a href="/login">Login</a></li>

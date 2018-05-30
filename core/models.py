@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from rest_framework.authtoken.models import Token
 
 
 class Yeargroup(models.Model):
@@ -19,8 +20,14 @@ class Question(models.Model):
 class Student(models.Model):
   user = models.OneToOneField(User, on_delete=models.CASCADE)
   yeargroup = models.ForeignKey(Yeargroup, on_delete=models.CASCADE)
+
+  @property
+  def token(self):
+    return Token.objects.get(user=self.user)
+
   def __repr__ (self):
     return '<Student %s %s>' % (self.id, self.user,)
+
   def __str__ (self):
     return '%s (%s)' % (self.user.username, self.yeargroup.name,)
 

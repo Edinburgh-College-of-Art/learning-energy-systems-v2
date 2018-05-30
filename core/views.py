@@ -1,9 +1,10 @@
 from django.views.generic import TemplateView, CreateView, DeleteView
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import login, authenticate, logout
 from django.shortcuts import render, redirect
 from core.models import Yeargroup, Question, Student, Subject, Occurrence, Prediction
+from rest_framework.authtoken.models import Token
 
 
 class DashboardView(TemplateView):
@@ -75,10 +76,10 @@ class ClientWeekView(TemplateView):
 
 class ClientLoginView(TemplateView):
     template_name = 'client/login.html'
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['foo'] = 'bar'
-        return context
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            logout(request)
+        return super(ClientLoginView, self).dispatch(request, *args, **kwargs)
 
 
 class ClientPredictionView(TemplateView):
