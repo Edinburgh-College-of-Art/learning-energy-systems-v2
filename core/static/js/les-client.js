@@ -85,6 +85,7 @@ var readStudent = function(token, successCb, errorCb){
 }
 
 var login = function(){
+  $('nav').hide();
   var token = $.urlParam('token');
   if (!token){ token = localStorage.token; }
 
@@ -366,6 +367,12 @@ var watchLogOut = function(){
   });
 }
 
+var watchBackBtn = function(){
+  $('a.back').click(function(){
+    window.history.back();
+  })
+}
+
 $(document).ready(function(){
   if (!storageAvailable('localStorage')){
     alert("Oh no! Cannot use localStorage feature, please use a different browser!");
@@ -374,4 +381,5 @@ $(document).ready(function(){
   $('nav h3.username span').text(localStorage.username);
   watchViewToday();
   watchLogOut();
+  watchBackBtn();
 });

@@ -1,24 +1,15 @@
 {% extends 'client_base.html' %}
 
-{% block head %}
+{% block navcontent %}
+<h1>My energy diary</h1>
+<h2>
+  <a class="prev-week" href="#">&lt;</a>
+  <span class="week-text">This week</span>
+  <a class="next-week disabled" href="#">&gt;</a>
+</h2>
 {% endblock %}
 
 {% block body %}
-<nav>
-  <div class="hamburger toggle-overlay-menu">
-    <div class="bar1"></div>
-    <div class="bar2"></div>
-    <div class="bar3"></div>
-  </div>
-
-  <h1>My energy diary</h1>
-  <h2>
-    <a class="prev-week" href="#">&lt;</a>
-    <span class="week-text">This week</span>
-    <a class="next-week disabled" href="#">&gt;</a>
-  </h2>
-</nav>
-
 <hr/>
 
 <div class="weekdays">

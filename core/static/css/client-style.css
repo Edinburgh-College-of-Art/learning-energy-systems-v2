@@ -9,6 +9,7 @@ body {
   overflow-y: scroll;
   background-image: url('../img/backgrounds/0.png');
   background-size: 100vw 100vh;
+  height: 98%;
 }
 
 body.prediction {
@@ -30,6 +31,14 @@ a.disabled:hover {
   color:inherit;
   cursor: not-allowed;
 }
+
+a.back {
+  font-size: 1.35em;
+  top: 1vh;
+  position: relative;
+}
+
+a.back span { position: relative; top:-2px; }
 
 nav, #overlay-menu nav {
   margin-top: 1em;
@@ -58,9 +67,7 @@ nav h2 a {
 /* HAMBURGER OVERLAY */
 
 nav div.hamburger {
-  left: 4vw;
-  position: absolute;
-  float: none;
+  top: 1vh;
 }
 
 .bar1, .bar2, .bar3 { height: 4px; }
