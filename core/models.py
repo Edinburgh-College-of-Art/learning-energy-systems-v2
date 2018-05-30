@@ -46,8 +46,9 @@ class Subject(models.Model):
 class Occurrence(models.Model):
   subject = models.ForeignKey(Subject, on_delete=models.CASCADE)
   date = models.DateField()
+  
   def __str__ (self):
-    return '%s (%s %s)' % (self.subject.name, self.date.strftime('%A'), self.date,)
+    return '%s: %s (%s %s)' % (self.subject.yeargroup.name, self.subject.name, self.date.strftime('%A'), self.date,)
 
 
 class Prediction(models.Model):
