@@ -215,7 +215,7 @@ var styleDeviceIcons = function(){
     var p = styleDeviceIcon('projector', data);
     styleDeviceIcon('heater', data);
     // move total towards middle
-    $('#total a').css('top', ((c.top + p.top)/4));
+    $('#total').parents('.row').css('top', ((c.top + p.top)/2));
     var duration = Math.round(data.total_duration / 60);
     var units = 'hours';
     if (duration < 1){
@@ -346,7 +346,7 @@ var populatePredictionView = function(){
 }
 
 var watchViewToday = function(){
-  $("#view-today").click(function(){
+  $("#total, #view-today").click(function(){
     localStorage.currentTime = moment().format();
     window.location = "/client/day?day="+moment().isoWeekday();
   });
