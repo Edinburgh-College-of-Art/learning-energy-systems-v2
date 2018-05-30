@@ -222,55 +222,51 @@ hr {
 
 /* PREDICTION VIEW */
 
-ul.devices {
+div.device-predictions.container {
   margin-top: 1em;
   list-style-type: none;
-  margin: 0 auto;
-  display: block;
   font-size: 4vh;
   font-size:calc(12px + 2.5vh);
-  width: 95vw;
+  width:100%;
+}
+div.device-predictions .duration {
+  font-size:0.74em;
+  text-align: center;
 }
 
-ul.devices img {
-  display: inline-block;
-  float: left;
-  margin-right: 1%;
-  width:12%;
-  height: auto;
-  min-height: calc(12px + 2.5vh);
-  max-width: 15vh;
-}
-
-ul.devices li {
-  height: 15vh;
-  width: 100%;
+div.device-predictions img {
   display: block;
-  clear:both;
-  margin-bottom: 4vh;
+  margin: 0 auto;
+  width:90%;
+  height: auto;
+  max-width: 15vh;
+  text-align: center;
 }
 
-ul.devices li div.selector-control {
+div.device-predictions .row {
+  margin-bottom: 0.4em;
+}
+
+div.device-predictions div.selector-control {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-  width: 84%;
-  height:100%;
+  width: 100%;
+  height: 15vh;
 }
 
-ul.devices li div.selector-control div {
+div.device-predictions div.selector-control div {
   border: 2px dashed white;
   text-align: right;
   border-right: none;
 }
 
-ul.devices li div.selector-control div:last-child {
+div.device-predictions div.selector-control div:last-child {
   border-right: 2px dashed white;
 }
 
 div.selector-control div.block.selected {
   background-color: gray;
 }
-
 
 /* Following colours should match shared.js gradient */
 

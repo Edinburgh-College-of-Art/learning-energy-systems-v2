@@ -272,13 +272,18 @@ div.footer a:hover { color: wheat; }
   display: none;
 }
 
+.hidden-lg {
+  display: block;
+}
+
+
 @media only screen and (min-width: 33.75em) {  /* 540px */
   .container {
-    width: 80%;
+    width: 85%;
   }
 }
 
-@media only screen and (min-width: 45em) {  /* 720px */
+@media only screen and (min-width: 405px) {  /* 720px */
   .col-1 {
     width: 4.33%;
   }
@@ -329,6 +334,10 @@ div.footer a:hover { color: wheat; }
 
   .hidden-sm {
     display: block;
+  }
+
+  .hidden-lg {
+    display: none;
   }
 }
 

@@ -141,11 +141,10 @@ var watchWeekSelectors = function(){
   });
 }
 
-var showToast = function(controlElement){
+var updateMinDisplay = function(controlElement){
   var mins = $(controlElement).children('div.selected').length * 5;
-  $('#toast span').text(mins);
-  $('#toast').fadeIn();
-  $('#toast').delay(1000).fadeOut();
+  var dEl = '.' + $(controlElement).attr('data-device') +'-duration';
+  $(dEl + ' .minutes').text(mins);
 }
 
 var watchSelectorControl = function(occurrenceId){
@@ -179,7 +178,7 @@ var watchSelectorControl = function(occurrenceId){
     styleBlocks(controlElement);
     var prediction = buildPrediction();
     submitPrediction(occurrenceId, prediction);
-    showToast(controlElement);
+    updateMinDisplay(controlElement);
   });
 };
 
@@ -347,6 +346,10 @@ var populatePredictionView = function(){
     styleBlocks('div.selector-control.projector');
     styleBlocks('div.selector-control.heater');
     styleBlocks('div.selector-control.computer');
+    updateMinDisplay('div.selector-control.light');
+    updateMinDisplay('div.selector-control.projector');
+    updateMinDisplay('div.selector-control.heater');
+    updateMinDisplay('div.selector-control.computer');
   });
 
   watchSelectorControl(occurrenceId);
