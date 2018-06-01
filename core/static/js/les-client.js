@@ -153,6 +153,12 @@ var watchWeekDays = function(){
   });
 }
 
+var watchTotalButton = function(){
+  $('#total a').click(function(){
+    window.location = "/client/day?day=" + getCurrentWeekDay();
+  });
+}
+
 var watchWeekSelectors = function(){
   $('.prev-week').off().click(function(){
     if (!$(this).hasClass('disabled')){
@@ -284,6 +290,7 @@ var populateWeekView = function(){
   localStorage.setItem("currentTime", moment().format());
   watchWeekDays();
   watchWeekSelectors();
+  watchTotalButton();
   styleDeviceIcons();
 }
 
@@ -393,7 +400,7 @@ var populatePredictionView = function(){
 }
 
 var watchViewToday = function(){
-  $("#total, #view-today").click(function(){
+  $("#view-today").click(function(){
     localStorage.currentTime = moment().format();
     window.location = "/client/day?day="+moment().isoWeekday();
   });
