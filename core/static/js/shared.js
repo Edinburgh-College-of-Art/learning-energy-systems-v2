@@ -20,7 +20,7 @@ var watchHamburger = function(){
   $('.toggle-overlay-menu').click(function(){
     $('nav#header .hamburger').toggleClass("opened-menu");
     $('#overlay-menu').toggleClass('hidden');
-    $('body').toggleClass('no-scroll');
+    $('body').toggleClass('no-scroll').toggleClass('overlay-open');
   })
 }
 
