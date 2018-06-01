@@ -46,6 +46,12 @@ html, body {
   padding: 0;
 }
 
+body { font-size: 16px; }
+
+@media only screen and (max-width: 400px) {
+  body { font-size: 13px; }
+}
+
 /* UTILITY CLASSES */
 
 .hidden { display: none; }
