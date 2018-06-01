@@ -41,12 +41,24 @@ var styleBlocks = function(el){
   $(el).children('div.block.selected').addClass('pct-'+key);
 };
 
+var getCurrentTime = function(){
+  return moment(localStorage.currentTime);
+}
+
 var getCurrentWeek = function(){
   return moment(localStorage.currentTime).weeks();
 }
 
 var getCurrentYear = function(){
   return moment(localStorage.currentTime).year();
+}
+
+var getCurrentDate = function(){
+  return moment(localStorage.currentTime).date();
+}
+
+var getCurrentWeekDay = function(){
+  return moment(localStorage.currentTime).isoWeekday();
 }
 
 var getOccurrencesForWeek = function(year, week, successCb, errorCb){
@@ -63,6 +75,16 @@ var getOccurrencesForWeek = function(year, week, successCb, errorCb){
 var getUsageForWeek = function(year, week, successCb){
   var headers = { 'Authorization': 'Token ' + localStorage.token };
   var url = window.les_base_url + '/api/yeargroups/'+localStorage.yeargroupId+'/usage?year='+year+'&week='+week;
+
+  $.ajax({ type: 'GET', url: url, headers: headers,
+    success: function(data){ successCb(data); },
+    complete: function(r){ console.log(r.responseJSON); }
+  });
+}
+
+var getUsageForDay = function(year, week, day, successCb){
+  var headers = { 'Authorization': 'Token ' + localStorage.token };
+  var url = window.les_base_url + '/api/yeargroups/'+localStorage.yeargroupId+'/usage?year='+year+'&week='+week+'&day='+day;
 
   $.ajax({ type: 'GET', url: url, headers: headers,
     success: function(data){ successCb(data); },
@@ -104,27 +126,38 @@ var login = function(){
   }
 };
 
+var selectDay = function(e){
+  $('.weekdays a.selected').removeClass('selected');
+  $(e.target).addClass('selected');
+  localStorage.currentTime = moment($(e.target).attr('data-date'), "YYMMDD").format();
+}
+
 var watchWeekDays = function(){
-  var currentWeek = getCurrentWeek();
-  var previousWeekSelected = (currentWeek < moment().weeks());
+  var day, isFuture, clickCb;
   $('.weekdays a').each(function(i,e){
-    $(e).attr('class', '');
-    if (previousWeekSelected){ return; }
-    if (moment().isoWeekday() == (i+1)){
-      $(e).attr('class', 'selected');
-    } else if ((i+1) > moment().isoWeekday()){
-      $(e).attr('class', 'disabled');
-      $(e).off().click(function(e){ e.preventDefault() });
+    day = moment().year(getCurrentYear()).weeks(getCurrentWeek()).isoWeekday(i+1);
+    isFuture = day > moment();
+    isSelectedDay = day.format('YYMMDD') == getCurrentTime().format('YYMMDD');
+
+    $(e).off(); 
+    $(e).attr('class','');
+
+    if (isFuture){
+      $(e).addClass('disabled');
+    } else{
+      $(e).attr('data-date', day.format('YYMMDD'));
+      $(e).click(selectDay);
     }
+
+    if (isSelectedDay){ $(e).addClass('selected'); }
   });
 }
 
 var watchWeekSelectors = function(){
-  var oneWeekAgo = moment().weeks(moment().weeks()-1).format();
   $('.prev-week').off().click(function(){
     if (!$(this).hasClass('disabled')){
+      localStorage.currentTime = getCurrentTime().weeks(getCurrentWeek()-1).format(); //one week ago
       $('span.week-text').text('Last week');
-      localStorage.currentTime = oneWeekAgo;
       watchWeekDays();
       styleDeviceIcons();
       $('.next-week, .prev-week').toggleClass('disabled');
@@ -133,8 +166,8 @@ var watchWeekSelectors = function(){
 
   $('.next-week').off().click(function(){
     if (!$(this).hasClass('disabled')){
-      $('span.week-text').text('This week');
       localStorage.currentTime = moment().format();
+      $('span.week-text').text('This week');
       watchWeekDays();
       styleDeviceIcons();
       $('.next-week, .prev-week').toggleClass('disabled');
@@ -216,7 +249,7 @@ var submitPrediction = function(occurrenceId, prediction){
 }
 
 var styleDeviceIcons = function(){
-  getUsageForWeek(getCurrentYear(), getCurrentWeek(), function(data){
+  getUsageForDay(getCurrentYear(), getCurrentWeek(), getCurrentDate(), function(data){
     styleDeviceIcon('light', data);
     var c = styleDeviceIcon('computer', data);
     var p = styleDeviceIcon('projector', data);
@@ -375,8 +408,13 @@ var watchLogOut = function(){
 
 var watchBackBtn = function(){
   $('a.back').click(function(){
-    window.history.back();
-  })
+    if (document.referrer) {
+      window.open(document.referrer,'_self');
+    } else { 
+      history.go(-1);
+    }
+    return false;
+  });
 }
 
 $(document).ready(function(){
