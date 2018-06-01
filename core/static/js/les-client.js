@@ -265,7 +265,7 @@ var populateSubjects = function(selectedDay){
         s = o.subject;
         $('ul.subjects').append(
           '<li id="subject-'+s.id+'">\
-          <div class="circle"><span>1</span></div>\
+          <div class="circle"><span>' + (i+1) + '</span></div>\
           <a href="prediction?duration='+s.duration+'&subject='+s.name+'&occurrence='+o.id+'&date='+selectedDay.format("YYYY/MM/DD")+'">\
           <span class="title">'+s.name+'</span></a></li>');
       });
