@@ -130,6 +130,7 @@ var selectDay = function(e){
   $('.weekdays a.selected').removeClass('selected');
   $(e.target).addClass('selected');
   localStorage.currentTime = moment($(e.target).attr('data-date'), "YYMMDD").format();
+  styleDeviceIcons();
 }
 
 var watchWeekDays = function(){
