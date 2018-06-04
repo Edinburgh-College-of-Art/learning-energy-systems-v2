@@ -42,6 +42,8 @@ nav#header .container { width: 100%; }
   background-size: 15% 100%;
 }
 
+.styled-select select:disabled { opacity:0.9; background-color: #EEE; color:silver; }
+
 .styled-select.narrower { width: 15%; }
 .styled-select.wider { width: 20%; }
 

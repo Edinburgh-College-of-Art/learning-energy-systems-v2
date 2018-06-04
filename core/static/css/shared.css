@@ -85,6 +85,7 @@ nav#header label { color:#8C8080; margin:0px 10px; }
 
 
 .logo {
+  min-height: 6em;
   height: 15vh;
   vertical-align: middle;
   position: relative;

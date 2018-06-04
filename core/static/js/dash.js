@@ -80,6 +80,15 @@ var watchSelects = function(){
     getSelectedUsage();
   });
 
+  $("#select-month").change(function(e) {
+    if ($(this).val() == "0"){
+      $('#select-week').attr('disabled','disabled');
+    } else {
+      populateWeeks($('#select-month option:selected').attr('data-year'), $(this).val());
+      $('#select-week').removeAttr('disabled');
+    }
+  });
+
   $("#select-day").change(
     function(event) {
       var day = $(this).val().toLocaleLowerCase();
@@ -109,8 +118,6 @@ var watchRevealBtns = function(){
 var getUsageForWeek = function(opts, successCb){
   var url = window.les_base_url + '/api/usage/weekdays/?foo=bar'
 
-  console.log(Object.keys(opts));
-
   $.each(Object.keys(opts), function(i,k){
     url = url + '&' + k + '=' + opts[k];
   });
@@ -122,7 +129,7 @@ var getUsageForWeek = function(opts, successCb){
   });
 }
 
-var handleData = function(data){
+var handleStats = function(data){
   $.each(Object.keys(data), function(i, day){
     $('.energy-cell.projector.'+day+' div.circle').attr('data-pct', data[day].average_use.projector);
     $('.energy-cell.heater.'+day+' div.circle').attr('data-pct', data[day].average_use.heater);
@@ -150,36 +157,85 @@ var handleData = function(data){
 }
 
 var getSelectedUsage = function(){
+  var year = parseInt($('#select-month option:selected').attr('data-year'));
   var month = parseInt($('#select-month').val());
   var week = parseInt($('#select-week').val());
   var subjectId = parseInt($('#select-subject').val());
   var yeargroupId = parseInt($('#select-yeargroup').val());
 
   var opts = {};
+  if (year){ opts['year'] = year }
   if (month){ opts['month'] = month }
-  if (week){ opts['week'] = week }
+  if (week){ opts['week'] = week; delete opts['month']; }
   if (subjectId){ opts['subject_id'] = subjectId }
   if (yeargroupId){ opts['yeargroup_id'] = yeargroupId }
 
-  console.log(opts);
-  getUsageForWeek(opts, handleData);
+  getUsageForWeek(opts, handleStats);
+}
+
+var populateSelects = function(){
+  //Populate yeargroups and subjects
+  getYeargroups(function(data){
+    var optgroup;
+    $.each(data, function(i, yg){
+      $('#select-yeargroup').append('<option value="'+yg.id+'">'+ yg.name +'</option>');
+      optgroup = '<optgroup label="'+yg.name+'">';
+      $.each(yg.subjects, function(i, s){
+        optgroup = optgroup + '<option value="'+s.id+'">'+ s.name +'</option>';
+      });
+      optgroup = optgroup + '</optgroup>';
+      $('#select-subject').append(optgroup);
+    });
+  });
+
+  //Populate months
+  var startMonth = moment().month();
+  var numberOfOptions = 6;
+  var months = Array.apply(null, Array(numberOfOptions)).map(function(_,i){return moment().month(startMonth-i) });
+  $.each(months, function(i,e){
+    $('#select-month').append('<option data-year="'+e.year()+'" value="'+ (e.month()+1) +'">'+ e.format('MMMM \'YY') +'</option>');
+  });
+}
+
+var populateWeeks = function(year, month){
+  var monday = moment().year(parseInt(year)).month(parseInt(month-1));
+
+  $('#select-week').children('option').remove();
+  $('#select-week').append('<option value="0">All of '+monday.format('MMMM')+'</option>');
+
+  monday = monday.startOf('month').day("Monday");
+
+  if (monday.date() > 7) monday.add(7,'d');
+  var month = monday.month();
+  var i = 0;
+
+  while(month === monday.month()){
+    i+=1;
+    $('#select-week').append('<option data-rep="'+monday.format()+'" value="'+monday.weeks()+'">Week '+i+'</option>');
+    monday.add(7,'d');
+  }
+}
+
+var getYeargroups = function(successCb){
+  var url = window.les_base_url + '/api/yeargroups/'
+
+  $.ajax({ type: 'GET', url: url,
+    success: function(data){ successCb(data); },
+    complete: function(r){ console.log(r.responseJSON); },
+    error: function(r){ console.log(r); }
+  });
 }
 
 $(document).ready(function(){
-  localStorage.setItem("currentTime", moment().format());
-
-  fixedData();
+  populateSelects();
 
   $('div.energy-grid .energy-cell').click(function(){
     $('div.energy-grid .energy-cell').removeClass('selected');
     $(this).addClass('selected');
   });
 
-  var spinner = new Spinner();
-
   watchSelects();
   watchDeviceIcons();
   watchRevealBtns();
-
   getSelectedUsage();
 });
