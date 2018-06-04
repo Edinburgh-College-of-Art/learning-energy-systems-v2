@@ -133,10 +133,6 @@ div.devices a {
 }
 
 div.devices #total a {
-  /* position: absolute;
-  left: 43%;
-  top: -4.5vh; */
-
   background-color: white;
   min-height: 3em;
   min-width: 3em;
@@ -144,6 +140,7 @@ div.devices #total a {
   color: black;
   width: 11vh;
   height: 11vh;
+  z-index: 1000;
 }
 
 @media only screen and (max-width: 465px) {
@@ -155,8 +152,11 @@ div.devices #total a div {
   position: relative;
 }
 
-div.devices #total a div span.time { font-size: 4.4vh; }
-div.devices #total a div span.units { font-size: 0.9em; }
+div.devices #total a div span.time { top: 0.5vh; position: relative; font-size: 4.4vh; }
+div.devices #total a div span.units {font-size: 0.9em; line-height: 1.1em; }
+div.devices #total a div span.view {
+  position: relative; top: 3.5vh; font-size: 1.1em;
+}
 
 div.devices a img {
   max-width: 31vh;

@@ -263,17 +263,11 @@ var styleDeviceIcons = function(){
     var p = styleDeviceIcon('projector', data);
     styleDeviceIcon('heater', data);
     // move total towards middle
-    $('#total').parents('.row').css('top', ((c.top + p.top)/2));
-    var duration = Math.round(data.total_duration / 60);
-    var units = 'hours';
-    if (duration < 1){
-      duration = data.total_duration;
-      units = 'mins';
-    }
+    $('#total a').parents('.row').css('top', ((c.top + p.top)/2));
+    var duration = round(data.total_energy_use, 1);
     var backg = Math.round(10 * (data.average_pct/100));
     $('body').css('background-image', 'url(/static/img/backgrounds/'+backg*2+'.png)');
     $('#total a span.time').text(duration);
-    $('#total a span.units').text(units);
   });
 }
 

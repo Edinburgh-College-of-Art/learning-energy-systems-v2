@@ -95,6 +95,26 @@ class Prediction(models.Model):
     return { 'light': mean(l), 'computer': mean(c),
       'projector': mean(p), 'heater': mean(h) }
 
+
+  #.2 kilowatt-hour for desktop + monitor + stuff
+  #.018 kilowatt-hour per flourescent tube
+  #(0.8 kilowatt-hour per 10sqm) with 50sqm avg classroom
+  #300 watt projector
+
+  def energy_use(queryset):
+    durations = Prediction.average_duration(queryset)
+    kwh_usage = {
+      'light': (durations['light']/60) * (0.18 * 15),
+      'computer': (durations['computer']/60) * 0.2,
+      'projector': (durations['projector']/60) * 0.3,
+      'heater': (durations['heater']/60) * (0.8 * 5)
+      }
+    return kwh_usage
+
+  def total_energy_use(queryset):
+    kwh_usage = Prediction.energy_use(queryset)
+    return kwh_usage['light'] + kwh_usage['heater'] + kwh_usage['computer'] + kwh_usage['projector']
+
   def total_duration_for(queryset, device):
     d = list(map(lambda x: x.device_duration(device), queryset))
     return sum(d)

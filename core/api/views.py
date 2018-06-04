@@ -152,5 +152,7 @@ class UsageView(APIView):
                 'average_use': Prediction.average_use(queryset),
                 'average_pct': Prediction.average_pct(queryset),
                 'total_duration': Prediction.total_duration(queryset),
+                'energy_use': Prediction.energy_use(queryset),
+                'total_energy_use': Prediction.total_energy_use(queryset),
                 'prediction_count': queryset.count()
             })
