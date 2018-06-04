@@ -189,7 +189,7 @@ class WeekdayUsageView(APIView):
         queryset = Prediction.objects
 
         if yeargroup_id == None and request.user.is_authenticated:
-            queryset = queryset.filter(occurrence__subject__yeargroup_user_id=request.user.id)
+            queryset = queryset.filter(occurrence__subject__yeargroup__user=request.user)
         elif yeargroup_id != None:
             queryset = queryset.filter(occurrence__subject__yeargroup_id=yeargroup_id)
 
