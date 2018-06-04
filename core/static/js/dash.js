@@ -114,14 +114,23 @@ var watchRevealBtns = function(){
   });
 }
 
+var getUsageForWeek = function(yeargroupId, year, week, successCb){
+  var url = window.les_base_url + '/api/usage?year='+year+'&week='+week;
+  if (yeargroupId){
+    url = window.les_base_url + '/api/yeargroups/'+yeargroupId+'/usage?year='+year+'&week='+week;
+  }
+
+  $.ajax({ type: 'GET', url: url,
+    success: function(data){ successCb(data); },
+    complete: function(r){ console.log(r.responseJSON); },
+    error: function(r){ console.log(r); }
+  });
+}
 
 $(document).ready(function(){
-  fixedData();
+  localStorage.setItem("currentTime", moment().format());
 
-  /*$('body').click(function(){
-    console.log('bprk');
-    $('div.energy-grid .energy-cell').removeClass('selected');
-  });*/
+  fixedData();
 
   $('div.energy-grid .energy-cell').click(function(){
     $('div.energy-grid .energy-cell').removeClass('selected');
@@ -133,4 +142,6 @@ $(document).ready(function(){
   watchSelects();
   watchDeviceIcons();
   watchRevealBtns();
+
+  getUsageForWeek(undefined, getCurrentYear(), getCurrentWeek(), function(d){console.log(d) });
 });

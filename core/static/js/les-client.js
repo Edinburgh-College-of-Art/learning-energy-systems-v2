@@ -1,28 +1,3 @@
-function storageAvailable(type) {
-  try {
-    var storage = window[type],
-      x = '__storage_test__';
-    storage.setItem(x, x);
-    storage.removeItem(x);
-    return true;
-  }
-  catch(e) {
-    return e instanceof DOMException && (
-      // everything except Firefox
-      e.code === 22 ||
-      // Firefox
-      e.code === 1014 ||
-      // test name field too, because code might not be present
-      // everything except Firefox
-      e.name === 'QuotaExceededError' ||
-      // Firefox
-      e.name === 'NS_ERROR_DOM_QUOTA_REACHED') &&
-      // acknowledge QuotaExceededError only if there's something already stored
-      storage.length !== 0;
-  }
-}
-
-
 $.urlParam = function(name){
   var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
   if (results==null){
@@ -40,26 +15,6 @@ var styleBlocks = function(el){
   $(el).children('div.block').removeClass('pct-0 pct-13 pct-25 pct-38 pct-50 pct-63 pct-75 pct-88 pct-100');
   $(el).children('div.block.selected').addClass('pct-'+key);
 };
-
-var getCurrentTime = function(){
-  return moment(localStorage.currentTime);
-}
-
-var getCurrentWeek = function(){
-  return moment(localStorage.currentTime).weeks();
-}
-
-var getCurrentYear = function(){
-  return moment(localStorage.currentTime).year();
-}
-
-var getCurrentDate = function(){
-  return moment(localStorage.currentTime).date();
-}
-
-var getCurrentWeekDay = function(){
-  return moment(localStorage.currentTime).isoWeekday();
-}
 
 var getOccurrencesForWeek = function(year, week, successCb, errorCb){
   var headers = { 'Authorization': 'Token ' + localStorage.token };
