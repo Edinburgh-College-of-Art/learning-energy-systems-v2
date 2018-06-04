@@ -82,7 +82,9 @@ div#canvasContainer {
   width:90%;
 }
 
-div#learningQuestions { margin-top:90px; }
+div#learningQuestions { margin-top:50px; font-size:1.5em; }
+
+div#learningQuestions p { font-size: inherit; }
 
 form#questionsForm { margin-bottom: 25px; }
 
@@ -262,15 +264,17 @@ div.detail-grid * {
 
 div.detail-grid img.energyIcon,
 div.energy-grid img.energyIcon {
-  width:87%;
+  width:75%;
   text-align: center;
   margin: 10px auto;
   display: block;
 }
 
 p.energy-total, p.wday-label {
-  font-size:1.3rem;
+  font-size:1.5rem;
   color: #797979;
+  margin: 0.6em auto;
+  margin-bottom: 0.25em;
 }
 
 div.microscope div.circle.hidden,
