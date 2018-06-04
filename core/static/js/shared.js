@@ -52,26 +52,6 @@ var round = function(value, decimals) {
   return Number(Math.round(value+'e'+decimals)+'e-'+decimals);
 }
 
-var getCurrentTime = function(){
-  return moment(localStorage.currentTime);
-}
-
-var getCurrentWeek = function(){
-  return moment(localStorage.currentTime).weeks();
-}
-
-var getCurrentYear = function(){
-  return moment(localStorage.currentTime).year();
-}
-
-var getCurrentDate = function(){
-  return moment(localStorage.currentTime).date();
-}
-
-var getCurrentWeekDay = function(){
-  return moment(localStorage.currentTime).isoWeekday();
-}
-
 $(document).ready(function(){
   watchHamburger();
 })

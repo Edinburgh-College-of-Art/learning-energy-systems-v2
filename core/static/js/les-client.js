@@ -7,6 +7,26 @@ $.urlParam = function(name){
   }
 };
 
+var getCurrentTime = function(){
+  return moment(localStorage.currentTime);
+}
+
+var getCurrentWeek = function(){
+  return moment(localStorage.currentTime).weeks();
+}
+
+var getCurrentYear = function(){
+  return moment(localStorage.currentTime).year();
+}
+
+var getCurrentDate = function(){
+  return moment(localStorage.currentTime).date();
+}
+
+var getCurrentWeekDay = function(){
+  return moment(localStorage.currentTime).isoWeekday();
+}
+
 var styleBlocks = function(el){
   var all = $(el).children('div.block').length
   var selected = $(el).children('div.block.selected').length
