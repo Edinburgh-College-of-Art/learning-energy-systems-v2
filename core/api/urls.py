@@ -25,13 +25,14 @@ urlpatterns = [
     path('yeargroups/<int:ypk>/subjects/<int:pk>',  views.SubjectViewSet.as_view({'get': 'retrieve'}) ),
     url(r'^yeargroups/(?P<ypk>\d+)/subjects/(?P<year>[0-9]{4})/(?P<month>[0-9]{2})/(?P<day>[0-9]{2})/$', views.SubjectViewSet.as_view({'get': 'search'}) ),
 
+    path('usage/', views.UsageView.as_view() ),
     url(r'^yeargroups/(?P<ypk>\d+)/usage', views.UsageView.as_view() ),
 
     url(r'^yeargroups/(?P<ypk>\d+)/occurrences/(?P<year>[0-9]{4})/(?P<month>[0-9]{2})/(?P<day>[0-9]{2})/$', views.OccurrenceViewSet.as_view({'get': 'search_day'}) ),
     url(r'^yeargroups/(?P<ypk>\d+)/occurrences/(?P<year>[0-9]{4})/week/(?P<week>[0-9]{2})/$', views.OccurrenceViewSet.as_view({'get': 'search_week'}) ),
-    
+
     path('subjects/<int:pk>/occurrences', views.OccurrenceViewSet.as_view({'get': 'list'}) ),
-    
+
     path('occurrences/<int:opk>/user-prediction',  views.PredictionViewSet.as_view({'get': 'retrieve', 'put': 'update'}) ),
     path('occurrences/<int:opk>/predictions',  views.PredictionViewSet.as_view({'get': 'list', 'post':'create'}) ),
 ]

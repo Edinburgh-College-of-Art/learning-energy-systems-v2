@@ -131,7 +131,10 @@ class UsageView(APIView):
         day = int(request.GET.get('day', default=0))
         user_id = request.GET.get('user_id', default=None)
 
-        queryset = Prediction.objects.filter(occurrence__subject__yeargroup_id=ypk)
+        if ypk == None:
+            queryset = Prediction.objects.filter(occurrence__subject__yeargroup_user_id=request.user.id)
+        else:
+            queryset = Prediction.objects.filter(occurrence__subject__yeargroup_id=ypk)
 
         if subject:
             queryset = queryset.filter(occurrence__subject_id=subject)
