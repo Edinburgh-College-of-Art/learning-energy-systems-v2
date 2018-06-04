@@ -1,41 +1,5 @@
-// CONSTANTS //
-var les_base_url = "http://localhost";
-//var les_base_url = "http://app.learningenergy.eca.ed.ac.uk/admin-app";
-
-var _chartPaddingWidth = 25;
-var _chartPaddingHeight = 75;
-var _e_scaleTypes = { week: 0, month: 1};
-var _weekLabels =[ {
-    text: "Monday",
-    xPos: 0
-  }, {
-    text: "Tuesday",
-    xPos: 1
-  }, {
-    text: "Wednesday",
-    xPos: 2
-  }, {
-    text: "Thursday",
-    xPos: 3
-  }, {
-    text: "Friday",
-    xPos: 4
-  }
-];
-
-var _energyTypes = ["computer", "heater", "light", "projector"];
-
-// GLOBAL VARS //
-var questionData;
-var energyData;
-var energyData_subjects = [];
-var SHOW_ALL = false;
-
+var energyTypes = ["computer", "heater", "light", "projector"];
 var url = new URL(window.location.href);
-var schoolId = url.searchParams.get("les_school_id");
-if (schoolId == null){ schoolId = localStorage['les_school_id']; }
-if (schoolId == undefined){ schoolId = 1; }
-
 
 var pickHex = function(color1, color2, weight) {
   var p = weight;

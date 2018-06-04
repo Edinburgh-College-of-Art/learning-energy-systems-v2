@@ -18,6 +18,10 @@
 <script src='/static/js/spin.js'></script>
 <script src='/static/js/jquery-ui.js'></script>
 <script src="/static/js/shared.js"></script>
+<script type="text/javascript">
+  window.les_base_url = "{{ request.scheme }}://{{ request.get_host }}";
+  window.identify_url = window.les_base_url + "{% url 'api-identify-student' %}";
+</script>
 {% block head %}{% endblock %}
 </head>
 <body>
