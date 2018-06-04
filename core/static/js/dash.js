@@ -14,6 +14,7 @@ var pickHex = function(color1, color2, weight) {
 
 var styleCircle = function(el){
   var pct = $(el).attr('data-pct');
+  if (pct == 0){ $(el).hide() } else { $(el).show() }
   var key = findClosest(pct, Object.keys(gradient));
   var circleSize = 5 + (pct/100) * 88;
   var spacing = (100 - circleSize) / 2;
@@ -31,14 +32,6 @@ var styleCircle = function(el){
     $(el).css('top', spacing+'%').css('left', spacing+'%');  
   }
 };
-
-var randomData = function(){
-  $('.energy-grid div.circle, .microscope div.circle').each(function(){
-    var pct = 100 * Math.random();
-    $(this).attr('data-pct', pct);
-    styleCircle(this);
-  });
-}
 
 var fixedData = function(seed){
   if (seed == undefined){ seed = 0; }
@@ -84,11 +77,10 @@ var watchDeviceIcons = function(){
 
 var watchSelects = function(){
   $("#select-yeargroup, #select-subject, #select-month, #select-week").change(function(event) {
-      fixedData($(this).val());
-      getSelectedUsage();
-    });
+    getSelectedUsage();
+  });
 
-  $("#selectDay").change(
+  $("#select-day").change(
     function(event) {
       var day = $(this).val().toLocaleLowerCase();
 
@@ -130,6 +122,33 @@ var getUsageForWeek = function(opts, successCb){
   });
 }
 
+var handleData = function(data){
+  $.each(Object.keys(data), function(i, day){
+    $('.energy-cell.projector.'+day+' div.circle').attr('data-pct', data[day].average_use.projector);
+    $('.energy-cell.heater.'+day+' div.circle').attr('data-pct', data[day].average_use.heater);
+    $('.energy-cell.light.'+day+' div.circle').attr('data-pct', data[day].average_use.light);
+    $('.energy-cell.computer.'+day+' div.circle').attr('data-pct', data[day].average_use.computer);
+
+    $('.energy-cell.projector.'+day+' div.circle').siblings('.data').children('.value').text(round(data[day].energy_use.projector,2));
+    $('.energy-cell.heater.'+day+' div.circle').siblings('.data').children('.value').text(round(data[day].energy_use.heater,2));
+    $('.energy-cell.light.'+day+' div.circle').siblings('.data').children('.value').text(round(data[day].energy_use.light,2));
+    $('.energy-cell.computer.'+day+' div.circle').siblings('.data').children('.value').text(round(data[day].energy_use.computer,2));
+  });
+
+  $('.energy-cell div.circle').each(function(i,el){ styleCircle(el); });
+
+  var totalHrs = 0;
+  ['monday', 'tuesday', 'wednesday', 'thursday', 'friday'].forEach(function(d){
+    var hrs = 0;
+    $('.energy-cell.'+d+' span.value').each(function(i,e){
+      hrs += parseFloat($(this).text());
+    });
+    $('.energy-total.'+d).text(round(hrs, 2));
+    totalHrs += hrs;
+  });
+  $('.energy-total.all span').text(round(totalHrs, 2));
+}
+
 var getSelectedUsage = function(){
   var month = parseInt($('#select-month').val());
   var week = parseInt($('#select-week').val());
@@ -143,7 +162,7 @@ var getSelectedUsage = function(){
   if (yeargroupId){ opts['yeargroup_id'] = yeargroupId }
 
   console.log(opts);
-  getUsageForWeek(opts, ()=>{ console.log('yay'); });
+  getUsageForWeek(opts, handleData);
 }
 
 $(document).ready(function(){
