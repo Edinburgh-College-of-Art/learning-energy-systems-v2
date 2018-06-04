@@ -110,6 +110,8 @@ p.answer.visible .reveal-btn { display: none; }
 }
 
 .reveal-btn {
+  border: none;
+  background: none;
   color:#29b473;
   font-size: 1.1em;
 }
