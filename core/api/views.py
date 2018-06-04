@@ -210,4 +210,7 @@ class WeekdayUsageView(APIView):
         thu = WeekdayUsageView.build_usage_for(queryset.filter(occurrence__date__week_day=5))
         fri = WeekdayUsageView.build_usage_for(queryset.filter(occurrence__date__week_day=6))
 
-        return Response({ 0: mon, 1: tue, 2: wed, 3: thu, 4: fri })
+        return Response({
+            'monday': mon, 'tuesday': tue,
+            'wednesday': wed, 'thursday': thu, 'friday': fri
+        })
