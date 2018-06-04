@@ -177,19 +177,21 @@ class WeekdayUsageView(APIView):
             'prediction_count': day_queryset.count()
         }
 
-    def get(self, request, ypk=None):
+    def get(self, request):
+        yeargroup_id = request.GET.get('yeargroup_id', default=None)
         subject_id = request.GET.get('subject_id', default=None)
+        user_id = request.GET.get('user_id', default=None)
+
         year = int(request.GET.get('year', default=0))
         month = int(request.GET.get('month', default=0))
         week = int(request.GET.get('week', default=0))
-        user_id = request.GET.get('user_id', default=None)
 
         queryset = Prediction.objects
 
-        if ypk == None and request.user.is_authenticated:
+        if yeargroup_id == None and request.user.is_authenticated:
             queryset = queryset.filter(occurrence__subject__yeargroup_user_id=request.user.id)
-        elif ypk != None:
-            queryset = queryset.filter(occurrence__subject__yeargroup_id=ypk)
+        elif yeargroup_id != None:
+            queryset = queryset.filter(occurrence__subject__yeargroup_id=yeargroup_id)
 
         if user_id:
             queryset = queryset.filter(user_id=user_id)
