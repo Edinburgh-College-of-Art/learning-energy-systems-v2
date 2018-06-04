@@ -273,6 +273,12 @@ p.energy-total, p.wday-label {
   color: #797979;
 }
 
+div.microscope div.circle.hidden,
+div.legend-circles div.circle.hidden,
+div.energy-grid div.circle.hidden {
+  display: none;
+}
+
 div.microscope div.circle,
 div.legend-circles div.circle,
 div.energy-grid div.circle { 
