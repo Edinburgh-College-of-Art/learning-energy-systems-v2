@@ -29,18 +29,21 @@ h3 {
   clear:both;
 }
 
-/* STRUCTURE */
+nav#header .container { width: 100%; }
 
 .styled-select {
   top: 4vh;
   position: relative;
   overflow: hidden;
-  width: 19%;
+  width: 17%;
   display: inline-block;
   background: url('../img/arrow_select.png') no-repeat right center;
-  height: 34px;
+  height: 40px;
   background-size: 15% 100%;
 }
+
+.styled-select.narrower { width: 15%; }
+.styled-select.wider { width: 20%; }
 
 .styled-select select {
   background: transparent;
@@ -48,8 +51,8 @@ h3 {
   padding: 5px; /* If you add too much padding here, the options won't show in IE */
   width: 112%;
   border: 1px solid #ccc;
-  font-size: 16px;
-  height: 34px;
+  font-size: 1.3em;
+  height: 40px;
 }
 
 .styled-select select:active {

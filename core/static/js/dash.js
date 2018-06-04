@@ -83,9 +83,9 @@ var watchDeviceIcons = function(){
 }
 
 var watchSelects = function(){
-  $("#selectSubject, #selectMonth, #selectWeek").change(
-    function(event) {
+  $("#select-yeargroup, #select-subject, #select-month, #select-week").change(function(event) {
       fixedData($(this).val());
+      getSelectedUsage();
     });
 
   $("#selectDay").change(
@@ -114,17 +114,36 @@ var watchRevealBtns = function(){
   });
 }
 
-var getUsageForWeek = function(yeargroupId, year, week, successCb){
-  var url = window.les_base_url + '/api/usage/weekdays?year='+year+'&week='+week;
-  if (yeargroupId){
-    url = window.les_base_url + '/api/yeargroups/weekdays'+yeargroupId+'/usage?year='+year+'&week='+week;
-  }
+var getUsageForWeek = function(opts, successCb){
+  var url = window.les_base_url + '/api/usage/weekdays/?foo=bar'
+
+  console.log(Object.keys(opts));
+
+  $.each(Object.keys(opts), function(i,k){
+    url = url + '&' + k + '=' + opts[k];
+  });
 
   $.ajax({ type: 'GET', url: url,
     success: function(data){ successCb(data); },
     complete: function(r){ console.log(r.responseJSON); },
     error: function(r){ console.log(r); }
   });
+}
+
+var getSelectedUsage = function(){
+  var month = parseInt($('#select-month').val());
+  var week = parseInt($('#select-week').val());
+  var subjectId = parseInt($('#select-subject').val());
+  var yeargroupId = parseInt($('#select-yeargroup').val());
+
+  var opts = {};
+  if (month){ opts['month'] = month }
+  if (week){ opts['week'] = week }
+  if (subjectId){ opts['subject_id'] = subjectId }
+  if (yeargroupId){ opts['yeargroup_id'] = yeargroupId }
+
+  console.log(opts);
+  getUsageForWeek(opts, ()=>{ console.log('yay'); });
 }
 
 $(document).ready(function(){
@@ -143,5 +162,5 @@ $(document).ready(function(){
   watchDeviceIcons();
   watchRevealBtns();
 
-  getUsageForWeek(undefined, getCurrentYear(), getCurrentWeek(), function(d){console.log(d) });
+  getSelectedUsage();
 });
