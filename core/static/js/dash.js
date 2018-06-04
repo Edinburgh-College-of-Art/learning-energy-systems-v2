@@ -115,9 +115,9 @@ var watchRevealBtns = function(){
 }
 
 var getUsageForWeek = function(yeargroupId, year, week, successCb){
-  var url = window.les_base_url + '/api/usage?year='+year+'&week='+week;
+  var url = window.les_base_url + '/api/usage/weekdays?year='+year+'&week='+week;
   if (yeargroupId){
-    url = window.les_base_url + '/api/yeargroups/'+yeargroupId+'/usage?year='+year+'&week='+week;
+    url = window.les_base_url + '/api/yeargroups/weekdays'+yeargroupId+'/usage?year='+year+'&week='+week;
   }
 
   $.ajax({ type: 'GET', url: url,

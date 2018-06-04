@@ -161,3 +161,51 @@ class UsageView(APIView):
                 'total_energy_use': Prediction.total_energy_use(queryset),
                 'prediction_count': queryset.count()
             })
+
+
+class WeekdayUsageView(APIView):
+
+    def build_usage_for(day_queryset):
+        return {
+            'average_duration': Prediction.average_duration(day_queryset),
+            'total_durations': Prediction.total_durations(day_queryset),
+            'average_use': Prediction.average_use(day_queryset),
+            'average_pct': Prediction.average_pct(day_queryset),
+            'total_duration': Prediction.total_duration(day_queryset),
+            'energy_use': Prediction.energy_use(day_queryset),
+            'total_energy_use': Prediction.total_energy_use(day_queryset),
+            'prediction_count': day_queryset.count()
+        }
+
+    def get(self, request, ypk=None):
+        subject_id = request.GET.get('subject_id', default=None)
+        year = int(request.GET.get('year', default=0))
+        month = int(request.GET.get('month', default=0))
+        week = int(request.GET.get('week', default=0))
+        user_id = request.GET.get('user_id', default=None)
+
+        queryset = Prediction.objects
+
+        if ypk == None and request.user.is_authenticated:
+            queryset = queryset.filter(occurrence__subject__yeargroup_user_id=request.user.id)
+        elif ypk != None:
+            queryset = queryset.filter(occurrence__subject__yeargroup_id=ypk)
+
+        if user_id:
+            queryset = queryset.filter(user_id=user_id)
+        if subject_id:
+            queryset = queryset.filter(occurrence__subject_id=subject_id)
+        if year:
+            queryset = queryset.filter(occurrence__date__year=year)
+        if month:
+            queryset = queryset.filter(occurrence__date__month=month)
+        if week:
+            queryset = queryset.filter(occurrence__date__week=week)
+
+        mon = WeekdayUsageView.build_usage_for(queryset.filter(occurrence__date__week_day=2))
+        tue = WeekdayUsageView.build_usage_for(queryset.filter(occurrence__date__week_day=3))
+        wed = WeekdayUsageView.build_usage_for(queryset.filter(occurrence__date__week_day=4))
+        thu = WeekdayUsageView.build_usage_for(queryset.filter(occurrence__date__week_day=5))
+        fri = WeekdayUsageView.build_usage_for(queryset.filter(occurrence__date__week_day=6))
+
+        return Response({ 0: mon, 1: tue, 2: wed, 3: thu, 4: fri })

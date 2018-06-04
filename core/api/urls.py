@@ -28,6 +28,9 @@ urlpatterns = [
     path('usage/', views.UsageView.as_view() ),
     url(r'^yeargroups/(?P<ypk>\d+)/usage', views.UsageView.as_view() ),
 
+    path('usage/weekdays', views.WeekdayUsageView.as_view() ),
+    url(r'^yeargroups/(?P<ypk>\d+)/usage/weekdays', views.WeekdayUsageView.as_view() ),
+
     url(r'^yeargroups/(?P<ypk>\d+)/occurrences/(?P<year>[0-9]{4})/(?P<month>[0-9]{2})/(?P<day>[0-9]{2})/$', views.OccurrenceViewSet.as_view({'get': 'search_day'}) ),
     url(r'^yeargroups/(?P<ypk>\d+)/occurrences/(?P<year>[0-9]{4})/week/(?P<week>[0-9]{2})/$', views.OccurrenceViewSet.as_view({'get': 'search_week'}) ),
 
