@@ -129,6 +129,7 @@ class UsageView(APIView):
         month = int(request.GET.get('month', default=0))
         week = int(request.GET.get('week', default=0))
         day = int(request.GET.get('day', default=0))
+        user_id = request.GET.get('user_id', default=None)
 
         queryset = Prediction.objects.filter(occurrence__subject__yeargroup_id=ypk)
 
@@ -142,6 +143,8 @@ class UsageView(APIView):
             queryset = queryset.filter(occurrence__date__week=week)
         if day:
             queryset = queryset.filter(occurrence__date__day=day)
+        if user_id:
+            queryset = queryset.filter(user_id=user_id)
 
         return Response({
                 'average_duration': Prediction.average_duration(queryset),

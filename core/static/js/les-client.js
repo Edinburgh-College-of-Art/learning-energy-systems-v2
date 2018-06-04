@@ -84,7 +84,7 @@ var getUsageForWeek = function(year, week, successCb){
 
 var getUsageForDay = function(year, week, day, successCb){
   var headers = { 'Authorization': 'Token ' + localStorage.token };
-  var url = window.les_base_url + '/api/yeargroups/'+localStorage.yeargroupId+'/usage?year='+year+'&week='+week+'&day='+day;
+  var url = window.les_base_url + '/api/yeargroups/'+localStorage.yeargroupId+'/usage?year='+year+'&week='+week+'&day='+day+'&user_id='+localStorage.userId;
 
   $.ajax({ type: 'GET', url: url, headers: headers,
     success: function(data){ successCb(data); },
@@ -97,6 +97,7 @@ var readStudent = function(token, successCb, errorCb){
   $.ajax({ type: 'GET', url: window.identify_url, headers: headers,
     success: function(data){
       localStorage.username = data.user.username;
+      localStorage.userId = data.user.id;
       localStorage.token = token;
       localStorage.yeargroupId = data.yeargroup.id;
       successCb(data);
@@ -287,12 +288,24 @@ var styleDeviceIcon = function(device, data){
   return { new_height: newHeight, top: top };
 }
 
+var setCurrentTime = function(){
+  var weekNumber = moment().weeks() - 1;
+  var startOfLastWeek = moment().weeks(weekNumber).days(1).hour(0).minutes(0);
+  if ((getCurrentTime() < startOfLastWeek) || (localStorage.currentTime == null)) {
+    localStorage.setItem("currentTime", moment().format());
+  }
+}
+
 var populateWeekView = function(){
-  localStorage.setItem("currentTime", moment().format());
+  setCurrentTime();
+  if (getCurrentTime().weeks() != moment().weeks()){
+    $('span.week-text').text('Last week');
+  }
   watchWeekDays();
   watchWeekSelectors();
   watchTotalButton();
   styleDeviceIcons();
+  watchBackBtn();
 }
 
 var populateSubjects = function(selectedDay){
@@ -343,6 +356,8 @@ var getCurrentPrediction = function(occurrenceId, successCb){
 }
 
 var populatePredictionView = function(){
+  watchBackBtn();
+
   var subject = $.urlParam('subject');
   var occurrenceId = $.urlParam('occurrence');
   var date = $.urlParam('date');
@@ -418,7 +433,7 @@ var watchBackBtn = function(){
   $('a.back').click(function(){
     if (document.referrer) {
       window.open(document.referrer,'_self');
-    } else { 
+    } else {
       history.go(-1);
     }
     return false;
@@ -433,5 +448,4 @@ $(document).ready(function(){
   $('nav h3.username span').text(localStorage.username);
   watchViewToday();
   watchLogOut();
-  watchBackBtn();
 });
