@@ -14,7 +14,7 @@ var pickHex = function(color1, color2, weight) {
 
 var styleCircle = function(el){
   var pct = $(el).attr('data-pct');
-  if (pct == 0){ $(el).hide() } else { $(el).show() }
+  if (pct == 0){ $(el).addClass('hidden'); } else { $(el).removeClass('hidden'); }
   var key = findClosest(pct, Object.keys(gradient));
   var circleSize = 5 + (pct/100) * 88;
   var spacing = (100 - circleSize) / 2;
