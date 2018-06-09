@@ -55,6 +55,9 @@ nav#header .container { width: 100%; }
   border: 1px solid #ccc;
   font-size: 1.3em;
   height: 40px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
 }
 
 .styled-select select:active {
