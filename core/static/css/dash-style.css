@@ -447,12 +447,14 @@ div.microscope {
 }
 
 div.microscope div.circle {
-  display: inline-block;
-  position: relative;
-  width: 15%; height: 15%;
+  display: block;
+  position: absolute;
+  width: 3vw; height: 3vw;
 }
 
+/*
 div.microscope .circle:nth-child(1) { top: 42%; left: 23%; }
 div.microscope .circle:nth-child(2) { top: 20%; left: 2%; }
 div.microscope .circle:nth-child(3) { top: 25%; left: -29%; }
 div.microscope .circle:nth-child(4) { top: 57%; left: -15%; }
+*/

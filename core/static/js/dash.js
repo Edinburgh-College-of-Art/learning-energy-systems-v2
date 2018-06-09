@@ -1,6 +1,23 @@
 var energyTypes = ["computer", "heater", "light", "projector"];
 var url = new URL(window.location.href);
 
+var isColliding = function( $div1, $div2 ) {
+  var d1_offset             = $div1.offset();
+  var d1_height             = $div1.outerHeight( true );
+  var d1_width              = $div1.outerWidth( true );
+  var d1_distance_from_top  = d1_offset.top + d1_height;
+  var d1_distance_from_left = d1_offset.left + d1_width;
+
+  var d2_offset             = $div2.offset();
+  var d2_height             = $div2.outerHeight( true );
+  var d2_width              = $div2.outerWidth( true );
+  var d2_distance_from_top  = d2_offset.top + d2_height;
+  var d2_distance_from_left = d2_offset.left + d2_width;
+
+  var not_colliding = ( d1_distance_from_top < d2_offset.top || d1_offset.top > d2_distance_from_top || d1_distance_from_left < d2_offset.left || d1_offset.left > d2_distance_from_left );
+  return ! not_colliding;
+};
+
 var pickHex = function(color1, color2, weight) {
   var p = weight;
   var w = p * 2 - 1;
@@ -282,5 +299,45 @@ var getSummaries = function(opts, successCb){
 var handleSummaries = function(data){
   $.each(Object.keys(data), function(i, userSummary){
     console.log(userSummary);
+  });
+}
+
+var checkPosition = function($el){
+  var hasCollisions = false;
+  $('.microscope div.circle').each(function(i,e){
+    if ($(this).attr('id') == $el.attr('id')) { return; }
+    if (isColliding($el, $(this))){ hasCollisions = true; }
+  });
+  return hasCollisions;
+}
+
+var findPointOnCircle = function(originX, originY, radius, angleRadians) {
+  var newX = radius * Math.cos(angleRadians) + originX
+  var newY = radius * Math.sin(angleRadians) + originY
+  return {"x" : newX, "y" : newY}
+}
+
+var positionCircle = function($newCircle, centreX, centreY, maxRadius){
+  var point = findPointOnCircle(centreX, centreY, (maxRadius * Math.random()), Math.random() * 10);
+  $newCircle.css('top', (point.y - ($newCircle.height() / 2)) +'px');
+  $newCircle.css('left', (point.x - ($newCircle.width() / 2)) +'px');
+} 
+
+var populateCircles = function(data){
+  var radius = $("div.microscope").width() / 2;
+  var maxRadius = radius * 0.94;
+  var centreX = $("div.microscope").offset().left + radius;
+  var centreY = $("div.microscope").offset().top + ($("div.microscope").height() / 2);
+  var escape = 0;
+
+  $.each(data, function(i,pct){
+    var $newCircle = $('<div id="c-'+i+'" data-pct="'+pct+'" class="circle"></div>');
+    $('div.microscope').append($newCircle);
+    positionCircle($newCircle, centreX, centreY, maxRadius);
+    escape = 0;
+    while (checkPosition($newCircle) && escape < 6){
+      positionCircle($newCircle, centreX, centreY, maxRadius);
+      escape += 1;
+    }
   });
 }
