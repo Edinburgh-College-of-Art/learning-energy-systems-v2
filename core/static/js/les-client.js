@@ -394,7 +394,7 @@ var watchViewToday = function(){
 var watchLogOut = function(){
   $("#log-out").click(function(){
     localStorage.removeItem('token');
-    window.location = "/admin/login";
+    window.location = "/login";
   });
 }
 
