@@ -202,9 +202,9 @@ class WeekdayUsageView(APIView, PredictionFiltering):
 class PredictionSummaryView(APIView, PredictionFiltering):
     def get(self, request):
         queryset = self.get_prediction_queryset(request)
-        user_summaries = {}
+        user_summaries = []
         users = list(queryset.values("user_id").distinct())
         for entry in users:
             average_pcts = Prediction.average_use(queryset.filter(user_id=entry['user_id']))
-            user_summaries[entry['user_id']] = average_pcts
+            user_summaries.append(average_pcts)
         return Response(user_summaries)
