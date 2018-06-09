@@ -257,7 +257,8 @@ var watchCells = function(){
 }
 
 var watchDetailSelects = function(){
-  $("#select-yeargroup, #select-subject, #select-month, #select-week, #select-day").change(function(event) {
+  $('#select-day').parent().remove(); // TODO Use later
+  $("#select-yeargroup, #select-subject, #select-month, #select-week").change(function(event) {
     getSelectedSummaries();
   });
 
@@ -303,6 +304,7 @@ var getSummaries = function(opts, successCb){
 }
 
 var handleSummaries = function(data){
+  $('.user-count').text(data.length);
   populateCircles(data);
 }
 
@@ -328,6 +330,7 @@ var positionCircle = function($newCircle, centreX, centreY, maxRadius){
 } 
 
 var populateCircles = function(data){
+  $('div.microscope div.circle').remove();
   var radius = $("div.microscope").width() / 2;
   var maxRadius = radius * 0.3;
   var centreX = $("div.microscope").offset().left + radius;

@@ -71,6 +71,12 @@ nav#header .container { width: 100%; }
   text-align:center;
 }
 
+.detail.mainCenter {
+  width: 67vw;
+  margin:0 auto;
+  text-align:center;
+}
+
 div#chart, div#legendOuter {
   background-color: #f2f2f2;
   text-align: center;
@@ -256,11 +262,15 @@ div.detail-grid {
   margin-bottom: 1em;
 }
 
-div.detail-grid {
+div.detail-grid,
+div.detail-legend {
   float:left;
   max-width:10vw;
   grid-template-columns: 1fr;
 }
+
+div.detail-legend span { color: inherit; }
+div.detail-legend h3 { margin: 0.1em 0em; font-size: 2em; }
 
 div.energy-grid,
 div.detail-grid * {
@@ -428,13 +438,12 @@ div.legend-gradient {
     );
 }
 
-div.detail-grid { display:inline-block; }
-
 div.detail-wrapper {
   height:45vw;
   width:45vw;
-  display:inline-block;
+  float: left;
   border: 1px dashed silver;
+  margin: 0px 1vw;
 }
 
 div.microscope {
@@ -452,6 +461,8 @@ div.microscope div.circle {
   max-width: 350px;
   max-height: 350px;
 }
+
+hr.clear { clear:both; border: none; margin: 1em;  }
 
 /*
 div.microscope .circle:nth-child(1) { top: 42%; left: 23%; }
