@@ -449,7 +449,8 @@ div.microscope {
 div.microscope div.circle {
   display: block;
   position: absolute;
-  width: 3vw; height: 3vw;
+  max-width: 350px;
+  max-height: 350px;
 }
 
 /*

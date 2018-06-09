@@ -48,6 +48,12 @@ var styleCircle = function(el){
     $(el).css('height', circleSize+'%').css('width', circleSize+'%');
     $(el).css('top', spacing+'%').css('left', spacing+'%');  
   }
+
+  if ($(el).parent().hasClass('microscope')){
+
+    $(el).css('height', ($(el).height() * (0.5 + (pct/200))) +'px');
+    $(el).css('width', ($(el).width() * (0.5 + (pct/200))) +'px');
+  }
 };
 
 var fixedData = function(seed){
@@ -297,9 +303,7 @@ var getSummaries = function(opts, successCb){
 }
 
 var handleSummaries = function(data){
-  $.each(Object.keys(data), function(i, userSummary){
-    console.log(userSummary);
-  });
+  populateCircles(data);
 }
 
 var checkPosition = function($el){
@@ -325,19 +329,23 @@ var positionCircle = function($newCircle, centreX, centreY, maxRadius){
 
 var populateCircles = function(data){
   var radius = $("div.microscope").width() / 2;
-  var maxRadius = radius * 0.94;
+  var maxRadius = radius * 0.3;
   var centreX = $("div.microscope").offset().left + radius;
   var centreY = $("div.microscope").offset().top + ($("div.microscope").height() / 2);
   var escape = 0;
 
-  $.each(data, function(i,pct){
-    var $newCircle = $('<div id="c-'+i+'" data-pct="'+pct+'" class="circle"></div>');
+  $.each(data, function(i,e){
+    var $newCircle = $('<div id="c-'+i+'" data-pct="'+e.average_pct+'" class="circle"></div>');
     $('div.microscope').append($newCircle);
+    $newCircle.css('height', ((radius*2) / data.length) + 'px');
+    $newCircle.css('width', ((radius*2) / data.length) + 'px');
+    styleCircle($newCircle);
     positionCircle($newCircle, centreX, centreY, maxRadius);
     escape = 0;
-    while (checkPosition($newCircle) && escape < 6){
+    while (checkPosition($newCircle) && escape < 7){
       positionCircle($newCircle, centreX, centreY, maxRadius);
       escape += 1;
+      maxRadius = radius * (0.3 + (escape/10));
     }
   });
 }
