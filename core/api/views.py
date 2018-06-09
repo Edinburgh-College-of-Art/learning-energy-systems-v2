@@ -205,6 +205,14 @@ class PredictionSummaryView(APIView, PredictionFiltering):
         user_summaries = []
         users = list(queryset.values("user_id").distinct())
         for entry in users:
-            average_pcts = Prediction.average_use(queryset.filter(user_id=entry['user_id']))
-            user_summaries.append(average_pcts)
+            user_queryset = queryset.filter(user_id=entry['user_id'])
+            summary = {
+                'average_duration': Prediction.average_duration(user_queryset),
+                'average_use': Prediction.average_use(user_queryset),
+                'average_pct': Prediction.average_pct(user_queryset),
+                'total_duration': Prediction.total_duration(user_queryset),
+                'total_energy_use': Prediction.total_energy_use(user_queryset),
+                'prediction_count': user_queryset.count()
+            }
+            user_summaries.append(summary)
         return Response(user_summaries)
