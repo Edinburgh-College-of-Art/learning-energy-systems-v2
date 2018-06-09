@@ -226,16 +226,9 @@ var getYeargroups = function(successCb){
   });
 }
 
-$(document).ready(function(){
-  populateSelects();
-
+var watchCells = function(){
   $('div.energy-grid .energy-cell').click(function(){
     $('div.energy-grid .energy-cell').removeClass('selected');
     $(this).addClass('selected');
   });
-
-  watchSelects();
-  watchDeviceIcons();
-  watchRevealBtns();
-  getSelectedUsage();
-});
+}
