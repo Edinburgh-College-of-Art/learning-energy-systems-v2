@@ -275,6 +275,25 @@ div.energy-grid img.energyIcon {
   display: block;
 }
 
+div.energyIcon {
+  background-image: url('../img/projector-subject-icon.png');
+  width: 8.27vw;
+  height: 8.27vw;
+  text-align: center;
+  margin: 10px auto;
+  display: block;
+  background-size: 100%;
+}
+
+div.energyIcon[name="light"] { background-image: url('../img/lightBulb-subject-icon.png'); }
+div.energyIcon[name="computer"] { background-image: url('../img/computer-subject-icon.png'); }
+div.energyIcon[name="heater"] { background-image: url('../img/heater-subject-icon.png'); }
+
+div.energyIcon.selected[name="projector"] { background-image: url('../img/dash_projector.png'); }
+div.energyIcon.selected[name="light"] { background-image: url('../img/dash_light.png'); }
+div.energyIcon.selected[name="computer"] { background-image: url('../img/dash_computer.png'); }
+div.energyIcon.selected[name="heater"] { background-image: url('../img/dash_heater.png'); }
+
 p.energy-total, p.wday-label {
   font-size:1.5rem;
   color: #797979;
