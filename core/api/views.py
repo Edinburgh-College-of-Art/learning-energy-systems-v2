@@ -200,7 +200,7 @@ class WeekdayUsageView(APIView, PredictionFiltering):
 
 
 class PredictionSummaryView(APIView, PredictionFiltering):
-    def get(self, request, ypk=None):
+    def get(self, request):
         queryset = self.get_prediction_queryset(request)
         serializer = PredictionSerializer(queryset, many=True)
         return Response(serializer.data)

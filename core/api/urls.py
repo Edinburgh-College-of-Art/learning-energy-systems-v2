@@ -30,6 +30,8 @@ urlpatterns = [
 
     path('usage/weekdays/', views.WeekdayUsageView.as_view() ),
 
+    path('summary/predictions/', views.PredictionSummaryView.as_view() ),
+
     url(r'^yeargroups/(?P<ypk>\d+)/occurrences/(?P<year>[0-9]{4})/(?P<month>[0-9]{2})/(?P<day>[0-9]{2})/$', views.OccurrenceViewSet.as_view({'get': 'search_day'}) ),
     url(r'^yeargroups/(?P<ypk>\d+)/occurrences/(?P<year>[0-9]{4})/week/(?P<week>[0-9]{2})/$', views.OccurrenceViewSet.as_view({'get': 'search_week'}) ),
 
