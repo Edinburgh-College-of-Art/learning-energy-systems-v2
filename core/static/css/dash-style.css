@@ -63,7 +63,7 @@ nav#header .container { width: 100%; }
 }
 
 .mainCenter {
-  width: 65vw;
+  width: 60vw;
   margin:0 auto;
   text-align:center;
 }
@@ -266,7 +266,7 @@ div.detail-grid * {
 
 div.detail-grid img.energyIcon,
 div.energy-grid img.energyIcon {
-  width:75%;
+  width:83%;
   text-align: center;
   margin: 10px auto;
   display: block;
