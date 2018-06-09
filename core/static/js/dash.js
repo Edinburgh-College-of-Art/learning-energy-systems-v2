@@ -232,3 +232,55 @@ var watchCells = function(){
     $(this).addClass('selected');
   });
 }
+
+var watchDetailSelects = function(){
+  $("#select-yeargroup, #select-subject, #select-month, #select-week, #select-day").change(function(event) {
+    getSelectedSummaries();
+  });
+
+  $("#select-month").change(function(e) {
+    if ($(this).val() == "0"){
+      $('#select-week').attr('disabled','disabled');
+    } else {
+      populateWeeks($('#select-month option:selected').attr('data-year'), $(this).val());
+      $('#select-week').removeAttr('disabled');
+    }
+  });
+}
+
+var getSelectedSummaries = function(){
+  var year = parseInt($('#select-month option:selected').attr('data-year'));
+  var month = parseInt($('#select-month').val());
+  var week = parseInt($('#select-week').val());
+  var subjectId = parseInt($('#select-subject').val());
+  var yeargroupId = parseInt($('#select-yeargroup').val());
+
+  var opts = {};
+  if (year){ opts['year'] = year }
+  if (month){ opts['month'] = month }
+  if (week){ opts['week'] = week; delete opts['month']; }
+  if (subjectId){ opts['subject_id'] = subjectId }
+  if (yeargroupId){ opts['yeargroup_id'] = yeargroupId }
+
+  getSummaries(opts, handleSummaries);
+}
+
+var getSummaries = function(opts, successCb){
+  var url = window.les_base_url + '/api/summary/predictions/?foo=bar'
+
+  $.each(Object.keys(opts), function(i,k){
+    url = url + '&' + k + '=' + opts[k];
+  });
+
+  $.ajax({ type: 'GET', url: url,
+    success: function(data){ successCb(data); },
+    complete: function(r){ console.log(r.responseJSON); },
+    error: function(r){ console.log(r); }
+  });
+}
+
+var handleSummaries = function(data){
+  $.each(Object.keys(data), function(i, userSummary){
+    console.log(userSummary);
+  });
+}
