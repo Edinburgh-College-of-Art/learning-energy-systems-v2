@@ -341,7 +341,7 @@ var populateCircles = function(data){
 
   $.each(data, function(i,e){
     var $newCircle = $('<div id="c-'+i+'" data-pct="'+e.average_pct+'" class="circle">\
-      <span class="use">Average use<br/>'+ round(e.average_pct,2) +'%</span></div>');
+      <span class="use">Average use<br/>'+ Math.round(e.average_pct) +'%</span></div>');
     $('div.microscope').append($newCircle);
     $newCircle.css('height', ((radius*2) / data.length) + 'px');
     $newCircle.css('width', ((radius*2) / data.length) + 'px');
