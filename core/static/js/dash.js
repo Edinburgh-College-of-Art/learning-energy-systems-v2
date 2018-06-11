@@ -359,9 +359,10 @@ var populateCircles = function(data){
 var watchDetailCircles = function(){
   $('div.microscope div.circle').off().click(function(){
 
-    //var $theEl = $(this);
     $('div.microscope div.circle').removeClass('doselect');
-    $(this).addClass('doselect');
+    if (!$(this).hasClass('selected')){
+      $(this).addClass('doselect');
+    }
 
     $('div.microscope div.circle').each(function(i,e){
       var oldwidth = $(e).width();
@@ -379,6 +380,7 @@ var watchDetailCircles = function(){
         $(e).css('left', centreX);
         $(e).css('top', centreY);
       }
-    })
+    });
+
   });
 }
