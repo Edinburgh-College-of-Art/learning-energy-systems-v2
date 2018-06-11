@@ -462,6 +462,25 @@ div.microscope div.circle {
   max-height: 350px;
 }
 
+div.circle .use {
+  display: none;
+  position: relative;
+  top: 38%;
+  top: calc(60% - 2em);
+  font-size: 2em;
+}
+
+div.circle.selected {
+  z-index: 1000;
+  width: 20vw !important;
+  height: 20vw !important;
+}
+
+div.circle.selected .use {
+  display: block;
+}
+
+
 hr.clear { clear:both; border: none; margin: 1em;  }
 
 /*

@@ -306,6 +306,7 @@ var getSummaries = function(opts, successCb){
 var handleSummaries = function(data){
   $('.user-count').text(data.length);
   populateCircles(data);
+  watchDetailCircles();
 }
 
 var checkPosition = function($el){
@@ -330,6 +331,7 @@ var positionCircle = function($newCircle, centreX, centreY, maxRadius){
 } 
 
 var populateCircles = function(data){
+
   $('div.microscope div.circle').remove();
   var radius = $("div.microscope").width() / 2;
   var maxRadius = radius * 0.3;
@@ -338,7 +340,8 @@ var populateCircles = function(data){
   var escape = 0;
 
   $.each(data, function(i,e){
-    var $newCircle = $('<div id="c-'+i+'" data-pct="'+e.average_pct+'" class="circle"></div>');
+    var $newCircle = $('<div id="c-'+i+'" data-pct="'+e.average_pct+'" class="circle">\
+      <span class="use">Average use<br/>'+ round(e.average_pct,2) +'%</span></div>');
     $('div.microscope').append($newCircle);
     $newCircle.css('height', ((radius*2) / data.length) + 'px');
     $newCircle.css('width', ((radius*2) / data.length) + 'px');
@@ -350,5 +353,32 @@ var populateCircles = function(data){
       escape += 1;
       maxRadius = radius * (0.3 + (escape/10));
     }
+  });
+}
+
+var watchDetailCircles = function(){
+  $('div.microscope div.circle').off().click(function(){
+
+    //var $theEl = $(this);
+    $('div.microscope div.circle').removeClass('doselect');
+    $(this).addClass('doselect');
+
+    $('div.microscope div.circle').each(function(i,e){
+      var oldwidth = $(e).width();
+
+      if ($(e).hasClass('doselect')){
+        $(e).addClass('selected');
+      } else {
+        $(e).removeClass('selected');
+      }
+
+      if (oldwidth != $(e).width()){
+        var diff = $(e).width() - oldwidth;
+        var centreX = $(e).offset().left - (diff/2);
+        var centreY = $(e).offset().top - (diff/2);
+        $(e).css('left', centreX);
+        $(e).css('top', centreY);
+      }
+    })
   });
 }
