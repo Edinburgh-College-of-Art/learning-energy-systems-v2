@@ -133,6 +133,7 @@ class PredictionFiltering():
         year = int(request.GET.get('year', default=0))
         month = int(request.GET.get('month', default=0))
         week = int(request.GET.get('week', default=0))
+        day = int(request.GET.get('day', default=0))
 
         queryset = Prediction.objects
 
@@ -151,6 +152,8 @@ class PredictionFiltering():
             queryset = queryset.filter(occurrence__date__month=month)
         if week:
             queryset = queryset.filter(occurrence__date__week=week)
+        if day:
+            queryset = queryset.filter(occurrence__date__day=day)
 
         return queryset
 
