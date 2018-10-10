@@ -9,6 +9,7 @@ urlpatterns = [
     path('accounts/profile/', ProfileView.as_view(), name='profile'),
     path('detail', DetailView.as_view(), name='detail'),
     path('yeargroups/new', YeargroupsView.as_view(), name='create_yeargroup'),
+    path('yeargroups/<int:pk>/delete', DeleteYeargroupView.as_view(), name='delete_yeargroup'),
     path('client/day', ClientDayView.as_view(), name='client-day'),
     path('client/week', ClientWeekView.as_view(), name='client-week'),
     path('diary', ClientWeekView.as_view()),

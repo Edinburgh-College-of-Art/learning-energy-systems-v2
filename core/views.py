@@ -44,7 +44,7 @@ class ProfileView(LoginRequiredMixin, TemplateView):
 
 
 class YeargroupsView(LoginRequiredMixin, CreateView):
-    template_name = 'yeargroups/index.html'
+    template_name = 'yeargroups/create.html'
     model = Yeargroup
     fields = ['name']
 
@@ -52,15 +52,17 @@ class YeargroupsView(LoginRequiredMixin, CreateView):
         form.instance.user = self.request.user
         return super(YeargroupsView, self).form_valid(form)
 
-    # ToDo some kind of user check
-    #if not self.request.user.is_authenticated:
-    #    return redirect('/dashboard/')
-
     def get_success_url(self):
         return reverse('profile')
 
     def get_queryset(self):
-        return Yeargroup.objects# self.request.user.yeargroups
+        return self.request.user.yeargroups
+
+
+class DeleteYeargroupView(LoginRequiredMixin, DeleteView):
+    template_name = 'yeargroups/delete.html'
+    model = Yeargroup
+    success_url = reverse_lazy('profile')
 
 
 class ClientDayView(TemplateView):
