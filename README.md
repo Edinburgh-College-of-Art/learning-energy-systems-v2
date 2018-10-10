@@ -20,3 +20,9 @@ Creating a super user:
 ```
 docker exec -i -t les python manage.py createsuperuser --email giannichan@gmail.com --username admin
 ``` 
+
+Running the django shell:
+
+```
+docker exec -i -t les python manage.py shell
+```
