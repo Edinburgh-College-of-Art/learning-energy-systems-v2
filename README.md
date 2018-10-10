@@ -3,9 +3,7 @@
 
 ## Quick run
 
-Just run:
-
-`./dockerize.sh`
+Just run `./dockerize.sh`, this should build a docker image then run it as a container called `les`. Once running the web-server should be reachable at `http://localhost:8000/`.
 
 ## Running commands on the docker container
 
