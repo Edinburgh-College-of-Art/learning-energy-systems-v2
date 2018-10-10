@@ -1,0 +1,27 @@
+{% extends 'base_template.html' %}
+{% block title %}Yeargroup: {{ object.name }}{% endblock %}
+
+{% block body %}
+<div class="container row yeargroups">
+  <h1>Yeargroup "{{ object.name }}" {{ bork }}</h1>
+  <h2>Students</h2>
+  <hr/>
+  {% for s in object.student_set.all %}
+  <div class="row">
+    <div class="col-4">{{ s }}</div>
+    <div class="col-4">{{ s.user.prediction_set.count }} predictions</div>
+    <div class="col-4"><a href="/client/login?token={{ s.token }}">Login as student</a></div>
+  </div>
+  {% endfor %}
+  <br/><br/>
+  <h2>Subjects</h2>
+  <hr/>
+  {% for s in object.subject_set.all %}
+  <div class="row">
+    <div class="col-4">{{ s }}</div>
+    <div class="col-4">predictions</div>
+    <div class="col-4"></div>
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}

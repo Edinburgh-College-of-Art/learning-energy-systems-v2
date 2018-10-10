@@ -65,6 +65,16 @@ class DeleteYeargroupView(LoginRequiredMixin, DeleteView):
     success_url = reverse_lazy('profile')
 
 
+class YeargroupDetailView(LoginRequiredMixin, DetailView):
+    template_name = 'yeargroups/detail.html'
+    model = Yeargroup
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['object'] = self.request.user.yeargroup_set.get(pk=kwargs['pk'])
+        return context
+
+
 class ClientDayView(TemplateView):
     template_name = 'client/day.html'
     def get_context_data(self, **kwargs):

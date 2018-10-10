@@ -13,21 +13,10 @@
 
 {% for y in yeargroups %}
 <div class="row">
-  <div class="row">
   <div class="col-8">
-    {{ y.name }} ({{ y.student_set.count }} students, {{ y.subject_set.count }} subjects)
+    <a href="{% url 'yeargroup' y.pk %}">{{ y.name }} ({{ y.student_set.count }} students, {{ y.subject_set.count }} subjects)</a>
   </div>
   <div class="col-4"><a class="right-text" href="{% url 'delete_yeargroup' y.pk %}">Delete</a></div>
-  </div>
-
-  {% for s in y.student_set.all %}
-  <div class="row">
-    <div class="col-1"></div>
-    <div class="col-5">{{ s }}</div>
-    <div class="col-2">{{ s.user.prediction_set.count }} predictions</div>
-    <div class="col-4"><a href="/client/login?token={{ s.token }}">Login as student</a></div>
-  </div>
-  {% endfor %}
 </div>
 {% endfor %}
 
