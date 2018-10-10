@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login, authenticate, logout
 from django.shortcuts import render, redirect
+from django.urls import reverse_lazy, reverse
 from core.models import Yeargroup, Question, Student, Subject, Occurrence, Prediction
 from rest_framework.authtoken.models import Token
 
@@ -27,7 +28,7 @@ class DetailView(TemplateView):
         return context
 
 
-class ProfileView(TemplateView):
+class ProfileView(LoginRequiredMixin, TemplateView):
     template_name = "registration/profile.html"
 
     def get_context_data(self, **kwargs):
@@ -41,18 +42,21 @@ class ProfileView(TemplateView):
         return super(ProfileView, self).dispatch(request, *args, **kwargs)
 
 
-class YeargroupsView(CreateView):
+class YeargroupsView(LoginRequiredMixin, CreateView):
     template_name = 'yeargroups/index.html'
     model = Yeargroup
     fields = ['name']
 
     def form_valid(self, form):
-        form.instance.user = self.request.user.id
+        form.instance.user = self.request.user
         return super(YeargroupsView, self).form_valid(form)
 
     # ToDo some kind of user check
     #if not self.request.user.is_authenticated:
     #    return redirect('/dashboard/')
+
+    def get_success_url(self):
+        return reverse('profile')
 
     def get_queryset(self):
         return Yeargroup.objects# self.request.user.yeargroups

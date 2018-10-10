@@ -8,7 +8,7 @@ urlpatterns = [
     path('', include('django.contrib.auth.urls')),
     path('accounts/profile/', ProfileView.as_view(), name='profile'),
     path('detail', DetailView.as_view(), name='detail'),
-    path('yeargroups', YeargroupsView.as_view(), name='yeargroups'),
+    path('yeargroups/new', YeargroupsView.as_view(), name='create_yeargroup'),
     path('client/day', ClientDayView.as_view(), name='client-day'),
     path('client/week', ClientWeekView.as_view(), name='client-week'),
     path('diary', ClientWeekView.as_view()),
