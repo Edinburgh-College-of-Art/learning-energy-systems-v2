@@ -64,9 +64,47 @@ body { font-size: 16px; }
   height: 100%;
   vertical-align: middle;
 }
-.floatLeft {
+
+.floatLeft, .float-left {
   float:left;
   margin:0;
+}
+
+.btn {
+  display: inline-block;
+  padding: 6px 12px;
+  margin-bottom: 0;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.42857143;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  -ms-touch-action: manipulation;
+  touch-action: manipulation;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  background-image: none;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  text-decoration: none;
+}
+
+.btn-link, .btn-link.active, .btn-link:active, .btn-link[disabled], fieldset[disabled] .btn-link {
+  background-color: transparent;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  border-color: transparent;
+  text-decoration: underline;
+}
+
+.btn-success {
+  color: #fff;
+  background-color: #2db672;
+  border-color: #4cae4c;
 }
 
 /* NAV */
