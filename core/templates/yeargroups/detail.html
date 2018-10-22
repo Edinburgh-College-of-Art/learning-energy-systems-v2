@@ -20,7 +20,7 @@
   <div class="row">
     <div class="col-4">{{ s }}</div>
     <div class="col-4">predictions</div>
-    <div class="col-4"></div>
+    <div class="col-4"><a class="right-text" href="{% url 'delete_subject' s.yeargroup_id s.pk %}">Delete</a></div>
   </div>
   {% endfor %}
 </div>

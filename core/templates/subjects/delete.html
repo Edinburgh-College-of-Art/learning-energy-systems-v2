@@ -1,0 +1,17 @@
+{% extends 'base_template.html' %}
+{% block title %}Yeargroup: {{ object.name }}{% endblock %}
+
+{% block body %}
+<div class="container row yeargroups">
+  <h1>Delete "{{ object.name }}"</h1>
+  {{ form.errors }}
+
+  <form method="post">{% csrf_token %}
+    <p>Are you sure you want to delete "{{ object.name }}"?</p>
+    <input type="submit" value="Confirm">
+  </form>
+
+  <br/>
+  <a href="{% url 'profile' %}">Cancel</a>
+</div>
+{% endblock %}

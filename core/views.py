@@ -96,6 +96,19 @@ class SubjectsView(LoginRequiredMixin, CreateView):
         return reverse('yeargroup', args=[self.yeargroup.pk])
 
 
+class DeleteSubjectView(LoginRequiredMixin, DeleteView):
+    template_name = 'subjects/delete.html'
+    model = Subject
+    fields = ['name', 'duration']
+
+    def get_queryset(self):
+        self.yeargroup = get_object_or_404(Yeargroup, pk=self.kwargs['yeargroup'])
+        return Subject.objects.filter(yeargroup=self.yeargroup)
+
+    def get_success_url(self):
+        return reverse('yeargroup', args=[self.yeargroup.pk])
+
+
 class ClientDayView(TemplateView):
     template_name = 'client/day.html'
     def get_context_data(self, **kwargs):
