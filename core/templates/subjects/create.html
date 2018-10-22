@@ -1,0 +1,17 @@
+{% extends 'base_template.html' %}
+{% block title %}Subjects for yeargroup{% endblock %}
+
+{% block body %}
+<div class="container row yeargroups">
+  <h1>Add a new subject</h1>
+  {{ form.errors }}
+
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Save" />
+  </form>
+  <br/>
+  <a href="{% url 'yeargroup' yeargroup.pk %}">Cancel</a>
+</div>
+{% endblock %}

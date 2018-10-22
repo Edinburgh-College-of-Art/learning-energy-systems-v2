@@ -14,7 +14,7 @@
   </div>
   {% endfor %}
   <br/><br/>
-  <h2>Subjects</h2>
+  <h2>Subjects <a style="margin-left:1em;" class="btn btn-success" href="{% url 'create_subject' object.pk %}">Add a new subject</a></h2>
   <hr/>
   {% for s in object.subject_set.all %}
   <div class="row">

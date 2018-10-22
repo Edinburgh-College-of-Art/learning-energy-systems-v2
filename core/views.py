@@ -1,16 +1,15 @@
-from django.views.generic import TemplateView, CreateView, DeleteView
+from django.views.generic import TemplateView, CreateView, DeleteView, DetailView
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy, reverse
 from core.models import Yeargroup, Question, Student, Subject, Occurrence, Prediction
 from rest_framework.authtoken.models import Token
 
 
 class DashboardView(TemplateView):
-
     template_name = "dashboard.html"
 
     def get_context_data(self, **kwargs):
@@ -19,8 +18,7 @@ class DashboardView(TemplateView):
         return context
 
 
-class DetailView(TemplateView):
-
+class PredictionDetailView(TemplateView):
     template_name = "detail.html"
 
     def get_context_data(self, **kwargs):
@@ -69,10 +67,33 @@ class YeargroupDetailView(LoginRequiredMixin, DetailView):
     template_name = 'yeargroups/detail.html'
     model = Yeargroup
 
+    def get_queryset(self):
+        return self.request.user.yeargroup_set
+
+
+class SubjectsView(LoginRequiredMixin, CreateView):
+    template_name = 'subjects/create.html'
+    model = Subject
+    fields = ['name', 'duration']
+
+    def form_valid(self, form):
+        self.yeargroup = get_object_or_404(Yeargroup, pk=self.kwargs['yeargroup'])
+        form.instance.yeargroup = self.yeargroup
+        return super(SubjectsView, self).form_valid(form)
+
+    def get_queryset(self):
+        self.yeargroup = get_object_or_404(Yeargroup, pk=self.kwargs['yeargroup'])
+        return Subject.objects.filter(yeargroup=self.yeargroup)
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['object'] = self.request.user.yeargroup_set.get(pk=kwargs['pk'])
+        #import logging; logger = logging.getLogger(__name__); logger.error('ERROR!')
+        self.yeargroup = get_object_or_404(Yeargroup, pk=self.kwargs['yeargroup'])
+        context['yeargroup'] = self.yeargroup #request.user.yeargroup_set.get(pk=self.kwargs['yeargroup'])
         return context
+
+    def get_success_url(self):
+        return reverse('yeargroup', args=[self.yeargroup.pk])
 
 
 class ClientDayView(TemplateView):
