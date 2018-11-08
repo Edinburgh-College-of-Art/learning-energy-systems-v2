@@ -9,9 +9,43 @@
   <form method="post">
     {% csrf_token %}
     {{ form.as_p }}
+    <div id="dp"></div>
+    <div id="occurrences"></div>
     <input type="submit" value="Save" />
   </form>
   <br/>
   <a href="{% url 'yeargroup' yeargroup.pk %}">Cancel</a>
 </div>
+{% endblock %}
+
+{% block page_end %}
+<script type="text/javascript">
+  var dates = [];
+  var dx = {};
+  var addOrRemoveDate = function(dateText, date){
+    if (dx[dateText]){ delete dx[dateText]; }
+    else { dx[dateText] = date }
+    dates = Object.keys(dx);
+    $('#occurrences').empty();
+    $.each(dates, function(i,e){
+      $('#occurrences').append(
+        '<input type="hidden" name="occurrences[]"\
+         value="'+moment(dx[e]).format('YYYY-MM-DD')+'" />');
+    });
+  };
+
+  $("#dp").datepicker({
+    dateFormat: "@",
+    altFormat: "yy-mm-dd",
+    onSelect: function(dateText, inst){
+      var selectedDate = $("#"+inst.id).datepicker("getDate");
+      addOrRemoveDate(dateText, selectedDate);
+    },
+    beforeShowDay: function(date){
+      var gotDate = $.inArray((date-0).toString(), dates);
+      if (gotDate >= 0) { return [true,"ui-state-highlight"]; }
+      return [true, ""];
+    }
+  });
+</script>
 {% endblock %}
