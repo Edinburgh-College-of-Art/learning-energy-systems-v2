@@ -11,13 +11,14 @@
 <![endif]-->
 
 <link rel="stylesheet" href="/static/css/shared.css" />
-<link rel="stylesheet" href="/static/css/jquery-ui.css" />
+<link rel="stylesheet" href="/static/css/jquery-ui.min.css" />
 
 <script src='/static/js/moment.js'></script>
 <script src='/static/js/jquery.min.js'></script>
 <script src='/static/js/spin.js'></script>
-<script src='/static/js/jquery-ui.js'></script>
+<script src='/static/js/jquery-ui.min.js'></script>
 <script src="/static/js/shared.js"></script>
+
 <script type="text/javascript">
   window.les_base_url = "{{ request.scheme }}://{{ request.get_host }}";
   window.identify_url = window.les_base_url + "{% url 'api-identify-student' %}";
