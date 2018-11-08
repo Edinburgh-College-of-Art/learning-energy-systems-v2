@@ -1,4 +1,4 @@
-from django.views.generic import TemplateView, CreateView, DeleteView, DetailView
+from django.views.generic import TemplateView, CreateView, DeleteView, DetailView, UpdateView
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login, authenticate, logout
@@ -14,7 +14,6 @@ class DashboardView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['foo'] = 'bar' #Article.objects.all()[:5]
         return context
 
 
@@ -96,10 +95,35 @@ class SubjectsView(LoginRequiredMixin, CreateView):
         return reverse('yeargroup', args=[self.yeargroup.pk])
 
 
+class UpdateSubjectView(LoginRequiredMixin, UpdateView):
+    template_name = 'subjects/edit.html'
+    model = Subject
+    fields = ['name', 'duration']
+
+    def form_valid(self, form):
+        self.yeargroup = get_object_or_404(Yeargroup, pk=self.kwargs['yeargroup'])
+        form.instance.yeargroup = self.yeargroup
+        print(self.kwargs)
+        return super(UpdateSubjectView, self).form_valid(form)
+
+    def get_queryset(self):
+        self.yeargroup = get_object_or_404(Yeargroup, pk=self.kwargs['yeargroup'])
+        return Subject.objects.filter(yeargroup=self.yeargroup)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        #import logging; logger = logging.getLogger(__name__); logger.error('ERROR!')
+        self.yeargroup = get_object_or_404(Yeargroup, pk=self.kwargs['yeargroup'])
+        context['yeargroup'] = self.yeargroup #request.user.yeargroup_set.get(pk=self.kwargs['yeargroup'])
+        return context
+
+    def get_success_url(self):
+        return reverse('yeargroup', args=[self.yeargroup.pk])
+
+
 class DeleteSubjectView(LoginRequiredMixin, DeleteView):
     template_name = 'subjects/delete.html'
     model = Subject
-    fields = ['name', 'duration']
 
     def get_queryset(self):
         self.yeargroup = get_object_or_404(Yeargroup, pk=self.kwargs['yeargroup'])

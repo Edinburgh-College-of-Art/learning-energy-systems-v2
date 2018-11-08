@@ -3,14 +3,18 @@
 
 {% block body %}
 <div class="container row yeargroups">
-  <h1>Yeargroup "{{ object.name }}" {{ bork }}</h1>
-  <h2>Students</h2>
+  <h1>Yeargroup "{{ object.name }}"</h1>
+  <h2>Students 
+    <a style="margin-left:1em;" class="btn btn-success" href="{% url 'create_yeargroup' %}">Add a new student</a>
+  </h2>
   <hr/>
   {% for s in object.student_set.all %}
   <div class="row">
     <div class="col-4">{{ s }}</div>
     <div class="col-4">{{ s.user.prediction_set.count }} predictions</div>
-    <div class="col-4"><a href="/client/login?token={{ s.token }}">Login as student</a></div>
+    <div class="col-4">
+      <a href="/client/login?token={{ s.token }}">Login as student</a>
+    </div>
   </div>
   {% endfor %}
   <br/><br/>
@@ -18,9 +22,13 @@
   <hr/>
   {% for s in object.subject_set.all %}
   <div class="row">
-    <div class="col-4">{{ s }}</div>
+    <div class="col-4">
+      <a href="{% url 'update_subject' s.yeargroup_id s.pk %}">{{ s.name }} ({{s.duration}}mins)</a>
+    </div>
     <div class="col-4">predictions</div>
-    <div class="col-4"><a class="right-text" href="{% url 'delete_subject' s.yeargroup_id s.pk %}">Delete</a></div>
+    <div class="col-4">
+      <a class="right-text" href="{% url 'delete_subject' s.yeargroup_id s.pk %}">Delete</a>
+    </div>
   </div>
   {% endfor %}
 </div>

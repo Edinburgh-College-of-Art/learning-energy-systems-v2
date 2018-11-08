@@ -1,9 +1,9 @@
 {% extends 'base_template.html' %}
-{% block title %}Add a subject{% endblock %}
+{% block title %}Edit subject "{{ subject.name }}"{% endblock %}
 
 {% block body %}
 <div class="container row yeargroups">
-  <h1>Add a new subject</h1>
+  <h1>Edit subject</h1>
   {{ form.errors }}
 
   <form method="post">

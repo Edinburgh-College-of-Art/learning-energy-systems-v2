@@ -13,6 +13,7 @@ urlpatterns = [
     path('yeargroups/<int:pk>', YeargroupDetailView.as_view(), name='yeargroup'),
     path('yeargroups/<yeargroup>/subjects/new', SubjectsView.as_view(), name='create_subject'),
     path('yeargroups/<yeargroup>/subjects/<int:pk>/delete', DeleteSubjectView.as_view(), name='delete_subject'),
+    path('yeargroups/<yeargroup>/subjects/<int:pk>/edit', UpdateSubjectView.as_view(), name='update_subject'),
     path('client/day', ClientDayView.as_view(), name='client-day'),
     path('client/week', ClientWeekView.as_view(), name='client-week'),
     path('diary', ClientWeekView.as_view()),
